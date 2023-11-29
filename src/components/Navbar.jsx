@@ -1,10 +1,8 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useGetCategoryQuery } from "../redux/slice/client/category";
+import { NavLink } from "react-router-dom";
+import Sidebar from "./Sidebar.jsx";
 
 const Navbar = () => {
-  const { data } = useGetCategoryQuery();
-  console.log(data);
   return (
     <div>
       <nav className="navbar bg-light fixed-top shadow">
@@ -18,15 +16,20 @@ const Navbar = () => {
           >
             <i className="fa fa-bars"></i>
           </button>
-
           <NavLink to="/">
             <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} />
           </NavLink>
-          <Link to={"/cart"}>
+          <div className="d-flex ">
+            <input
+              className="form-control"
+              list="datalistOptions"
+              id="exampleDataList"
+              placeholder="Type to search..."
+            />
             <button className="navbar-toggler" type="button">
               <i className="fa fa-shopping-cart"></i>
             </button>
-          </Link>
+          </div>
           <div
             className="offcanvas offcanvas-start"
             tabIndex="-1"
@@ -34,8 +37,12 @@ const Navbar = () => {
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="offcanvas-header">
-              <NavLink className={"no-underline"} to="/">
-                <h1 className="text-center">Omo Food</h1>
+              <NavLink to="/">
+                <img
+                  src="/FakeShop.png"
+                  alt="logo"
+                  style={{ height: "50px" }}
+                />
               </NavLink>
               <button
                 type="button"
@@ -44,17 +51,7 @@ const Navbar = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="">
-              {data?.map((item) => {
-                return (
-                  <div key={item.id} className="">
-                    <Link className="no-underline" to="/">
-                      <h1 className="text-2xl text-gray-600 ml-4">{item?.title}</h1>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
+            <Sidebar />
           </div>
         </div>
       </nav>

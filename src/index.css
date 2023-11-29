@@ -11,11 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.offcanvas-start{
+  width: 320px !important;
+}
 
 
 /* swiper  */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
