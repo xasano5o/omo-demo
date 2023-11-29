@@ -16,3 +16,6 @@ code {
 
 /* swiper  */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
