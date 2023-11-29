@@ -1,20 +1,22 @@
-import './App.css';
+// App.js or your main component
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Products from './components/Products';
 import Product from './components/Product';
 import Footer from './components/Footer';
-import { Route, Routes } from 'react-router-dom';
-
+import CategoryIdPage from './components/CategoryIdPage';
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/products" element={<Products />} />
-        <Route exact path="/product/:id" element={<Product />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/category/:id" element={<CategoryIdPage />} />
+        <Route path="/product/:id" element={<Product />} />
       </Routes>
       <Footer />
     </>

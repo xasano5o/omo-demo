@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import Sidebar from './Sidebar.jsx';
 
 const Navbar = () => {
     return (
@@ -12,9 +13,12 @@ const Navbar = () => {
                     <NavLink to="/">
                         <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} />
                     </NavLink>
-                    <button className="navbar-toggler" type="button">
-                        <i className="fa fa-shopping-cart"></i>
-                    </button>
+                    <div className='d-flex '>
+                        <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." />
+                        <button className="navbar-toggler" type="button">
+                            <i className="fa fa-shopping-cart"></i>
+                        </button>
+                    </div>
                     <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div className="offcanvas-header">
                             <NavLink to="/">
@@ -22,9 +26,7 @@ const Navbar = () => {
                             </NavLink>
                             <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
-                        <div className="offcanvas-body">
-                            <input className="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." />
-                        </div>
+                        <Sidebar />
                     </div>
                 </div>
             </nav>
