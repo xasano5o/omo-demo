@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
-import { useGetProductQuery } from '../redux/slice/client/getProduct/index.js';
+import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
@@ -54,9 +54,6 @@ function Products() {
                         </div>
                     </div>
                 </div>
-
-
-
             </>
         )
     }
@@ -80,7 +77,6 @@ function Products() {
                     </div>
 
                 </div>
-
 
                 <div className="col-md-13 py-md-3">
                     <div className="row">

@@ -7,7 +7,7 @@ export const CategoryCrud = createApi({
     tagTypes: ["getCategoryt"],
     endpoints: (build) => ({
         getCategory: build.query({
-            query: () => "categories/",
+            query: (body) => "categories/",
             providesTags: ["getCategoryt"],
         }),
         getProductId: build.query({

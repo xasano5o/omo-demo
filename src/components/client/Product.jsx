@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router';
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
-import { useGetProductIdQuery } from '../redux/slice/client/getProduct/index.js';
+import { useGetProductIdQuery } from '../../redux/slice/client/category/index.js';
 
 function Product() {
     const { id } = useParams();
