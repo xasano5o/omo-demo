@@ -25,6 +25,14 @@ export const GetProducts = createApi({
             }),
             invalidatesTags: ["Product"],
         }),
+        createProduct: build.mutation({
+            query: (body) => ({
+                url: `sciences/${body.id}/`,
+                method: "PATCH",
+                body,
+            }),
+            invalidatesTags: ["Product"],
+        }),
         deleteScience: build.mutation({
             query: (body) => ({
                 url: `sciences/${body.id}/`,
