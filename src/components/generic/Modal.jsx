@@ -1,17 +1,15 @@
 import React from "react";
 import ButtonLoader from "../Loader/ButtonLoader";
-
-
 export default function Modal({
   title,
-  onClick,
+  addFunc,
   closeModal,
   children,
   loader,
   actionType,
   isDisabled,
 }) {
-  const renderButton = (actionType, loader, onClick) => {
+  const renderButton = (actionType, loader, addFunc) => {
     if (actionType === "view") {
       return null;
     }
@@ -32,12 +30,9 @@ export default function Modal({
 
     return (
       <div className="flex gap-4">
-        {/* <button
-          className="disabled:bg-gray-300 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center justify-center">
-          Faol
-        </button> */}
+  
         <button
-          onClick={onClick}
+          onClick={addFunc}
           disabled={isDisabled}
           className="disabled:bg-gray-300 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center justify-center"
         >
