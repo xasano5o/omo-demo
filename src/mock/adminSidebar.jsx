@@ -1,19 +1,22 @@
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import ProductTable from '../components/admin/productCrud/Table';
+import { AiOutlineHome } from "react-icons/ai";
+import { BiCategory } from "react-icons/bi";
+
 export  const SidebarAdmin = [
     {
         id: 1,
         title: 'Dashbbord',
         path: '/dashbord',
         element: 'dssas',
-        icon:<MdOutlineShoppingBag  />
+        icon:<AiOutlineHome />
     },
     {
         id: 2,
         title: 'Product',
         path: '/product',
         element: <ProductTable/>,
-        icon:<MdOutlineShoppingBag  />
+        icon:<BiCategory />
 
     },
     {
