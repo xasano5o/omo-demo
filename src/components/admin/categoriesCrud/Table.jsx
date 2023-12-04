@@ -1,8 +1,12 @@
 import React from 'react';
 import AddCategories from './addCategories';
+import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 
 
 const ProductCrud = () => {
+
+    const { data, isLoading, refetch } = useGetCategoryQuery();
+    console.log(data,'data');
     return (
         <div className=" "> {/* Set the height to 100vh */}
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const AddCategories = () => {
   const [open, setOpen] = useState(false);
-  const { mutate: createCategoria, isLoading } = useCreateCategoriaMutation();
+  const [createCategoria, { isLoading: isCreating }] = useCreateCategoriaMutation();
 
   const onClose = () => {
     setOpen(false);
@@ -21,7 +21,7 @@ const AddCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('img', inputValue.img);
+    formData.append('image', inputValue.img);
 
     try {
       await createCategoria(formData).unwrap();
@@ -47,7 +47,7 @@ const AddCategories = () => {
         Add Category
       </button>
       {open && (
-        <Modal loader={isLoading} closeModal={onClose} addFunc={addData}>
+        <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className="flex flex-col gap-3">
             <div>
               <label>Category Name:</label>
@@ -68,7 +68,6 @@ const AddCategories = () => {
                 inputValue={inputValue}
               />
             </div>
-            <button onClick={addData}>add Fun</button>
           </div>
         </Modal>
       )}
