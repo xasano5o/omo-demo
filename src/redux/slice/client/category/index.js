@@ -17,6 +17,15 @@ export const CategoryCrud = createApi({
             }),
             invalidatesTags: ["getCategoryt"],
         }),
+
+        createCategorie: build.mutation({
+            query: (body) => ({
+                url: `categories/`,
+                method: "POST",
+                body,
+            }),
+            invalidatesTags: ["getCategoryt"],
+        }),
         updateScience: build.mutation({
             query: (body) => ({
                 url: `sciences/${body.id}/`,
@@ -25,6 +34,7 @@ export const CategoryCrud = createApi({
             }),
             invalidatesTags: ["getCategoryt"],
         }),
+
         deleteScience: build.mutation({
             query: (body) => ({
                 url: `sciences/${body.id}/`,
@@ -39,6 +49,6 @@ export const CategoryCrud = createApi({
 export const {
   useGetCategoryQuery,
     useGetProductIdQuery,
-    useUpdateScienceMutation,
+    useCreateCategorieMutation,
     useDeleteScienceMutation,
 } = CategoryCrud;
