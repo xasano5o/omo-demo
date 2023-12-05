@@ -1,54 +1,62 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useGetCategoryQuery } from "../../redux/slice/client/category/index.js";
+import { useGetCategoryQuery } from "../../redux/slice/client/category";
 
 export const CategorySilide = () => {
-    const responsive = {
-        superLargeDesktop: {
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5,
-        },
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 4,
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 2,
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1,
-        },
-    };
-    const { data, isLoading,  isSuccess } = useGetCategoryQuery();
-    return (
-        <div className="my-5">
-            <div className="mt-12">
-                {data ? (
-                    <Carousel responsive={responsive} infinite={true} autoPlay={true}>
-                        {data?.map((item) => {
-                            return (
-                                <div >
-                                    <div className="d-flex gap-2 card h-100 " key={item?.id}>
-                                        <img src={item?.thumbnail_image} alt="" style={{
-                                            height: "300px",
-                                            width: "auto",
-                                            objectFit: "contain",
-                                        }} />
-                                        <div className="m-3 mb-0">
-                                            <h1 className="card-title">{item?.title}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </Carousel>
-                ) : (
-                    <h1>Hech vaqo yo'q</h1>
-                )}
-            </div>
-        </div>
-    );
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 7,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items:7,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
+  const { data, isLoading, isError, isSuccess } = useGetCategoryQuery();
+  console.log(data);
+  return (
+    <div className="mt-5">
+      <h1 className="">Mahsulotlar Kategoriyasi</h1>
+      {data ? (
+        <Carousel
+        itemClass="slideitem"
+          sliderClass="SliderClassCustom"
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          draggable={true}
+        >
+          {data?.map((item) => {
+            return (
+              <div>
+                <div className="mt-12" style={{ width: "150px", height:"200px"}}>
+                  <img
+                    src={item?.image}
+                    className="card-img-top"
+                    style={{height:"128px", width:"128px", objectFit:"cover"}}
+                    alt={item?.title}
+                  />
+                  <div className="card-body">
+                    <p className="card-text text-[13px] font-medium">{item?.title}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </Carousel>
+      ) : (
+        <h1>Hech vaqo yo'q</h1>
+      )}
+    </div>
+  );
 };
