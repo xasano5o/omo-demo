@@ -9,6 +9,7 @@ import Layout from './components/admin/Layout/index.jsx';
 import ProductTable from './components/admin/productCrud/Table.jsx';
 import Footer from './components/client/Footer.jsx';
 import CategoriesCrud from './components/admin/categoriesCrud/Table.jsx';
+import ProductCrud from './components/admin/productCrud/Table.jsx';
 
 function App() {
   const location = useLocation();
@@ -25,8 +26,8 @@ function App() {
         <Route path="/admin/home" element={<ProductTable />} />
           <Route path="/admin/dashbord" element={<ProductTable />} />
           <Route path="/admin/categorie" element={<CategoriesCrud />} />
-          <Route path="/admin/product" element={<ProductTable />} />
-
+          <Route path="/admin/subcategorie" element={<CategoriesCrud />} />
+          <Route path="/admin/product" element={<ProductCrud />} />
           <Route path="/admin/order" element={<ProductTable />} />
         </Route>
 

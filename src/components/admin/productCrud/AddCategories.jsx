@@ -4,7 +4,7 @@ import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import {  AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 const AddCategories = () => {
   const [open, setOpen] = useState(false);
@@ -45,32 +45,17 @@ const AddCategories = () => {
         type="button"
         className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-  +
-         Kategoriya
+        +
+        Kategoriya
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
-          <div className="flex flex-col gap-3">
-            <div>
-              <label>Kategoriya Name:</label>
-              <input
-                type="text"
-                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-              />
-            </div>
-            <div>
-              <ImageUpload
-                title={'Image'}
-                iconName={<MdOutlineInsertPhoto className="text-5xl" />}
-                iconTitle={'Upload Image'}
-                fileType={'PNG, JPG, JPEG up to 5MB'}
-                LabelFor={'img'}
-                setInputValue={setInputValue}
-                inputValue={inputValue}
-              />
-            </div>
-          </div>
+
+  cdscsd
+
+
+          
+
         </Modal>
       )}
     </div>

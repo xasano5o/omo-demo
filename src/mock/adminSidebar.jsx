@@ -28,6 +28,13 @@ export  const SidebarAdmin = [
 
     },
     {
+      id: 3,
+      title: 'SubCategorie',
+      path: '/subcategorie',
+      element: 'dssa',
+      icon:<MdOutlineShoppingBag  />
+  },
+    {
         id: 4,
         title: 'Order',
         path: '/order',

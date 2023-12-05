@@ -1,40 +1,37 @@
 import React, { useState } from 'react';
-import { useCreateCategoriaMutation } from '../../../redux/slice/client/category';
 import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import {  AiOutlineUserAdd } from "react-icons/ai";
+import { useUpdateCategorieMutation } from '../../../redux/slice/client/category';
+import { BiEdit } from 'react-icons/bi';
 
-const AddCategories = () => {
+const UpdateCategories = ({item}) => {
   const [open, setOpen] = useState(false);
-  const [createCategoria, { isLoading: isCreating }] = useCreateCategoriaMutation();
-
   const onClose = () => {
     setOpen(false);
   };
 
-  const [inputValue, setInputValue] = useState({
-    name: '',
-    img: '',
-  });
 
+  const [ updateCategorie,{isLoading}] =useUpdateCategorieMutation()
+  const [inputValue, setInputValue] = useState(item);
+
+  console.log(item,'item');
   const addData = async () => {
     const formData = new FormData();
-    formData.append('title', inputValue.name);
+    formData.append('title', inputValue.title);
     formData.append('image', inputValue.img);
-
+    formData.append('id', inputValue.id);
     try {
-      await createCategoria(formData).unwrap();
-      toast.success(`Category ${inputValue.name} added successfully`);
+      await updateCategorie(formData).unwrap();
+      toast.success(`Category ${inputValue.title} o'zgartirildi`);
       setInputValue({
-        name: '',
+        title: '',
         img: '',
       });
       setOpen(false);
     } catch (error) {
-      toast.error(`Failed to add category ${inputValue.name}`);
-      console.error('Error creating category:', error);
+      toast.error(`Failed to add category ${inputValue.title}`);
     }
   };
 
@@ -43,19 +40,19 @@ const AddCategories = () => {
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="inline-flex w-[120px] h-[45px] justify-center items-center rounded-full bg-blue-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400"
       >
-  +
-         Kategoriya
+        <BiEdit size={28} className="text-md" aria-hidden="true" />
       </button>
       {open && (
-        <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
+        <Modal loader={isLoading} closeModal={onClose} addFunc={addData}>
           <div className="flex flex-col gap-3">
             <div>
-              <label>Kategoriya Name:</label>
+              <label className='text-gray-900'>Category Name:</label>
               <input
+              value={inputValue?.title}
                 type="text"
-                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
                 className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
               />
             </div>
@@ -77,4 +74,4 @@ const AddCategories = () => {
   );
 };
 
-export default AddCategories;
+export default UpdateCategories;
