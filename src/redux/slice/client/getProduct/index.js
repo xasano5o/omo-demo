@@ -27,8 +27,8 @@ export const GetProducts = createApi({
         }),
         createProduct: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
-                method: "PATCH",
+                url: `products/`,
+                method: "POST",
                 body,
             }),
             invalidatesTags: ["Product"],
@@ -47,6 +47,7 @@ export const GetProducts = createApi({
 export const {
     useGetProductQuery,
     useGetProductIdQuery,
+    useCreateProductMutation,
     useUpdateScienceMutation,
     useDeleteScienceMutation,
 } = GetProducts;
