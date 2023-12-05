@@ -16,7 +16,6 @@ const UpdateCategories = ({item}) => {
   const [ updateCategorie,{isLoading}] =useUpdateCategorieMutation()
   const [inputValue, setInputValue] = useState(item);
 
-  console.log(item,'item');
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);

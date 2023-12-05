@@ -34,7 +34,6 @@ const AddCategories = () => {
       setOpen(false);
     } catch (error) {
       toast.error(`Failed to add category ${inputValue.name}`);
-      console.error('Error creating category:', error);
     }
   };
 

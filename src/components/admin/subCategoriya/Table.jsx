@@ -5,8 +5,8 @@ import NoProduct from "../../../assest/icon/Без названия.png"
 import DeleteCategorie from './DeleteStudents';
 import UpdateCategories from './UpdateCategorie';
 import Loader from '../../Loader/Loader';
-import EmptyBox from '../EmptyBox/EmptyBox';
-const ProductCrud = () => {
+import EmptyBox from '../../EmptyBox/EmptyBox';
+const SubcategorieCom = () => {
     const { data, isLoading, refetch } = useGetCategoryQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
@@ -96,4 +96,4 @@ const ProductCrud = () => {
     )
 }
 
-export default ProductCrud;
+export default SubcategorieCom;

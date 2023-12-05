@@ -22,7 +22,6 @@ const Login = () => {
             navigate('/admin/home');
         } else {
             // Handle incorrect login here
-            console.log('Incorrect login or password');
         }
     };
 

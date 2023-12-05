@@ -4,7 +4,6 @@ import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import {  AiOutlineUserAdd } from "react-icons/ai";
 
 const AddCategories = () => {
   const [open, setOpen] = useState(false);
