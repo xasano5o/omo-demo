@@ -1,16 +1,13 @@
 import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Navbar from './components/client/Navbar.jsx';
-import HomePage from './pages/client/home/index.jsx';
-import CategoryIdPage from './pages/client/categorieid/index.jsx';
-import ProductPage from './pages/client/product/index.jsx';
-import Login from './components/admin/auth/sigin.jsx';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Layout from './components/admin/Layout/index.jsx';
-import ProductTable from './components/admin/productCrud/Table.jsx';
-import Footer from './components/client/Footer.jsx';
+import Login from './components/admin/auth/sigin.jsx';
 import CategoriesCrud from './components/admin/categoriesCrud/Table.jsx';
-import ProductCrud from './components/admin/productCrud/Table.jsx';
-import SubcategorieCom from './components/admin/subCategoriya/Table.jsx';
+import { default as ProductCrud, default as ProductTable } from './components/admin/productCrud/Table.jsx';
+import CategoryIdPage from './pages/client/categorieid/index.jsx';
+import HomePage from './pages/client/home/index.jsx';
+import ProductPage from './pages/client/product/index.jsx';
+import SubcategorieCom from './components/admin/subCategoriya/TableSub.jsx';
 
 function App() {
   const location = useLocation();

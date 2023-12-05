@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import Modal from '../../generic/Modal';
-import ImageUpload from '../../ImageUpload/ImageUpload';
+import { BiEdit } from 'react-icons/bi';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { useUpdateCategorieMutation } from '../../../redux/slice/client/category';
-import { BiEdit } from 'react-icons/bi';
+import { useUpdateSubCategorieMutation } from '../../../redux/slice/client/subcategory';
+import ImageUpload from '../../ImageUpload/ImageUpload';
+import Modal from '../../generic/Modal';
 
-const UpdateCategories = ({item}) => {
+const UpdateSubCategories = ({ item }) => {
   const [open, setOpen] = useState(false);
   const onClose = () => {
     setOpen(false);
   };
 
 
-  const [ updateCategorie,{isLoading}] =useUpdateCategorieMutation()
+  const [updateCategorie, { isLoading }] = useUpdateSubCategorieMutation()
   const [inputValue, setInputValue] = useState(item);
 
   const addData = async () => {
@@ -49,23 +49,13 @@ const UpdateCategories = ({item}) => {
             <div>
               <label className='text-gray-900'>Category Name:</label>
               <input
-              value={inputValue?.title}
+                value={inputValue?.title}
                 type="text"
                 onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
                 className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
               />
             </div>
-            <div>
-              <ImageUpload
-                title={'Image'}
-                iconName={<MdOutlineInsertPhoto className="text-5xl" />}
-                iconTitle={'Upload Image'}
-                fileType={'PNG, JPG, JPEG up to 5MB'}
-                LabelFor={'img'}
-                setInputValue={setInputValue}
-                inputValue={inputValue}
-              />
-            </div>
+
           </div>
         </Modal>
       )}
@@ -73,4 +63,4 @@ const UpdateCategories = ({item}) => {
   );
 };
 
-export default UpdateCategories;
+export default UpdateSubCategories;

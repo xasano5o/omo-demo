@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import AddCategories from './AddCategories';
-import { useGetCategoryQuery } from '../../../redux/slice/client/category';
-import NoProduct from "../../../assest/icon/Без названия.png"
-import DeleteCategorie from './DeleteStudents';
-import UpdateCategories from './UpdateCategorie';
-import Loader from '../../Loader/Loader';
+import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
 import EmptyBox from '../../EmptyBox/EmptyBox';
+import Loader from '../../Loader/Loader';
+import DeleteSubCategorie from './DeleteSubStudents';
+import UpdateSubCategories from './UpdateSubCategorie';
+import AddSubCategories from './AddSubCategories';
+import NoProduct from "../../../assest/icon/Без названия.png"
+
 const SubcategorieCom = () => {
-    const { data, isLoading, refetch } = useGetCategoryQuery();
+
+    const { data, isLoading, refetch } = useGetSubCategoryQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
 
 
     return (
-        <div className=" "> {/* Set the height to 100vh */}
+        <div className=" ">
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
                 <div className="mx-auto max-w-screen-2xl  px-4 lg:px-12">
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -27,15 +29,15 @@ const SubcategorieCom = () => {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <AddCategories />
+                            <AddSubCategories />
                         </div>
                         <br />
                         <div className="overflow-x-auto  h-[80vh] ">
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Kategoriya rasm</th>
-                                        <th scope="col" className="p-4">Kategoriya Nomi</th>
+                                        <th scope="col" className="p-4">SubKategoriya rasm</th>
+                                        <th scope="col" className="p-4">SubKategoriya Nomi</th>
                                         <th scope="col" className="p-4"></th>
                                     </tr>
                                 </thead>
@@ -62,7 +64,7 @@ const SubcategorieCom = () => {
                                                                         <img
                                                                             className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                             src={NoProduct}
-                                                                            alt="product"
+                                                                            alt="products"
                                                                         />
                                                                     </div>
                                                                 )}
@@ -75,8 +77,8 @@ const SubcategorieCom = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <UpdateCategories item={item} />
-                                                                <DeleteCategorie />
+                                                                <UpdateSubCategories item={item} />
+                                                                <DeleteSubCategorie />
                                                             </div>
                                                         </td>
                                                     </tr>
