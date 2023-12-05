@@ -26,18 +26,18 @@ export const CategoryCrud = createApi({
             }),
             invalidatesTags: ["getCategoryt"]
         }),
-        updateScience: build.mutation({
+        updateCategorie: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
+                url: `categories/${body.get("id")}/`,
                 method: "PATCH",
                 body,
             }),
             invalidatesTags: ["getCategoryt"],
         }),
 
-        deleteScience: build.mutation({
+        deleteCategorie: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
+                url: `categories/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
@@ -50,5 +50,6 @@ export const {
   useGetCategoryQuery,
     useGetProductIdQuery,
      useCreateCategoriaMutation,
-    useDeleteScienceMutation,
+     useDeleteCategorieMutation,
+     useUpdateCategorieMutation,
 } = CategoryCrud;
