@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import AddCategories from './AddCategories';
-import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import NoProduct from "../../../assest/icon/Без названия.png"
 import DeleteCategorie from './DeleteStudents';
 import UpdateCategories from './UpdateCategorie';
 import Loader from '../../Loader/Loader';
 import EmptyBox from "../../EmptyBox/EmptyBox.jsx"
+import { useGetProductQuery } from '../../../redux/slice/client/getProduct/index.js';
 const ProductCrud = () => {
-    const { data, isLoading, refetch } = useGetCategoryQuery();
+    const { data, isLoading, refetch } = useGetProductQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
-
+    const [isHovered, setIsHovered] = useState(false);
     return (
         <div className=" "> {/* Set the height to 100vh */}
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
@@ -33,8 +33,10 @@ const ProductCrud = () => {
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Kategoriya rasm</th>
-                                        <th scope="col" className="p-4">Kategoriya Nomi</th>
+                                        <th scope="col" className="p-4">Maxsulot rasm</th>
+                                        <th scope="col" className="p-4">Maxsulot Nomi</th>
+                                        <th scope="col" className="p-4">Maxsulot Narxi</th>
+
                                         <th scope="col" className="p-4"></th>
                                     </tr>
                                 </thead>
@@ -51,11 +53,17 @@ const ProductCrud = () => {
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center mr-3">
                                                                 {item?.image && item?.image !== "" ? (
-                                                                    <img
-                                                                        src={item?.image}
-                                                                        alt="item"
-                                                                        className="h-12 w-12 flex-none rounded-full border object-cover"
-                                                                    />
+                                                                    <>
+                                                                        <img
+                                                                            src={item?.image}
+                                                                            alt="item"
+                                                                            className="h-12 w-12 flex-none rounded-full border object-cover"
+                                                                        />
+                                                                                                                      <span className="bg-primary-100 text-black-800 text-base font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                                                {item?.category}
+                                                            </span>
+                                                                    </>
+
                                                                 ) : (
                                                                     <div className="w-12 h-12 rounded-full border bg-gray-200 flex justify-center items-center">
                                                                         <img
@@ -63,13 +71,22 @@ const ProductCrud = () => {
                                                                             src={NoProduct}
                                                                             alt="product"
                                                                         />
+
                                                                     </div>
                                                                 )}
                                                             </div>
                                                         </th>
                                                         <td className="px-4 py-3">
-                                                            <span className="bg-primary-100 text-primary-800 text-base font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                                            <span className="bg-primary-100 text-black-800 text-base font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                                                                 {item?.title}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-4 py-3">
+                                                            <span
+                                                                className={`bg-primary-100 dark:bg-primary-900 text-base font-medium px-2 py-0.5 rounded text-yellow-700`}
+
+                                                            >
+                                                                {item.price} So'm
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">

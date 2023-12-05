@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  useGetCategoryQuery } from '../../../redux/slice/client/category';
+import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
@@ -10,12 +10,12 @@ const AddProduct = () => {
   // state
   const [open, setOpen] = useState(false);
 
-// redux
+  // redux
   const [createProduct, { isLoading: isCreating }] = useCreateProductMutation();
   const { data, isLoading, refetch } = useGetCategoryQuery();
 
 
-// fuction
+  // fuction
   const onClose = () => {
     setOpen(false);
   };
@@ -28,28 +28,35 @@ const AddProduct = () => {
     amount_measure: '',
     category: '',
     subcategory: '',
+    img: '',
   });
- 
-// post data
+
+  // post data
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
+    formData.append('image', inputValue.img);
     formData.append('description', inputValue.description);
     formData.append('price', inputValue.price);
     formData.append('amount', inputValue.amount);
     formData.append('amount_measure', inputValue.amount_measure);
+
     formData.append('category', inputValue.category);
     formData.append('subcategory', inputValue.subcategory);
-    formData.append('image', inputValue.img);
+
 
 
     try {
-      await createProduct(inputValue).unwrap();
-      toast.success(`Maxsulot ${inputValue.title} qo'shildi`);
-
+      await createProduct(formData).unwrap();
+      toast.success(`Category ${inputValue.title} added successfully`);
+      setInputValue({
+        title: '',
+        img: '',
+      });
       setOpen(false);
     } catch (error) {
-      toast.error(`Maxsulot  ${inputValue.name} qo'shilmadi`);
+      toast.error(`Failed to add category ${inputValue.title}`);
+      console.error('Error creating category:', error);
     }
   };
 
@@ -99,14 +106,17 @@ const AddProduct = () => {
               </div>
               <div>
                 <label htmlFor="Maxsulot Name:">Maxsulot o'lchov:</label>
-                <input
-                  type="text"
-                  id="table-search-users"
-                  className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder=""
+                <select
                   onChange={(e) => setInputValue({ ...inputValue, amount_measure: e.target.value })}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="Hech Biri">Hech Biri</option>
+                   <option value="kg">kg</option>
+                   <option value="dona">dona</option>
+                   <option value="litr">litr</option>
+                   <option value="metr">metr</option>
 
-                />
+
+                </select>
               </div>
               <div>
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 ">Mahsulox haqida....</label>
@@ -130,7 +140,7 @@ const AddProduct = () => {
                   <option value="Hech Biri">Hech Biri</option>
                   {data.map((value) => {
                     return (
-                      <option value={value.title}>{value.title}</option>
+                      <option value={value.id}>{value.title}</option>
                     )
                   })}
                 </select>
@@ -143,23 +153,23 @@ const AddProduct = () => {
                     <option value="Hech Biri">Hech Biri</option>
                     {data.map((value) => {
                       return (
-                        <option value={value.title}>{value.title}</option>
+                        <option value={value.id}>{value.title}</option>
                       )
                     })}
                   </select>
                 </div>
                 <div>
-                <ImageUpload
-                title={'Image'}
-                iconName={<MdOutlineInsertPhoto className="text-5xl" />}
-                iconTitle={'Upload Image'}
-                fileType={'PNG, JPG, JPEG up to 5MB'}
-                LabelFor={'image'}
-                setInputValue={setInputValue}
-                inputValue={inputValue}
-              />
-              <div>
-</div>
+                  <ImageUpload
+                    title={'Image'}
+                    iconName={<MdOutlineInsertPhoto className="text-5xl" />}
+                    iconTitle={'Upload Image'}
+                    fileType={'PNG, JPG, JPEG up to 5MB'}
+                    LabelFor={'img'}
+                    setInputValue={setInputValue}
+                    inputValue={inputValue}
+                  />
+                  <div>
+                  </div>
                 </div>
               </div>
             </div>
