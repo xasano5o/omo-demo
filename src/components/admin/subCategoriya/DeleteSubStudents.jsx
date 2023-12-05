@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
-import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
+import Modal from "../../generic/Modal.jsx";
 
-import { useDeleteCategorieMutation } from "../../../redux/slice/client/category/index.js";
+import { useDeleteSubCategorieMutation } from "../../../redux/slice/client/subcategory/index.jsx";
 
-export default function DeleteCategorie({ ID, }) {
+export default function DeleteSubCategorie({ ID, }) {
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!isOpen);
-    const [deleteTeacher, { isLoading }] = useDeleteCategorieMutation();
+    const [deleteTeacher, { isLoading }] = useDeleteSubCategorieMutation();
 
     const handleDelete = async (id) => {
         try {
