@@ -62,7 +62,7 @@ const ProductCrud = () => {
                                                                         <img
                                                                             className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                             src={NoProduct}
-                                                                            alt="product"
+                                                                            alt="products"
                                                                         />
                                                                     </div>
                                                                 )}
