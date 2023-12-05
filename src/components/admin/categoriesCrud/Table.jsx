@@ -66,7 +66,7 @@ const ProductCrud = () => {
                                                                         />
                                                                     </div>
                                                                 )}
-                                                                {/* salom */}
+                                                                {/* saloms */}
                                                             </div>
                                                         </th>
                                                         <td className="px-4 py-3">
