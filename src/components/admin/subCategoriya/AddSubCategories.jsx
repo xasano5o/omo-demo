@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { useCreateCategoriaMutation } from '../../../redux/slice/client/category';
+import { useCreateCategoriaMutation, useGetCategoryQuery } from '../../../redux/slice/client/category';
 import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import {  AiOutlineUserAdd } from "react-icons/ai";
+import { useCreateSubCategoriaMutation } from '../../../redux/slice/client/subcategory';
 
-const AddCategories = () => {
+const AddSubCategories = () => {
   const [open, setOpen] = useState(false);
-  const [createCategoria, { isLoading: isCreating }] = useCreateCategoriaMutation();
+  const [createSubCategoria, { isLoading: isCreating }] = useCreateSubCategoriaMutation();
+  const { data, isLoading, refetch } = useGetCategoryQuery();
 
   const onClose = () => {
     setOpen(false);
@@ -17,15 +18,17 @@ const AddCategories = () => {
   const [inputValue, setInputValue] = useState({
     name: '',
     img: '',
+    subcategory:""
   });
 
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
     formData.append('image', inputValue.img);
+    formData.append('category', inputValue.subcategory);
 
     try {
-      await createCategoria(formData).unwrap();
+      await createSubCategoria(formData).unwrap();
       toast.success(`Category ${inputValue.name} added successfully`);
       setInputValue({
         name: '',
@@ -34,6 +37,7 @@ const AddCategories = () => {
       setOpen(false);
     } catch (error) {
       toast.error(`Failed to add category ${inputValue.name}`);
+      console.error('Error creating category:', error);
     }
   };
 
@@ -50,6 +54,17 @@ const AddCategories = () => {
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className="flex flex-col gap-3">
+          <div className='flex flex-col '>
+                <label htmlFor="">Kategorie Tanlang</label>
+                <select  onChange={(e) => setInputValue({...inputValue,subcategory:e.target.value})}   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="Hech Biri">Hech Biri</option>
+                  {data.map((value) => {
+                    return (
+                      <option value={value.id}>{value.title}</option>
+                    )
+                  })}
+                </select>
+              </div>
             <div>
               <label>Kategoriya Name:</label>
               <input
@@ -76,4 +91,4 @@ const AddCategories = () => {
   );
 };
 
-export default AddCategories;
+export default AddSubCategories;

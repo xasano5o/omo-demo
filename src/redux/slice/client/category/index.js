@@ -18,7 +18,7 @@ export const CategoryCrud = createApi({
             invalidatesTags: ["getCategoryt"],
         }),
 
-            createCategoria: build.mutation({
+        createCategoria: build.mutation({
             query: (body) => ({
                 url: 'categories/',
                 method: 'POST',
@@ -47,9 +47,9 @@ export const CategoryCrud = createApi({
 });
 
 export const {
-  useGetCategoryQuery,
+    useGetCategoryQuery,
     useGetProductIdQuery,
-     useCreateCategoriaMutation,
-     useDeleteCategorieMutation,
-     useUpdateCategorieMutation,
+    useCreateCategoriaMutation,
+    useDeleteCategorieMutation,
+    useUpdateCategorieMutation,
 } = CategoryCrud;
