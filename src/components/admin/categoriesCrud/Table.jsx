@@ -15,7 +15,7 @@ const ProductCrud = () => {
     return (
         <div className=" "> {/* Set the height to 100vh */}
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
-                <div className="mx-auto max-w-screen-2xl  px-4 lg:px-12">
+                <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <br />
                         <div className='flex justify-between px-3'>
@@ -30,9 +30,9 @@ const ProductCrud = () => {
                             <AddCategories />
                         </div>
                         <br />
-                        <div className="overflow-x-auto  h-[80vh] ">
+                        <div className=" h-[80vh] ">
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead className=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <thead className=" text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" className="p-4">Kategoriya rasm</th>
                                         <th scope="col" className="p-4">Kategoriya Nomi</th>
@@ -44,7 +44,7 @@ const ProductCrud = () => {
                                         isLoading ? (
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <Loader color="#36d7b7" />
-                                            </div>
+                                            </div> 
                                         ) : filteredData.length > 0 ? (
                                             filteredData.map((item) => {
                                                 return (

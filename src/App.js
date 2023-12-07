@@ -22,9 +22,9 @@ function App() {
         <Route path="/admin" element={<Login />} />
         <Route element={<Layout />}>
         <Route path="/admin/home" element={<ProductTable />} />
+          <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
           <Route path="/admin/dashbord" element={<ProductTable />} />
           <Route path="/admin/categorie" element={<CategoriesCrud />} />
-          <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
           <Route path="/admin/product" element={<ProductCrud />} />
           <Route path="/admin/order" element={<ProductTable />} />
         </Route>

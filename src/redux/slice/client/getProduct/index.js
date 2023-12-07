@@ -7,19 +7,25 @@ export const GetProducts = createApi({
     tagTypes: ["Product"],
     endpoints: (build) => ({
         getProduct: build.query({
-            query: () => "products",
+            query: (body) => `products/`,
             providesTags: ["Product"],
         }),
+        getProductCatgori: build.query({
+            query: () => `products/?category=true`,
+            providesTags: ["Product"],
+        }),
+
+
         getProductId: build.query({
             query: (body) => ({
-                url: `sciences/${body.ID}`,
+                url: `products/${body.ID}`,
                 method: "POST",
             }),
             invalidatesTags: ["Product"],
         }),
-        updateScience: build.mutation({
+        updateProduct: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
+                url: `products/${body.get("id")}/`,
                 method: "PATCH",
                 body,
             }),
@@ -27,15 +33,15 @@ export const GetProducts = createApi({
         }),
         createProduct: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
-                method: "PATCH",
+                url: `products/`,
+                method: "POST",
                 body,
             }),
             invalidatesTags: ["Product"],
         }),
-        deleteScience: build.mutation({
+        deleteProduct: build.mutation({
             query: (body) => ({
-                url: `sciences/${body.id}/`,
+                url: `products/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
@@ -47,6 +53,8 @@ export const GetProducts = createApi({
 export const {
     useGetProductQuery,
     useGetProductIdQuery,
-    useUpdateScienceMutation,
-    useDeleteScienceMutation,
+    useGetProductCatgoriQuery,
+    useCreateProductMutation,
+    useUpdateProductMutation,
+    useDeleteProductMutation,
 } = GetProducts;

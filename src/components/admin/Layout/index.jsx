@@ -7,8 +7,6 @@ export default function Layout() {
   const token = "1";
 
   return (
-    <>
-      {token === "1" ? (
         <div className="flex">
           <Sidebar />
           <div className="w-full layout">
@@ -16,9 +14,5 @@ export default function Layout() {
             <Outlet />
           </div>
         </div>
-      ) : (
-        <Navigate to="/admin" />
-      )}
-    </>
   );
 }

@@ -3,20 +3,20 @@ import { BsTrash } from "react-icons/bs";
 import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
 
-import { useDeleteCategorieMutation } from "../../../redux/slice/client/category/index.js";
+import { useDeleteProductMutation } from "../../../redux/slice/client/getProduct/index.js";
 
 export default function DeleteCategorie({ ID, }) {
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!isOpen);
-    const [deleteTeacher, { isLoading }] = useDeleteCategorieMutation();
+    const [deleteProduct, { isLoading }] = useDeleteProductMutation();
 
     const handleDelete = async (id) => {
         try {
-            await deleteTeacher({ id });
-            toast.success("Categorie o'chirildi!");
+            await deleteProduct({ id });
+            toast.success("Maxsulot o'chirildi!");
             setIsOpen(false);
         } catch (err) {
-            toast.error("Categorie o'chirishda xatolik:", err);
+            toast.error("Maxsulot o'chirishda xatolik:", err);
         }
     };
 
