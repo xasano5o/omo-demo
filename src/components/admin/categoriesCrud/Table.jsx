@@ -76,7 +76,7 @@ const ProductCrud = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <UpdateCategories item={item} />
+                                                                <ww item={item} />
                                                                 <DeleteCategorie  ID= {item.id}/>
                                                             </div>
                                                         </td>
