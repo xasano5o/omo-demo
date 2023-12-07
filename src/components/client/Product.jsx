@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useGetProductIdQuery } from '../../redux/slice/client/category/index.js';
+import { useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
 
 function Product() {
     const { id } = useParams();
-    const { } = useGetProductIdQuery()
-    const [product, setProduct] = useState([]);
+    // const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
+    const {data:product,isLoading } =useGetProductIdQuery({id:id});
+    // setProduct(product_object);
+    console.log(isLoading);
+    // console.log(product_object ,"salom");
 
-    useEffect(() => {
-        const getProduct = async () => {
-            setLoading(true);
-            const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-            const data = await response.json();
-            setProduct(data);
-            setLoading(false);
-        }
-        getProduct();
-    }, [id]);
+
+    // useEffect(() => {
+    //     const getProduct = async () => {
+    //         setLoading(true);
+    //         // const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    //         // const data = await response.json();
+    //         const {data,isLoading } =useGetProductIdQuery({ID:id});
+    //         setProduct(data);
+    //         setLoading(false);
+    //     }
+    //     getProduct();
+
+    // }, [id]);
 
     const Loading = () => {
         return (
@@ -90,7 +96,7 @@ function Product() {
                                 <div className="col-md-6">
                                     <div className="images p-3">
                                         <div className="text-center p-4">
-                                            <img id="main-image" alt="product" src={product.image} width="250" />
+                                            <img id="main-image" alt="product" src={product?.image} width="250" />
                                         </div>
                                     </div>
                                 </div>
@@ -98,20 +104,20 @@ function Product() {
                                     <div className="border p-4">
                                         <div className="mt-4 mb-3">
 
-                                            <span className="text-muted text-capitalize"> in {product.category}</span>
+                                            <span className="text-muted text-capitalize"> in {product?.category}</span>
 
                                             <h5 className="text-uppercase">
-                                                {product.title}
+                                                {product?.title}
                                             </h5>
 
-                                            Rating {product.rating && product.rating.rate}
+                                            Rating {product?.rating && product?.rating?.rate}
                                             <i className="fa fa-star text-warning"></i>
 
                                             <div className="price d-flex flex-row align-items-center">
-                                                <big className="display-6"><b>${product.price}</b></big>
+                                                <big className="display-6"><b>${product?.price}</b></big>
                                             </div>
                                         </div>
-                                        <p className="text-muted">{product.description}</p>
+                                        <p className="text-muted">{product?.description}</p>
                                         <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-dark text-uppercase mr-2 px-4">Buy</button> </div>
                                     </div>
                                 </div>
@@ -127,7 +133,7 @@ function Product() {
         <>
             <div className="container px-0 mb-5" style={{ marginTop: "66px" }}>
 
-                {loading ? <Loading /> : <ShowDetails />}
+                {isLoading ? <Loading /> : <ShowDetails />}
 
             </div>
         </>

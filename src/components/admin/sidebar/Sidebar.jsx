@@ -1,56 +1,87 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { SidebarAdmin } from '../../../mock/adminSidebar';
+import React, { useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { GoHome } from "react-icons/go";
+import { MdOutlineDashboard } from "react-icons/md";
+import { TbReportAnalytics } from "react-icons/tb";
+import { Link, useNavigate } from "react-router-dom";
 
+const Home = () => {
+  const navigate = useNavigate()
 
-const Sidebar = () => {
-  const [isSidebarHidden, setSidebarVisibility] = useState(false);
- const navigate = useNavigate()
+  const menus = [
+    { name: "Dashboard", link: "/dashbord", icon: GoHome },
+    { name: "Product", link: "/product", icon: MdOutlineDashboard },
+    { name: "Categorie", link: "/categorie", icon: TbReportAnalytics },
+    { name: "Subcategorie", link: "/subcategorie", icon: TbReportAnalytics, margin: true },
+    { name: "Log out", link: "", icon: FaRegUser, margin: true },
 
+  ];
+  const [open, setOpen] = useState(true);
   return (
-    <>
-      <div className="bg-white">
-        <div
-          className={`sidebar h-[100vh] flex flex-col justify-between  lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-white ${isSidebarHidden ? 'hidden' : ''}`}
-        >
-          <div>
+    <section className="flex gap-6">
+      <div
+        className={`bg-white min-h-screen ${open ? "w-72" : "w-16"
+          } duration-500 text-gray-100 px-4`}
+      >
 
-          <div className="text-gray-100 text-xl">
-            <div className="p-2.5 mt-1 flex items-center">
-              <Link to={"/admin"} className='no-underline'>
-                <h1 className='text-black hover:text-black]'>Omo Food</h1>
+        <div className="py-3 flex justify-end text-center items-center gap-6">
+
+
+          <Link to={"/admin/home"} className={`no-underline ${open ? "block" : "hidden"}`} >
+            <h1 className="text-black">Omo Food</h1>
+
+          </Link>
+
+          {
+            open ? (
+              <FiArrowRight
+                className="cursor-pointer text-black text-2xl"
+                onClick={() => setOpen(!open)}
+              />
+            ) : (
+              <FiArrowLeft
+                className="cursor-pointer text-black text-2xl" // Adjust the font size here
+                onClick={() => setOpen(!open)}
+              />
+            )
+          }
+
+        </div>
+        <div className="mt-4 flex flex-col gap-4 relative">
+
+          {menus?.map((menu, i) => (
+            <div className=""
+              onClick={() => navigate(`/admin${menu.link}/`)}
+            >
+
+              <Link
+                to={menu?.link}
+                key={i}
+                className={` ${menu?.margin && ""
+                  } group flex items-center text-sm no-underline text-center  gap-3.5 font-medium p-2 rounded-md`}
+              >
+                <h1 className="text-xl text-black">{React.createElement(menu?.icon)}
+                </h1>
+                <h2
+                  style={{
+                    transitionDelay: `${i + 3}00ms`,
+                  }}
+                  className={`text-xl text-black duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+                    }`}
+                >
+                  {menu?.name}
+                </h2>
               </Link>
             </div>
-            <div className="my-2 bg-gray-600 h-[1px]"></div>
-          </div>
+          ))}
 
-          {SidebarAdmin?.map((value) => (
-              <div
-              onClick={() => navigate(`/admin${value.path}`)}
-                key={value.title} // Don't forget to add a unique key
-                className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#e0dede] text-white"
-              >
-              <i className='text-black text-xl'>
-                  {value.icon}
-               </i>
-                <span          className="text-[15px] ml-4 text-black font-bold">{value.title}</span>
-              </div>
-            ))}
-       </div>
-          <div className="my-4 bg-gray-600 h-[1px]"></div>
-
-     
-          <div
-            className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-[#e0dede] text-white"
-          >
-            <i className="bi bi-box-arrow-in-right"></i>
-            <span className="text-[15px] ml-4 text-black font-bold">Logout</span>
-          </div>
         </div>
 
       </div>
-    </>
+
+    </section>
   );
 };
 
-export default Sidebar;
+export default Home;
