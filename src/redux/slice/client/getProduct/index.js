@@ -11,14 +11,22 @@ export const GetProducts = createApi({
             providesTags: ["Product"],
         }),
         getProductCatgori: build.query({
-            query: () => `products/?category=true`,
+            query: () => `products/`,
             providesTags: ["Product"],
         }),
 
 
         getProductId: build.query({
             query: (body) => ({
-                url: `products/${body.ID}`,
+                url: `products/${body.ID}/`,
+                method: "POST",
+            }),
+            invalidatesTags: ["Product"],
+        }),
+
+        getProductIdImg: build.query({
+            query: (body) => ({
+                url: `product-images/`,
                 method: "POST",
             }),
             invalidatesTags: ["Product"],
@@ -53,6 +61,7 @@ export const GetProducts = createApi({
 export const {
     useGetProductQuery,
     useGetProductIdQuery,
+    useGetProductIdImgQuery,
     useGetProductCatgoriQuery,
     useCreateProductMutation,
     useUpdateProductMutation,

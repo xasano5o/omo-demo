@@ -3,7 +3,6 @@ import AddCategories from './addCategories';
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import NoProduct from "../../../assest/icon/Без названия.png"
 import DeleteCategorie from './DeleteStudents';
-import UpdateCategories from './UpdateCategorie';
 import EmptyBox from '../../EmptyBox/EmptyBox';
 import Loader from "../../Loader/Loader"
 const ProductCrud = () => {

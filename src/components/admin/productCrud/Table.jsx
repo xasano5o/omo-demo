@@ -7,6 +7,7 @@ import EmptyBox from "../../EmptyBox/EmptyBox.jsx"
 import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduct/index.js';
 import ViewProduct from './ViewParent.jsx';
 import UpdateProduct from './Update.jsx';
+import AddImgUpload from './ImgUpload.jsx';
 
 const ProductCrud = () => {
     const { data, error, isLoading } = useGetProductCatgoriQuery();
@@ -62,10 +63,10 @@ const ProductCrud = () => {
                                                     <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center mr-3 ">
-                                                                {item?.image && item?.image !== "" ? (
+                                                                {item?.image && item?.thumbnail_image !== "" ? (
                                                                     <div className='flex  gap-2 items-center'>
                                                                         <img
-                                                                            src={item?.image}
+                                                                            src={item?.thumbnail_image}
                                                                             alt="item"
                                                                             className="h-12 w-12 flex-none  rounded-full border object-cover"
                                                                         />
@@ -108,6 +109,7 @@ const ProductCrud = () => {
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <ViewProduct object={item} />
+                                                            <AddImgUpload/> 
                                                                 <UpdateProduct object={item} />
                                                                 <DeleteCategorie ID={item.id} />
                                                             </div>
