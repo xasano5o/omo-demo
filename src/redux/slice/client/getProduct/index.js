@@ -18,16 +18,8 @@ export const GetProducts = createApi({
 
         getProductId: build.query({
             query: (body) => ({
-                url: `products/${body.ID}/`,
-                method: "POST",
-            }),
-            invalidatesTags: ["Product"],
-        }),
-
-        getProductIdImg: build.query({
-            query: (body) => ({
-                url: `product-images/`,
-                method: "POST",
+                url: `products/${body.id}/`,
+                method: "GET",
             }),
             invalidatesTags: ["Product"],
         }),

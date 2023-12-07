@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(true);
-    const [username, setUsername] = useState({
+    const [showPassword, setShowPassword] = useState(false);
+    const [credentials, setCredentials] = useState({
         login: '',
         password: '',
     });
@@ -17,20 +17,18 @@ const Login = () => {
     const correctPassword = '1234';
 
     const handleLogin = () => {
-        if (username.login === correctLogin && username.password === correctPassword) {
-            // Redirect to admin/home
+        if (credentials.login === correctLogin && credentials.password === correctPassword) {
             navigate('/admin/home');
         } else {
-            // Handle incorrect login here
         }
     };
 
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">
             <div className="col-md-6">
-                <div className="card">
+                <div className="card shadow">
                     <div className="card-body">
-                        <h2 className="card-title text-center">Login</h2>
+                        <h2 className="card-title text-center mb-4">Login</h2>
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="username" className="form-label">
@@ -40,7 +38,8 @@ const Login = () => {
                                     type="text"
                                     className="form-control"
                                     id="username"
-                                    onChange={(e) => setUsername({ ...username, login: e.target.value })}
+                                    onChange={(e) => setCredentials({ ...credentials, login: e.target.value })}
+                                    required
                                 />
                             </div>
                             <div className="mb-3 position-relative">
@@ -51,19 +50,20 @@ const Login = () => {
                                     type={showPassword ? 'text' : 'password'}
                                     className="form-control"
                                     id="password"
-                                    onChange={(e) => setUsername({ ...username, password: e.target.value })}
+                                    onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                                    required
                                 />
                                 <span
                                     className="position-absolute top-50 end-0 px-2"
                                     onClick={() => setShowPassword(!showPassword)}
                                     style={{ cursor: 'pointer' }}
                                 >
-                                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                                    {showPassword ? <FaEye className='text-2xl' /> : <FaEyeSlash className='text-2xl' />}
                                 </span>
                             </div>
                             <button
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-primary w-100"
                                 onClick={handleLogin}
                             >
                                 Login
