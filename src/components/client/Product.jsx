@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router';
+import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useGetProductIdQuery } from '../../redux/slice/client/category/index.js';
+import { useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
 
 function Product() {
     const { id } = useParams();
-    const { } = useGetProductIdQuery()
+    const { } =useGetProductIdQuery()
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
 
