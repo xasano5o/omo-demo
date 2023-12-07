@@ -18,8 +18,8 @@ export const GetProducts = createApi({
 
         getProductId: build.query({
             query: (body) => ({
-                url: `products/${body.ID}`,
-                method: "POST",
+                url: `products/${body.id}/`,
+                method: "GET",
             }),
             invalidatesTags: ["Product"],
         }),

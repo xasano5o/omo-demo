@@ -1,9 +1,10 @@
 import React from 'react';
 import { useGetCategoryQuery } from '../../redux/slice/client/category/index.js';
 import { useNavigate } from 'react-router-dom';
+import { useCreateProductMutation } from '../../redux/slice/client/getProduct/index.js';
 
 const Sidebar = () => {
-  const { data } = useGetCategoryQuery();
+  const { data } = useGetCategoryQuery()
   const navigate = useNavigate();
 
   return (
@@ -31,6 +32,7 @@ const Sidebar = () => {
                 <span className="ml-2">{value?.title}</span>
               </a>
             ))}
+
           </div>
           <ul className="dropdown-menu">
             <li>
