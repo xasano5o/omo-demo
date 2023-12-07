@@ -39,9 +39,9 @@ const UpdateCategories = ({item}) => {
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="inline-flex w-[120px] h-[45px] justify-center items-center rounded-full bg-blue-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400"
+        className="inline-flex w-[70px] h-[35px] justify-center items-center rounded-full bg-blue-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400"
       >
-        <BiEdit size={28} className="text-md" aria-hidden="true" />
+        <BiEdit size={20} className="text-md" aria-hidden="true" />
       </button>
       {open && (
         <Modal loader={isLoading} closeModal={onClose} addFunc={addData}>

@@ -4,16 +4,18 @@ import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { useCreateProductMutation } from '../../../redux/slice/client/getProduct';
+import { useCreateProductMutation, useUpdateProductMutation } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
+import { BiEdit } from 'react-icons/bi';
 
-const AddProduct = ({object}) => {
+const UpdateProduct = ({object}) => {
+  console.log(object,'object');
   // state
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
 
   // redux
-  const [createProduct, { isLoading: isCreating }] = useCreateProductMutation();
+  const [updateProduct, { isLoading: isCreating }] = useUpdateProductMutation();
   const { data, isLoading, refetch } = useGetCategoryQuery();
   const { data:subData } = useGetSubCategoryQuery()
 
@@ -36,18 +38,20 @@ const AddProduct = ({object}) => {
     formData.append('amount_measure', inputValue.amount_measure);
     formData.append('category', inputValue.category);
     formData.append('subcategory', inputValue.subcategory);
+    formData.append('id', inputValue.id);
+
 
     try {
-      await createProduct(formData).unwrap();
-      toast.success(`Category ${inputValue.title} added successfully`);
+      await updateProduct(formData).unwrap();
+      toast.success(`Maxsulot ${inputValue.title} o'zgartirildi `);
       setInputValue({
         title: '',
         img: '',
       });
       setOpen(false);
     } catch (error) {
-      toast.error(`Failed to add category ${inputValue.title}`);
-      console.error('Error creating category:', error);
+      toast.error(`Failed to add maxsulot ${inputValue.title}`);
+
     }
   };
 
@@ -56,10 +60,9 @@ const AddProduct = ({object}) => {
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="inline-flex w-[70px] h-[35px] justify-center items-center rounded-full bg-blue-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400"
       >
-        +
-        Maxsulot
+        <BiEdit size={20} className="text-md" aria-hidden="true" />
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
@@ -73,6 +76,7 @@ const AddProduct = ({object}) => {
                   id="table-search-users"
                   className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
+                  value={inputValue.title}
                   onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
                 />
               </div>
@@ -83,6 +87,7 @@ const AddProduct = ({object}) => {
                   id="table-search-users"
                   className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
+                  value={inputValue.price}
                   onChange={(e) => setInputValue({ ...inputValue, price: e.target.value })}
                 />
               </div>
@@ -93,27 +98,29 @@ const AddProduct = ({object}) => {
                   id="table-search-users"
                   className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
+                  value={inputValue.amount}
                   onChange={(e) => setInputValue({ ...inputValue, amount: e.target.value })}
                 />
               </div>
               <div>
                 <label htmlFor="Maxsulot Name:">Maxsulot o'lchov:</label>
                 <select
-                  onChange={(e) => setInputValue({ ...inputValue, amount_measure: e.target.value })}
+                value={inputValue.amount_measure}
+                 
+                onChange={(e) => setInputValue({ ...inputValue, amount_measure: e.target.value })}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option value="Hech Biri">Hech Biri</option>
                    <option value="kg">kg</option>
                    <option value="dona">dona</option>
                    <option value="litr">litr</option>
                    <option value="metr">metr</option>
-
-
                 </select>
               </div>
               <div>
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 ">Mahsulox haqida....</label>
                 <textarea
-                  id="message"
+                 value={inputValue.description}
+                id="message"
                   rows="4"
                   onChange={(e) => setInputValue({ ...inputValue, description: e.target.value })}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -125,9 +132,10 @@ const AddProduct = ({object}) => {
             </div>
             <div className='flex flex-col '>
               <div className='flex flex-col'>
-                <label htmlFor="">Kategorie Tanlang</label>
+                <label htmlFor="" className='text-gray-900'>Kategorie Tanlang</label>
                 <select
-                  onChange={(e) => setInputValue({ ...inputValue, category: e.target.value })}
+                   value={inputValue?.category?.title}
+                 onChange={(e) => setInputValue({ ...inputValue, category: e.target.value })}
                   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   <option value="Hech Biri">Hech Biri</option>
                   {data.map((value) => {
@@ -138,9 +146,10 @@ const AddProduct = ({object}) => {
                 </select>
 
                 <div className='flex flex-col '>
-                  <label htmlFor=""> Ichki Kategoriyani Tanlash</label>
+                  <label htmlFor="" className='text-gray-900'> Ichki Kategoriyani Tanlash</label>
                   <select
-                    onChange={(e) => setInputValue({ ...inputValue, subcategory: e.target.value })}
+                    value={inputValue?.subcategory?.title}
+                  onChange={(e) => setInputValue({ ...inputValue, subcategory: e.target.value })}
                     className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="Hech Biri">Hech Biri</option>
                     {subData.map((value) => {
@@ -173,4 +182,4 @@ const AddProduct = ({object}) => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;
