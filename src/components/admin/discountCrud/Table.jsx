@@ -9,7 +9,7 @@ import ViewProduct from './ViewParent.jsx';
 import UpdateProduct from './Update.jsx';
 import AddImgUpload from './ImgUpload.jsx';
 
-const ProductCrud = () => {
+const DiscountTbale = () => {
     const { data, error, isLoading } = useGetProductCatgoriQuery();
 
     const [search, setSearch] = useState('');
@@ -25,7 +25,7 @@ const ProductCrud = () => {
                             <input
                                 type="text"
                                 id="table-search-users"
-                                className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-80 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-80 bg-white dark:bg-white focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Izlash..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
@@ -131,4 +131,4 @@ const ProductCrud = () => {
     )
 }
 
-export default ProductCrud;
+export default DiscountTbale;

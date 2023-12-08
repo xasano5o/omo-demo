@@ -8,6 +8,7 @@ import CategoryIdPage from './pages/client/categorieid/index.jsx';
 import HomePage from './pages/client/home/index.jsx';
 import ProductPage from './pages/client/product/index.jsx';
 import SubcategorieCom from './components/admin/subCategoriya/TableSub.jsx';
+import DiscountTbale from './components/admin/discountCrud/Table.jsx';
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/admin/home" element={<ProductTable />} />
           <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
           <Route path="/admin/dashbord" element={<ProductTable />} />
+          <Route path="/admin/discount" element={<DiscountTbale />} />
           <Route path="/admin/categorie" element={<CategoriesCrud />} />
           <Route path="/admin/product" element={<ProductCrud />} />
           <Route path="/admin/order" element={<ProductTable />} />
