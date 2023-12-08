@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import Modal from '../../generic/Modal';
-import ImageUpload from '../../ImageUpload/ImageUpload';
-import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { useCreateProductMutation } from '../../../redux/slice/client/getProduct';
+import { useCreateProductMutation, useGetProductQuery } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
 
 const AddProduct = ({ object }) => {
@@ -16,6 +14,7 @@ const AddProduct = ({ object }) => {
   const [createProduct, { isLoading: isCreating }] = useCreateProductMutation();
   const { data, isLoading, refetch } = useGetCategoryQuery();
   const { data: subData } = useGetSubCategoryQuery()
+  const { data: productData } = useGetProductQuery()
 
 
 
@@ -24,6 +23,20 @@ const AddProduct = ({ object }) => {
     setOpen(false);
   };
 
+  const [direction, setDirection] = useState('ALL');
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (direction === 'ALL') {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [direction]);
+
+  const handleDirectionChange = (e) => {
+    setDirection(e.target.value);
+  };
 
   // post data
   const addData = async () => {
@@ -65,14 +78,6 @@ const AddProduct = ({ object }) => {
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
-          {/* <div>
-
-<label class="relative inline-flex items-center cursor-pointer">
-  <input type="checkbox" value="" class="sr-only peer"/>
-  <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
-</label>
-        </div> */}
 
           <form>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -97,12 +102,51 @@ const AddProduct = ({ object }) => {
                 <input type="datetime-local" id="tugashsana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
               </div>
               <div>
-                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 ">Mahsulot tanlash</label>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                <label htmlFor="direction" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot Yunalishi</label>
+                <select id="direction" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleDirectionChange}>
+                  <option value="ALL">Hech biri</option>
                   <option value="ALL">Hammasi</option>
                   <option value="CUSTOM">Tanlanganlar</option>
                 </select>
               </div>
+              <div>
+                <label htmlFor="subCategory" className="block mb-2 text-sm font-medium text-gray-900">Ichki kategoriya tanlang</label>
+                <select id="subCategory" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  {
+                    subData?.map((value) => {
+                      return (
+                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+              <div>
+                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Kategoriya tanlang</label>
+                <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  {
+                    data?.map((value) => {
+                      return (
+                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+              <div>
+                <label htmlFor="product" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot tanlash</label>
+                <select id="product" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  {
+                    productData?.map((value) => {
+                      return (
+                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+
+
             </div>
           </form>
 
