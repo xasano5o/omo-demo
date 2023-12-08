@@ -24,7 +24,7 @@ const AddSubCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('image', inputValue.img);
+    formData.append('thumbnail_image', inputValue.img);
     formData.append('category', inputValue.subcategory);
 
     try {

@@ -63,7 +63,7 @@ const ProductCrud = () => {
                                                     <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center mr-3 ">
-                                                                {item?.image && item?.thumbnail_image !== "" ? (
+                                                                {item?.image && item?.image !== "" ? (
                                                                     <div className='flex  gap-2 items-center'>
                                                                         <img
                                                                             src={item?.thumbnail_image}

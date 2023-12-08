@@ -29,8 +29,8 @@ export const CategorySilide = () => {
       <h1 className="">Mahsulotlar Kategoriyasi</h1>
       {data ? (
         <Carousel
-        itemClass="slideitem"
-          sliderClass="SliderClassCustom"
+        itemclassName="slideitem"
+          sliderclassName="SliderclassNameCustom"
           responsive={responsive}
           infinite={true}
           autoPlay={true}
@@ -41,8 +41,8 @@ export const CategorySilide = () => {
               <div>
                 <div className="mt-12" style={{ width: "150px", height:"200px"}}>
                   <img
-                    src={item?.image}
-                    className="card-img-top"
+                    src={item?.thumbnail_image}
+                    className="card-img-top rounded-circle"
                     style={{height:"128px", width:"128px", objectFit:"cover"}}
                     alt={item?.title}
                   />
