@@ -39,7 +39,7 @@ export default function Modal({
           {!loader ? (
             buttonText
           ) : (
-            <ButtonLoader Color="white" Size={20} extraClass="h-6" />
+            <ButtonLoader Color="white" Size={20} extraclassName="h-6" />
           )}
         </button>
       </div>

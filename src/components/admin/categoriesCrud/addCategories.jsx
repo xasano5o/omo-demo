@@ -4,7 +4,7 @@ import Modal from '../../generic/Modal';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import {  AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 const AddCategories = () => {
   const [open, setOpen] = useState(false);
@@ -22,7 +22,7 @@ const AddCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('image', inputValue.img);
+    formData.append('thumbnail_image', inputValue.img);
 
     try {
       await createCategoria(formData).unwrap();
@@ -45,8 +45,8 @@ const AddCategories = () => {
         type="button"
         className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-  +
-         Kategoriya
+        +
+        Kategoriya
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>

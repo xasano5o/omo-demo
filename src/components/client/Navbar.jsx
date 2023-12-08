@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Sidebar from "./Sidebar.jsx";
+import SidebarClient from "./Sidebar";
 
 const Navbar = () => {
   return (
@@ -51,7 +51,7 @@ const Navbar = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <Sidebar />
+            <SidebarClient/>
           </div>
         </div>
       </nav>
