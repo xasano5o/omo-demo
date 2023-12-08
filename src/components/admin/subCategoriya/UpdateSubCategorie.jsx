@@ -19,7 +19,7 @@ const UpdateSubCategories = ({ item }) => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    formData.append('image', inputValue.img);
+    formData.append('thumbnail_image', inputValue.img);
     formData.append('id', inputValue.id);
     try {
       await updateCategorie(formData).unwrap();
