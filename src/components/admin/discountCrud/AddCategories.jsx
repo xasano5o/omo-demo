@@ -4,14 +4,26 @@ import Modal from '../../generic/Modal';
 import { toast } from 'react-toastify';
 import { useCreateProductMutation, useGetProductQuery } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
+import { useCreateDiscountMutation, useGetDiscountQuery } from '../../../redux/slice/client/discount';
 
 const AddProduct = ({ object }) => {
   // state
   const [open, setOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(object);
+  const [isChecked, setIsChecked] = useState(false);
+  const [inputValue, setInputValue] = useState({
+    title: '',
+    value: '',
+    start_date: '',
+    end_date: '',
+    products_status: '',
+    product: '',
+    products: [],
+    category: [],
+    subcategory: [],
+  });
 
   // redux
-  const [createProduct, { isLoading: isCreating }] = useCreateProductMutation();
+  const [createDiscount, { isLoading: isCreating }] = useCreateDiscountMutation();
   const { data, isLoading, refetch } = useGetCategoryQuery();
   const { data: subData } = useGetSubCategoryQuery()
   const { data: productData } = useGetProductQuery()
@@ -25,7 +37,7 @@ const AddProduct = ({ object }) => {
 
   const [direction, setDirection] = useState('ALL');
   const [isDisabled, setIsDisabled] = useState(false);
-
+  console.log(direction, 'direction');
   useEffect(() => {
     if (direction === 'ALL') {
       setIsDisabled(true);
@@ -42,18 +54,27 @@ const AddProduct = ({ object }) => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    formData.append('image', inputValue.img);
-    formData.append('description', inputValue.description);
-    formData.append('price', inputValue.price);
-    formData.append('amount', inputValue.amount);
-    formData.append('amount_measure', inputValue.amount_measure);
-    formData.append('category', inputValue?.category);
-    if (inputValue.subcategory) {
-      formData.append('subcategory', inputValue?.subcategory);
+    formData.append('value', inputValue.value);
+    formData.append('is_active', isChecked);
+    formData.append('start_date', inputValue.start_date);
+    formData.append('end_date', inputValue.end_date);
+    formData.append('products_status', direction);
+    if (direction === 'CUSTOM') {
+      if (inputValue.products.length>0) {
+        formData.append('products', inputValue.products);
+      }
+      if (inputValue.category.length>0) {
+      formData.append('category', inputValue?.category);
+        
+      }
+      if (inputValue.subcategory.length>0) {
+        formData.append('subcategory', inputValue?.subcategory);
+      }
     }
 
+
     try {
-      await createProduct(formData).unwrap();
+      await createDiscount(formData).unwrap();
       toast.success(`Category ${inputValue.title} added successfully`);
       setInputValue({
         title: '',
@@ -64,6 +85,16 @@ const AddProduct = ({ object }) => {
       toast.error(`Failed to add category ${inputValue.title}`);
       console.error('Error creating category:', error);
     }
+  };
+
+  const handleSelectionChange = (field, event) => {
+    const selectedOptions = event.target.selectedOptions;
+    const selectedData = Array.from(selectedOptions).map(option => option.value);
+    setInputValue({ ...inputValue, [field]: selectedData });
+  };
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -80,27 +111,38 @@ const AddProduct = ({ object }) => {
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
 
           <form>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
               <div>
-                <label for="Name" class="block mb-2 text-sm font-medium text-gray-900 ">Nomi</label>
+                <label for="Name" className="block mb-2 text-sm font-medium text-gray-900 ">Nomi</label>
 
                 <input type="text" id="Name"
+                  onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Chegirma nomi" required />
               </div>
 
               <div>
-                <label for="chegirmamiqdori" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Chegirma miqdori</label>
-                <input type="text" id="chegirmamiqdori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chegirma miqdori(%)" required />
+                <label for="chegirmamiqdori" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Chegirma miqdori</label>
+                <input
+                  onChange={(e) => setInputValue({ ...inputValue, value: e.target.value })}
+
+                  type="text" id="chegirmamiqdori" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chegirma miqdori(%)" required />
               </div>
               <div>
-                <label for="boshsana" class="block mb-2 text-sm font-medium text-gray-900 ">Boshlanish sana</label>
-                <input type="datetime-local" id="boshsana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+                <label for="boshsana" className="block mb-2 text-sm font-medium text-gray-900 ">Boshlanish sana</label>
+                <input
+                  onChange={(e) => setInputValue({ ...inputValue, start_date: e.target.value })}
+                  type="datetime-local" id="boshsana" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
               </div>
               <div>
-                <label for="tugashsana" class="block mb-2 text-sm font-medium text-gray-900 ">Tugash sana</label>
-                <input type="datetime-local" id="tugashsana" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+                <label for="tugashsana" className="block mb-2 text-sm font-medium text-gray-900 ">Tugash sana</label>
+                <input
+                  onChange={(e) => setInputValue({ ...inputValue, end_date: e.target.value })}
+                  type="datetime-local" id="tugashsana" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
               </div>
+
+
+
               <div>
                 <label htmlFor="direction" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot Yunalishi</label>
                 <select id="direction" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleDirectionChange}>
@@ -109,42 +151,61 @@ const AddProduct = ({ object }) => {
                   <option value="CUSTOM">Tanlanganlar</option>
                 </select>
               </div>
-              <div>
-                <label htmlFor="subCategory" className="block mb-2 text-sm font-medium text-gray-900">Ichki kategoriya tanlang</label>
-                <select id="subCategory" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  {
-                    subData?.map((value) => {
-                      return (
-                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
-                      )
-                    })
-                  }
-                </select>
+              <div className='flex justify-center flex-col gap-1'>
+                <label htmlFor="statusCheckbox" className="">Status</label>
+                <div>
+                  <input
+                    type="checkbox"
+                    id="statusCheckbox"
+                    checked={inputValue.is_active}
+                    onChange={handleCheckboxChange}
+                  />
+                </div>
               </div>
               <div>
-                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900">Kategoriya tanlang</label>
-                <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  {
-                    data?.map((value) => {
-                      return (
-                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
-                      )
-                    })
-                  }
+                <label htmlFor="category-select" className="block mb-2 text-sm font-medium text-gray-900">Kategoriya tanlang</label>
+                <select
+                  id="category-select"
+                  multiple
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  onChange={(e) => handleSelectionChange('category', e)}
+                >
+                  {data?.map((value) => (
+                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                  ))}
                 </select>
               </div>
+
+              {/* Category Select */}
               <div>
-                <label htmlFor="product" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot tanlash</label>
-                <select id="product" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                  {
-                    productData?.map((value) => {
-                      return (
-                        <option value={value.title} disabled={direction === 'ALL'}>{value.title}</option>
-                      )
-                    })
-                  }
+                <label htmlFor="subcategory-select" className="block mb-2 text-sm font-medium text-gray-900">Ichki kategoriya tanlang</label>
+                <select
+                  id="subcategory-select"
+                  multiple
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  onChange={(e) => handleSelectionChange('subcategory', e)}
+                >
+                  {subData?.map((value) => (
+                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                  ))}
                 </select>
               </div>
+
+              {/* Products Select */}
+              <div>
+                <label htmlFor="products-select" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot tanlash</label>
+                <select
+                  id="products-select"
+                  multiple
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  onChange={(e) => handleSelectionChange('products', e)}
+                >
+                  {productData?.map((value) => (
+                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                  ))}
+                </select>
+              </div>
+
 
 
             </div>

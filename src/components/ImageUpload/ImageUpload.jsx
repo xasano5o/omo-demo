@@ -12,7 +12,7 @@
 
   }) {
     const [errorMessage, setErrorMessage] = useState(null);
-    const [thumbnail_image, setImage] = useState(null);
+    const [image, setImage] = useState(null);
     const handleImageChange = (e) => {
       const file = e.target.files[0];
       setInputValue({ ...inputValue, [LabelFor]: file })
@@ -35,14 +35,14 @@
           {title}
         </label>
         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-3">
-          {thumbnail_image ? (
+          {image ? (
             <label htmlFor={LabelFor}>
-              <img src={thumbnail_image} alt="rasm" className="h-24 object-contain" />
+              <img src={image} alt="rasm" className="h-24 object-contain" />
               <input
         
                 id={LabelFor}
                 name={LabelFor}
-                accept="thumbnail_image/*"
+                accept="image/*"
                 type="file"
                 className="sr-only"
                 onChange={handleImageChange}

@@ -24,7 +24,7 @@ const AddSubCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('thumbnail_image', inputValue.img);
+    formData.append('image', inputValue.img);
     formData.append('category', inputValue.subcategory);
 
     try {
@@ -60,7 +60,7 @@ const AddSubCategories = () => {
                   <option value="Hech Biri">Hech Biri</option>
                   {data.map((value) => {
                     return (
-                      <option value={value.id}>{value.title}</option>
+                      <option value={value.slug}>{value.title}</option>
                     )
                   })}
                 </select>
