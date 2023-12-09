@@ -8,9 +8,10 @@ import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduc
 import ViewProduct from './ViewParent.jsx';
 import UpdateProduct from './Update.jsx';
 import AddImgUpload from './ImgUpload.jsx';
+import { useGetDiscountQuery } from '../../../redux/slice/client/discount/index.js';
 
 const DiscountTbale = () => {
-    const { data, error, isLoading } = useGetProductCatgoriQuery();
+    const { data, error, isLoading } = useGetDiscountQuery();
 
     const [search, setSearch] = useState('');
     const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
@@ -37,9 +38,9 @@ const DiscountTbale = () => {
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Maxsulot rasm</th>
-                                        <th scope="col" className="p-4">Maxsulot Kategoriyasi</th>
-                                        <th scope="col" className="p-4">Maxsulot Narxi</th>
+                                        <th scope="col" className="p-4">Chegirma nomi</th>
+                                        <th scope="col" className="p-4">Chegirma turi </th>
+                                        <th scope="col" className="p-4">Boshlanish vaqti</th>
                                         <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>
                                         <th scope="col" className="p-4"></th>
 
@@ -54,49 +55,25 @@ const DiscountTbale = () => {
                                         ) : filteredData?.length > 0 ? (
                                             filteredData?.map((item) => {
 
-                                                const dateObject = new Date(item.created_date);
+                                                const dateObject = new Date(item.start_date);
+                                                const dateObject1 = new Date(item.end_date);
 
                                                 const options = { hour12: false };
                                                 const formattedDate = dateObject.toLocaleString('en-US', options);
+                                                const formattedDate2 = dateObject1.toLocaleString('en-US', options);
+
+                                                
 
                                                 return (
                                                     <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                            <div className="flex items-center mr-3 ">
-                                                                {item?.image && item?.thumbnail_image !== "" ? (
-                                                                    <div className='flex  gap-2 items-center'>
-                                                                        <img
-                                                                            src={item?.thumbnail_image}
-                                                                            alt="item"
-                                                                            className="h-12 w-12 flex-none  rounded-full border object-cover"
-                                                                        />
-                                                                        <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded ">
-                                                                            {item?.title}
-                                                                        </span>
-                                                                    </div>
-
-                                                                ) : (
-                                                                    <div className="w-12 h-12 rounded-full border bg-gray-200 flex justify-center items-center">
-                                                                        <img
-                                                                            className="h-12 w-12 flex-none rounded-full border object-cover"
-                                                                            src={NoProduct}
-                                                                            alt="product"
-                                                                        />
-
-                                                                    </div>
-                                                                )}
-                                                            </div>
+                                                            <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
+                                                                {item?.title}
+                                                            </span>
                                                         </th>
                                                         <td className="px-4 py-3">
                                                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                                                                {item?.category?.title}
-                                                            </span>
-                                                        </td>
-                                                        <td className="px-4 py-3">
-                                                            <span
-                                                                className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                                                            >
-                                                                {item.price} So'm
+                                                                {item?.products_status=== 'ALL' ? 'Barcha maxsulot chegirma'  :'Bazi bir maxsulotga'}
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-3">
@@ -106,10 +83,17 @@ const DiscountTbale = () => {
                                                                 {formattedDate}
                                                             </span>
                                                         </td>
+                                                        <td className="px-4 py-3">
+                                                            <span
+                                                                className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                                                            >
+                                                                {formattedDate2}
+                                                            </span>
+                                                        </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <ViewProduct object={item} />
-                                                                <AddImgUpload ID={item.id} />
+                                                                {/* <ViewProduct object={item} /> */}
+                                                                {/* <AddImgUpload ID={item.id} /> */}
                                                                 <UpdateProduct object={item} />
                                                                 <DeleteCategorie ID={item.id} />
                                                             </div>

@@ -37,7 +37,6 @@ const AddProduct = ({ object }) => {
 
   const [direction, setDirection] = useState('ALL');
   const [isDisabled, setIsDisabled] = useState(false);
-  console.log(direction, 'direction');
   useEffect(() => {
     if (direction === 'ALL') {
       setIsDisabled(true);
@@ -171,7 +170,7 @@ const AddProduct = ({ object }) => {
                   onChange={(e) => handleSelectionChange('category', e)}
                 >
                   {data?.map((value) => (
-                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value?.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -186,7 +185,7 @@ const AddProduct = ({ object }) => {
                   onChange={(e) => handleSelectionChange('subcategory', e)}
                 >
                   {subData?.map((value) => (
-                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -201,7 +200,7 @@ const AddProduct = ({ object }) => {
                   onChange={(e) => handleSelectionChange('products', e)}
                 >
                   {productData?.map((value) => (
-                    <option disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>

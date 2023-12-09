@@ -11,8 +11,6 @@ export default function DeleteCategorie({ ID, }) {
     const [deleteTeacher, { isLoading }] = useDeleteCategorieMutation();
 
     const handleDelete = async (ID) => {
-
-        console.log(ID,'id');
         try {
             await deleteTeacher({ ID });
             toast.success("Categorie o'chirildi!");

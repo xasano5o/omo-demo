@@ -4,7 +4,6 @@ import { AiOutlineEye } from "react-icons/ai";
 import { FaUserTie } from "react-icons/fa";
 
 export default function View({ object }) {
-    console.log(object,'object');
   const [open, setOpen] = useState(false);
   const onClose = () => setOpen(!open);
   return (

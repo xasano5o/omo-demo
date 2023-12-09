@@ -75,7 +75,7 @@ const AddSubCategories = () => {
             </div>
             <div>
               <ImageUpload
-                title={'Image'}
+                title={'image'}
                 iconName={<MdOutlineInsertPhoto className="text-5xl" />}
                 iconTitle={'Upload Image'}
                 fileType={'PNG, JPG, JPEG up to 5MB'}

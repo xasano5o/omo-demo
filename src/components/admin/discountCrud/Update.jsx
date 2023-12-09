@@ -9,7 +9,6 @@ import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory'
 import { BiEdit } from 'react-icons/bi';
 
 const UpdateProduct = ({object}) => {
-  console.log(object,'object');
   // state
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
