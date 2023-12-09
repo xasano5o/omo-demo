@@ -22,8 +22,8 @@ const Sidebar = () => {
                   navigate(`/categories/${value?.slug}`);
                 }}
               >
-                <div class="w-full text-black">
-                  <button type="button" class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 shadow-md rounded-t-lg hover:bg-gray-100">
+                <div className="w-full text-black">
+                  <button type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 shadow-md rounded-t-lg hover:bg-gray-100">
                     <img
                       className="rounded-full w-10 object-cover h-10 border-gray-300"
                       src={value?.thumbnail_image}

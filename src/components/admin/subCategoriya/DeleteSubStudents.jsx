@@ -13,10 +13,10 @@ export default function DeleteSubCategorie({ ID, }) {
     const handleDelete = async (id) => {
         try {
             await deleteTeacher({ id });
-            toast.success("Categorie o'chirildi!");
+            toast.success("Ichki Categorie o'chirildi!");
             setIsOpen(false);
         } catch (err) {
-            toast.error("Categorie o'chirishda xatolik:", err);
+            toast.error("Ichki Categorie o'chirishda xatolik:", err);
         }
     };
 

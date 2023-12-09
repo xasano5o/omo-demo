@@ -24,7 +24,7 @@ const AddSubCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('thumbnail_image', inputValue.img);
+    formData.append('image', inputValue.img);
     formData.append('category', inputValue.subcategory);
 
     try {
@@ -75,7 +75,7 @@ const AddSubCategories = () => {
             </div>
             <div>
               <ImageUpload
-                title={'Image'}
+                title={'image'}
                 iconName={<MdOutlineInsertPhoto className="text-5xl" />}
                 iconTitle={'Upload Image'}
                 fileType={'PNG, JPG, JPEG up to 5MB'}

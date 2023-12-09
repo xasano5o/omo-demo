@@ -6,13 +6,15 @@ import DeleteSubCategorie from './DeleteSubStudents';
 import UpdateSubCategories from './UpdateSubCategorie';
 import AddSubCategories from './AddSubCategories';
 import NoProduct from "../../../assest/icon/Без названия.png"
+import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 
 const SubcategorieCom = () => {
 
+    const { data: catergorsubtable } = useGetCategoryQuery();
     const { data, isLoading, refetch } = useGetSubCategoryQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
-
+    console.log(data, "tablesub");
 
     return (
         <div className=" ">
@@ -33,12 +35,12 @@ const SubcategorieCom = () => {
                         </div>
                         <br />
                         <div className="overflow-x-auto  h-[80vh] ">
-                            <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className=" text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" className="p-4">SubKategoriya rasmi</th>
                                         <th scope="col" className="p-4">SubKategoriya Nomi</th>
-                                        <th scope="col" className="p-4"></th>
+                                        <th scope="col" className="p-4">Katta Kategory Nomi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,10 +77,11 @@ const SubcategorieCom = () => {
                                                                 {item?.title}
                                                             </span>
                                                         </td>
+                                                  
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <UpdateSubCategories item={item} />
-                                                                <DeleteSubCategorie />
+                                                                <DeleteSubCategorie ID={item.id} />
                                                             </div>
                                                         </td>
                                                     </tr>

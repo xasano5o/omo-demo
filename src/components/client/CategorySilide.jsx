@@ -11,11 +11,11 @@ export const CategorySilide = () => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items:7,
+      items: 7,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 4,
+      items: 3,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -25,11 +25,11 @@ export const CategorySilide = () => {
   const { data, isLoading, isError, isSuccess } = useGetCategoryQuery();
   console.log(data);
   return (
-    <div className="mt-5">
+    <div className="mt-5 container mx-auto">
       <h1 className="">Mahsulotlar Kategoriyasi</h1>
       {data ? (
         <Carousel
-        itemclassName="slideitem"
+          itemclassName="slideitem"
           sliderclassName="SliderclassNameCustom"
           responsive={responsive}
           infinite={true}
@@ -39,11 +39,11 @@ export const CategorySilide = () => {
           {data?.map((item) => {
             return (
               <div>
-                <div className="mt-12" style={{ width: "150px", height:"200px"}}>
+                <div className="mt-12" style={{ width: "150px", height: "200px" }}>
                   <img
                     src={item?.thumbnail_image}
                     className="card-img-top rounded-circle"
-                    style={{height:"128px", width:"128px", objectFit:"cover"}}
+                    style={{ height: "128px", width: "128px", objectFit: "cover" }}
                     alt={item?.title}
                   />
                   <div className="card-body">
