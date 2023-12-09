@@ -42,6 +42,14 @@ export  const SidebarAdmin = [
         icon:<MdOutlineShoppingBag  />
 
     },
+    {
+      id: 3,
+      title: 'Order',
+      path: '/discount',
+      element: 'sdasa',
+      icon:<MdOutlineShoppingBag  />
+
+  },
 ]
 
 

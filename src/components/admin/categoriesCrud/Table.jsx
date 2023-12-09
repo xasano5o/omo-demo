@@ -3,7 +3,6 @@ import AddCategories from './addCategories';
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import NoProduct from "../../../assest/icon/Без названия.png"
 import DeleteCategorie from './DeleteStudents';
-import UpdateCategories from './UpdateCategorie';
 import EmptyBox from '../../EmptyBox/EmptyBox';
 import Loader from "../../Loader/Loader"
 const ProductCrud = () => {
@@ -76,7 +75,7 @@ const ProductCrud = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <UpdateCategories item={item} />
+                                                                <ww item={item} />
                                                                 <DeleteCategorie  ID= {item.id}/>
                                                             </div>
                                                         </td>
