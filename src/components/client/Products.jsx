@@ -74,7 +74,7 @@ function Products() {
                                 <div className="col-6 col-md-3  col-lg-3 mb-1" key={product?.id}>
                                     <div className="card h-100">
                                         <NavLink to={`/product/${product?.id}`}>
-                                            <img src={product?.thumbnail_image} className="" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
+                                            <img src={product?.image} className="" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
 
                                         </NavLink>
                                         <div className="m-3 mb-0">

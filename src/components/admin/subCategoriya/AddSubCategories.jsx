@@ -18,7 +18,7 @@ const AddSubCategories = () => {
   const [inputValue, setInputValue] = useState({
     name: '',
     img: '',
-    subcategory:""
+    subcategory: ""
   });
 
   const addData = async () => {
@@ -48,23 +48,23 @@ const AddSubCategories = () => {
         type="button"
         className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
-  +
-         Kategoriya
+        +
+        Kategoriya
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className="flex flex-col gap-3">
-          <div className='flex flex-col '>
-                <label htmlFor="">Kategorie Tanlang</label>
-                <select  onChange={(e) => setInputValue({...inputValue,subcategory:e.target.value})}   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option value="Hech Biri">Hech Biri</option>
-                  {data.map((value) => {
-                    return (
-                      <option value={value.id}>{value.title}</option>
-                    )
-                  })}
-                </select>
-              </div>
+            <div className='flex flex-col '>
+              <label htmlFor="">Kategorie Tanlang</label>
+              <select onChange={(e) => setInputValue({ ...inputValue, subcategory: e.target.value })} className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="Hech Biri">Hech Biri</option>
+                {data.map((value) => {
+                  return (
+                    <option value={value.id}>{value.title}</option>
+                  )
+                })}
+              </select>
+            </div>
             <div>
               <label>Kategoriya Name:</label>
               <input

@@ -22,7 +22,7 @@ const AddCategories = () => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
-    formData.append('thumbnail_image', inputValue.img);
+    formData.append('image', inputValue.img);
 
     try {
       await createCategoria(formData).unwrap();

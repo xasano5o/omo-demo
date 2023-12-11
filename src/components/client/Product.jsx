@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
-import { useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
+import { useGetProductCatgoriQuery, useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
 import { IoArrowBack } from "react-icons/io5";
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function Product() {
     const { id } = useParams();
@@ -12,6 +14,7 @@ function Product() {
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
     // setProduct(product_object);
     console.log(isLoading);
+    console.log(product, "images")
     // console.log(product_object ,"salom");
     const [rotate, setRotate] = useState(false);
     const [count, setCount] = useState(1);
@@ -100,18 +103,18 @@ function Product() {
             <>
                 <section className="py-10 font-poppins dark:bg-gray-800">
                     <Link to={"/"} className='no-underline'>
-                    
-                            <h1 className="text-gray-600 text-xl flex items-center dark:text-gray-400">
-                        <IoArrowBack /> 
-                              Ortga
-                            </h1>
+
+                        <h1 className="text-gray-600 text-xl flex items-center dark:text-gray-400">
+                            <IoArrowBack />
+                            Ortga
+                        </h1>
                     </Link>
                     <div className="max-w-6xl px-4 mx-auto">
                         <div className="flex flex-wrap mb-24 -mx-4">
                             <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
                                 <div className="sticky top-0 overflow-hidden ">
-                                    <div className="relative mb-6 lg:mb-10 lg:h-96">
-                                        <a className="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
+                                    <div className="relative mb-6 lg:mb-10 lg:h-[60vh]">
+                                        {/* <a className="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-left dark:text-blue-200" viewBox="0 0 16 16">
                                                 <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z">
                                                 </path>
@@ -124,30 +127,20 @@ function Product() {
                                                 <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
                                                 </path>
                                             </svg>
-                                        </a>
+                                        </a> */}
+                                        <Carousel
+                                            animationHandler={true}
+                                            infiniteLoop={true}
+                                        >
+                                            {product?.images.map((item, index) => (
+                                                <div key={index}>
+                                                    <img src={item?.image} alt={`Image ${index}`} />
+                                                </div>
+                                            ))}
+                                        </Carousel>
+
                                     </div>
-                                    <div className="flex-wrap hidden -mx-2 md:flex">
-                                        <div className="w-1/2 p-2 sm:w-1/4">
-                                            <a className="block border border-gray-200 hover:border-blue-400 dark:border-gray-700 dark:hover:border-blue-300" href="#">
-                                                <img className="object-contain w-full lg:h-28" src={product?.image} alt="" />
-                                            </a>
-                                        </div>
-                                        <div className="w-1/2 p-2 sm:w-1/4">
-                                            <a className="block border border-gray-200 hover:border-blue-400 dark:border-gray-700 dark:hover:border-blue-300" href="#">
-                                                <img className="object-contain w-full lg:h-28" src={product?.image} alt="" />
-                                            </a>
-                                        </div>
-                                        <div className="w-1/2 p-2 sm:w-1/4">
-                                            <a className="block border border-gray-200 hover:border-blue-400 dark:border-gray-700 dark:hover:border-blue-300" href="#">
-                                                <img className="object-contain w-full lg:h-28" src={product?.image} alt="" />
-                                            </a>
-                                        </div>
-                                        <div className="w-1/2 p-2 sm:w-1/4">
-                                            <a className="block border border-gray-200 hover:border-blue-400 dark:border-gray-700 dark:hover:border-blue-300" href="#">
-                                                <img className="object-contain w-full lg:h-28" src={product?.image} alt="" />
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                             <div className="w-full px-4 md:w-1/2">
@@ -193,7 +186,7 @@ function Product() {
                                                     </path>
                                                 </svg>
                                             </button>
-                                            
+
                                         </div>
                                         <Link to="#" className="w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600 dark:hover:bg-gray-900 dark:text-gray-400 dark:border-gray-700 dark:bg-gray-700 hover:bg-blue-600 hover:text-gray-100 lg:w-1/2 rounded-xl">
                                             Add to cart
