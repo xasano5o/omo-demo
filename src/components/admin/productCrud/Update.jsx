@@ -30,7 +30,7 @@ const UpdateProduct = ({object}) => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    formData.append('thumbnail_image', inputValue.img);
+    formData.append('image', inputValue.img);
     formData.append('description', inputValue.description);
     formData.append('price', inputValue.price);
     formData.append('amount', inputValue.amount);

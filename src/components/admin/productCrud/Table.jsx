@@ -66,7 +66,7 @@ const ProductCrud = () => {
                                                                 {item?.image && item?.image !== "" ? (
                                                                     <div className='flex  gap-2 items-center'>
                                                                         <img
-                                                                            src={item?.thumbnail_image}
+                                                                            src={item?.image}
                                                                             alt="item"
                                                                             className="h-12 w-12 flex-none  rounded-full border object-cover"
                                                                         />

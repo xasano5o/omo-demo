@@ -26,7 +26,7 @@ const Sidebar = () => {
                   <button type="button" className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-gray-200 shadow-md rounded-t-lg hover:bg-gray-100">
                     <img
                       className="rounded-full w-10 object-cover h-10 border-gray-300"
-                      src={value?.thumbnail_image}
+                      src={value?.image}
                       alt="as"
                     />
                     <span className="ml-2">{value?.title}</span>

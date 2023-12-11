@@ -63,7 +63,7 @@
                   <input
                     id={LabelFor}
                     name={LabelFor}
-                    accept="thumbnail_image/*"
+                    accept="image/*"
                     type="file"
                     className="sr-only"
                     onChange={handleImageChange}
