@@ -25,9 +25,9 @@ export const GetProducts = createApi({
             }),
             invalidatesTags: ["Product"],
         }),
-        createProduct: build.mutation({
+        createBasket: build.mutation({
             query: (body) => ({
-                url: `products/`,
+                url: `basket/`,
                 method: "POST",
                 body,
             }),
@@ -48,7 +48,7 @@ export const {
     useGetProductQuery,
     useGetProductIdQuery,
     useGetProductCatgoriQuery,
-    useCreateProductMutation,
+     useCreateBasketMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
 } = GetProducts;

@@ -10,13 +10,13 @@ import { BiEdit } from 'react-icons/bi';
 
 const UpdateProduct = ({object}) => {
   // state
-  const [open, setOpen] = useState(false);
+  const [skip, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
 
   // redux
   const [updateProduct, { isLoading: isCreating }] = useUpdateProductMutation();
-  const { data, isLoading, refetch } = useGetCategoryQuery();
-  const { data:subData } = useGetSubCategoryQuery()
+  const { data, isLoading, refetch } = useGetCategoryQuery({skip});
+  const { data:subData } = useGetSubCategoryQuery({skip})
 
 
 
@@ -38,8 +38,6 @@ const UpdateProduct = ({object}) => {
     formData.append('category', inputValue.category);
     formData.append('subcategory', inputValue.subcategory);
     formData.append('id', inputValue.id);
-
-
     try {
       await updateProduct(formData).unwrap();
       toast.success(`Maxsulot ${inputValue.title} o'zgartirildi `);
@@ -63,7 +61,7 @@ const UpdateProduct = ({object}) => {
       >
         <BiEdit size={20} className="text-md" aria-hidden="true" />
       </button>
-      {open && (
+      {skip && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className='grid grid-cols-2 gap-3 '>
           

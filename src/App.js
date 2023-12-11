@@ -25,10 +25,12 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path='basket' element={<Basket />} />
         <Route path="/admin" element={<Login />} />
+
         <Route element={<Layout />}>
           <Route path="/admin/home" element={<ProductTable />} />
           <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
           <Route path="/admin/dashbord" element={<ProductTable />} />
+          <Route path="/admin/order" element={<ProductTable />} />
           <Route path="/admin/discount" element={<DiscountTbale />} />
           <Route path="/admin/categorie" element={<CategoriesCrud />} />
           <Route path="/admin/product" element={<ProductCrud />} />

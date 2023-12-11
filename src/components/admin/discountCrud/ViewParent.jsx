@@ -2,10 +2,33 @@ import React, { useState } from "react";
 import Modal from "../../generic/Modal";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaUserTie } from "react-icons/fa";
+import { data } from "autoprefixer";
+import EmptyBox from "../../EmptyBox/EmptyBox";
 
 export default function View({ object }) {
   const [open, setOpen] = useState(false);
   const onClose = () => setOpen(!open);
+
+
+  const formatDate = (dateString) => {
+    const options = {
+      hour12: false,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    };
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleString('en-US', options);
+  };
+
+  // Ushbu qismda object.start_date ni formatlangan holda chiqaramiz
+  const formattedStartDate = object.start_date ? formatDate(object.start_date) : '';
+  const formattedStartDate2 = object.end_date ? formatDate(object.end_date) : '';
+
+
   return (
     <div>
       <button
@@ -18,60 +41,63 @@ export default function View({ object }) {
       </button>
       {open && (
         <Modal closeModal={onClose} actionType="view">
-          <div className="w-[50vw] p-4">
+          <div className="w-[80vw] p-4">
             <div className="flex w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
+
               <div className="md:w-1/3 sm:w-full sx:w-full p-2 h-full">
-                {/* Left column for avatar, etc. */}
-                <div className="bg-white rounded-lg gap-2 shadow-lg border p-4 flex items-center flex-col justify-center">
-                  {object?.image && object.image !== "" ? (
-                    <img
-                      src={object.image}
-                      alt="avatar"
-                      className="mx-auto rounded-full w-40 h-40 object-cover"
-                    />
-                  ) : (
-                    <div className="w-40 h-40 rounded-full border bg-gray-200 flex justify-center items-center">
-                      <FaUserTie className="text-7xl text-primary" />
-                    </div>
-                  )}
-
-                  <h2 className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                    {object.title}
-                  </h2>
-                  <h2 className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                    {object.price} So'm
-                  </h2>
-
+                <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
+                  {
+                    object?.products.length > 0 ?
+                      object?.products?.map((value) => {
+                        return (
+                          <div className="object-contain ">
+                            <img className="shadow border border-black p-1 " src={value.image || 'defaultImagePath.jpg'} alt="" />
+                          </div>
+                        )
+                      }) : <p className="text-gray-800 ">Maxsulot Rasmlari yuq</p>
+                  }
                 </div>
               </div>
               <div className="d:w-2/3 sm:w-full sx:w-full p-2 h-full">
                 <div className="bg-white rounded-lg shadow-lg border p-4 text-gray-800   ">
                   <h2 className="text-xl mb-2">Barcha malumotlar</h2>
                   <p>
-                    <strong >Maxsulot nomi:</strong> {object.title}
+                    <strong >Chegirmani nomi:    </strong>  {object.title}
                   </p>
                   <p>
-                    <strong>Kategoriyasi:</strong> {object?.category.title}
+                    <strong>Chegirma boshlanish vaqti: &nbsp; </strong> {formattedStartDate || 'malumot kiritilmagan'}
                   </p>
                   <p>
-                    <strong>Narxi:</strong> {object.price}
+                    <strong>Chegirma tugash vaqti:</strong>&nbsp; {formattedStartDate2}
                   </p>
                   <p>
-                    <strong>Qo'shilgan Vaqti:</strong> {object.created_date}
+                    <strong>Chegirma Turi:</strong> {object.products_status === 'ALL' ? 'Barcha maxsulot chegirma' : 'Bazi bir maxsulotga'}
                   </p>
                   <p>
-                    <strong>Miqdori:</strong> {object.amount}
+                    <strong>Chegirma Foizi: &nbsp; </strong> {object.value || 'malumot kiritilmagan'}
+                    % </p>
+                  <p>
+                    <strong>kategoriya:</strong> {object?.category?.map((value) => {
+                      return (
+                        <span>  {value.title || 'yuq'} / </span>
+                      )
+                    })}
                   </p>
                   <p>
-                    <strong>O'lchovi:</strong> {object.amount_measure || 'Hali belgilanmadi'}
+                    <strong>ichki kategoriya:</strong> {
+                      object.subcategory.length > 0 ?
+                        object?.subcategory?.map((value) => {
+                          return (
+                            <span>  {value.title || `yo'q`} / </span>
+                          )
+                        }) : `yo'q`
+                    }
                   </p>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h1 className="text-black">descriptaion</h1>
-            </div>
+
           </div>
         </Modal>
       )}

@@ -2,10 +2,46 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
+import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
+import { useGetUserTokenQuery, useTokenChecUserMutation } from '../../redux/slice/client/auth/useGetToken.js';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
+    const { createBasket } = useCreateBasketMutation()
     const [filter, setFilter] = useState(product);
+    const [tokenChecUser] =useTokenChecUserMutation()
+   
+    const [shouldFetchToken, setShouldFetchToken] = useState(false);
+    const { data } = useGetUserTokenQuery(shouldFetchToken);
+  
+    useEffect(() => {
+        const userToken = localStorage.getItem('user_token');
+        if (!userToken) {
+          setShouldFetchToken(true);
+        } else if (!data?.access_token && userToken) {
+          // Agar data'da access_token yo'q, lekin localStorage'da token mavjud bo'lsa, tokenChecUser so'rovini yuboramiz
+          tokenChecUser();
+        }
+      }, [data, tokenChecUser]);
+    const addData = async (id) => {
+        console.log(id, 'product');
+        // const formData = new FormData();
+        // formData.append('title', inputValue.name);
+        // formData.append('image', inputValue.img);
+
+        try {
+            //   await createBasket(formData).unwrap();
+            //   toast.success(`Category ${inputValue.name} added successfully`);
+            //   setInputValue({
+            //     name: '',
+            //     img: '',
+            //   });
+        } catch (error) {
+            //   toast.error(`Failed to add category ${inputValue.name}`);
+            //   console.error('Error creating category:', error);
+        }
+    };
+
 
     useEffect(() => {
         setFilter(product);
@@ -79,12 +115,12 @@ function Products() {
                                         <div className="m-3 mb-0">
                                             <small className="card-title">{product?.title}</small>
                                         </div>
-                                        
+
                                         <div style={{ marginTop: "auto" }}>
-                                            
+
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="m-3"><b>${product?.price}</b></div>
-                                          
+
                                                 <NavLink className="" to={`/product/${product?.id}`}>
                                                     <button className="btn btn-sm m-3 border-primary">
                                                         <i className="fa fa-arrow-right text-muted"></i>
@@ -92,11 +128,11 @@ function Products() {
 
                                                 </NavLink>
                                             </div>
-                                  
+
                                         </div>
-                                        <button className="btn btn-sm m-3 border-primary">
-                                                    Add To Cart
-                                                </button>
+                                        <button onClick={() => addData(product.id)} className="btn btn-sm m-3 border-primary">
+                                            Add To Cart
+                                        </button>
                                     </div>
                                 </div>
                             );

@@ -4,29 +4,20 @@ import Modal from '../../generic/Modal';
 import { toast } from 'react-toastify';
 import {  useGetProductQuery } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
-import { useCreateDiscountMutation,  } from '../../../redux/slice/client/discount';
+import {  useUpdateDiscountMutation } from '../../../redux/slice/client/discount';
+import { BiEdit } from 'react-icons/bi';
 
-const AddProduct = ({ object }) => {
+const UpdateDiscount = ({ object }) => {
   // state
   const [skip, setOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    title: '',
-    value: '',
-    start_date: '',
-    end_date: '',
-    products_status: '',
-    product: '',
-    products: [],
-    category: [],
-    subcategory: [],
-  });
+  const [inputValue, setInputValue] = useState(object);
 
   // redux
-  const [createDiscount, { isLoading: isCreating }] = useCreateDiscountMutation();
-  const { data, isLoading, refetch } = useGetCategoryQuery(    { skip });
-  const { data: subData } = useGetSubCategoryQuery(    { skip })
-  const { data: productData } = useGetProductQuery(    { skip })
+  const [updateDiscount, { isLoading: isCreating }] = useUpdateDiscountMutation();
+  const { data, isLoading, refetch } = useGetCategoryQuery({ skip });
+  const { data: subData } = useGetSubCategoryQuery({ skip })
+  const { data: productData } = useGetProductQuery({ skip })
 
 
 
@@ -50,63 +41,62 @@ const AddProduct = ({ object }) => {
   };
 
   // post data
-const addData = async () => {
-  const formData = new FormData();
-  formData.append('title', inputValue.title);
-  formData.append('value', inputValue.value);
-  formData.append('is_active', isChecked);
-  formData.append('start_date', inputValue.start_date);
-  formData.append('end_date', inputValue.end_date);
-  formData.append('products_status', direction);
+  const addData = async () => {
+    const formData = new FormData();
+    formData.append('id', inputValue.id)
+    formData.append('title', inputValue.title);
+    formData.append('value', inputValue.value);
+    formData.append('is_active', isChecked);
+    formData.append('start_date', inputValue.start_date);
+    formData.append('end_date', inputValue.end_date);
+    formData.append('products_status', direction);
 
-  if (direction === 'CUSTOM') {
-    if (inputValue.products.length > 0) {
-      inputValue.products.forEach(product => {
-        formData.append('products', product);
-      });
+    if (direction === 'CUSTOM') {
+      if (inputValue.products.length > 0) {
+        inputValue.products.forEach(product => {
+          formData.append('products', product);
+        });
+      }
+      if (inputValue.category.length > 0) {
+        inputValue.category.forEach(category => {
+          formData.append('category', category);
+        });
+      }
+      if (inputValue.subcategory.length > 0) {
+        inputValue.subcategory.forEach(subcat => {
+          formData.append('subcategory', subcat);
+        });
+      }
     }
-    if (inputValue.category.length > 0) {
-      inputValue.category.forEach(category => {
-        formData.append('category', category);
-      });
+    try {
+      const response = await updateDiscount(formData).unwrap();
+      toast.success(`Chegirma '${inputValue.title}' O'zgartirildi`);
+      // Foydalanuvchi interfeysini yangilash
+      setInputValue({ ...inputValue, title: '', products: [], category: [], subcategory: [] });
+      setOpen(false);
+    } catch (error) {
+      toast.error(`O'zgartirildi '${inputValue.title}'`);
+      console.error('Error creating category:', error);
     }
-    if (inputValue.subcategory.length > 0) {
-      inputValue.subcategory.forEach(subcat => {
-        formData.append('subcategory', subcat);
-      });
-    }
-  }
+  };
 
-  try {
-    const response = await createDiscount(formData).unwrap();
-    toast.success(`Category '${inputValue.title}' added successfully`);
-    // Foydalanuvchi interfeysini yangilash
-    setInputValue({ ...inputValue, title: '', products: [], category: [], subcategory: [] });
-    setOpen(false);
-  } catch (error) {
-    toast.error(`Failed to add category '${inputValue.title}'. Error: ${error.message}`);
-    console.error('Error creating category:', error);
-  }
-};
+  const handleSelectionChange = (field, event) => {
+    const selectedOptions = event.target.selectedOptions;
+    const selectedData = Array.from(selectedOptions).map(option => option.value);
+    setInputValue({ ...inputValue, [field]: selectedData });
+  };
 
-const handleSelectionChange = (field, event) => {
-  const selectedOptions = event.target.selectedOptions;
-  const selectedData = Array.from(selectedOptions).map(option => option.value);
-  setInputValue({ ...inputValue, [field]: selectedData });
-};
-
-const handleCheckboxChange = () => {
-  setIsChecked(!isChecked);
-};
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   return (
     <div>
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="inline-flex w-[70px] h-[35px] justify-center items-center rounded-full bg-blue-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400"
       >
-        +
-        Maxsulot
+        <BiEdit size={20} className="text-md" aria-hidden="true" />
       </button>
       {skip && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
@@ -117,6 +107,7 @@ const handleCheckboxChange = () => {
                 <label for="Name" className="block mb-2 text-sm font-medium text-gray-900 ">Nomi</label>
 
                 <input type="text" id="Name"
+                  value={inputValue.title}
                   onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Chegirma nomi" required />
@@ -125,37 +116,37 @@ const handleCheckboxChange = () => {
               <div>
                 <label for="chegirmamiqdori" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Chegirma miqdori</label>
                 <input
+                  value={inputValue.value}
                   onChange={(e) => setInputValue({ ...inputValue, value: e.target.value })}
-
                   type="text" id="chegirmamiqdori" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Chegirma miqdori(%)" required />
               </div>
               <div>
                 <label for="boshsana" className="block mb-2 text-sm font-medium text-gray-900 ">Boshlanish sana</label>
                 <input
+                  value={inputValue.start_date}
                   onChange={(e) => setInputValue({ ...inputValue, start_date: e.target.value })}
                   type="datetime-local" id="boshsana" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
               </div>
               <div>
                 <label for="tugashsana" className="block mb-2 text-sm font-medium text-gray-900 ">Tugash sana</label>
                 <input
+                  value={inputValue.end_date}
                   onChange={(e) => setInputValue({ ...inputValue, end_date: e.target.value })}
                   type="datetime-local" id="tugashsana" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
               </div>
 
-
-
               <div>
                 <label htmlFor="direction" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot Yunalishi</label>
                 <select id="direction" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleDirectionChange}>
-                  <option value="ALL">Hech biri</option>
                   <option value="ALL">Hammasi</option>
                   <option value="CUSTOM">Tanlanganlar</option>
                 </select>
               </div>
               <div className='flex justify-center flex-col gap-1'>
-                <label htmlFor="statusCheckbox" className="">Status</label>
+                <label htmlFor="statusCheckbox" className="text-gray-900">Status</label>
                 <div>
                   <input
+                    value={inputValue.is_active}
                     type="checkbox"
                     id="statusCheckbox"
                     checked={inputValue.is_active}
@@ -207,8 +198,6 @@ const handleCheckboxChange = () => {
                 </select>
               </div>
 
-
-
             </div>
           </form>
 
@@ -219,4 +208,4 @@ const handleCheckboxChange = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateDiscount;

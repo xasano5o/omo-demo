@@ -7,13 +7,14 @@ export const DiscountCrud = createApi({
     tagTypes: ["getDataDiscount"],
     endpoints: (build) => ({
         getDiscount: build.query({
-            query: (body) => "discounts/",
-            providesTags: ["getDataDiscount"],
+            query: (body) => "discounts/?products=true&category=true&subcategory",
+            providesTags: ["getDataDiscounts"],
         }),
-        getProductId: build.query({
+        getDiscoutTrue: build.query({
             query: (body) => ({
-                url: `discounts/${body.ID}`,
-                method: "POST",
+                url: `discounts/?products=true`,
+                providesTags: ["getDataDiscountTrue"],
+
             }),
             invalidatesTags: ["getDataDiscount"],
         }),
@@ -26,7 +27,7 @@ export const DiscountCrud = createApi({
             }),
             invalidatesTags: ["getDataDiscount"]
         }),
-        updateCategorie: build.mutation({
+        updateDiscount: build.mutation({
             query: (body) => ({
                 url: `discounts/${body.get("id")}/`,
                 method: "PATCH",
@@ -35,7 +36,7 @@ export const DiscountCrud = createApi({
             invalidatesTags: ["getDataDiscount"],
         }),
 
-        deleteCategorie: build.mutation({
+        deleteDiscount: build.mutation({
             query: (body) => ({
                 url: `discounts/${body.ID}/`,
                 method: "DELETE",
@@ -47,9 +48,9 @@ export const DiscountCrud = createApi({
 });
 
 export const {
-     useGetDiscountQuery,
-     useCreateDiscountMutation,
-    useGetProductIdQuery,
-    useDeleteCategorieMutation,
-    useUpdateCategorieMutation,
+    useGetDiscountQuery,
+    useCreateDiscountMutation,
+    useGetDiscoutTrueQuery,
+    useDeleteDiscountMutation,
+    useUpdateDiscountMutation,
 } = DiscountCrud;
