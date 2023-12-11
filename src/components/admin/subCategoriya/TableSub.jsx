@@ -14,7 +14,6 @@ const SubcategorieCom = () => {
     const { data, isLoading, refetch } = useGetSubCategoryQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
-    console.log(data, "tablesub");
 
     return (
         <div className=" ">

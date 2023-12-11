@@ -12,8 +12,10 @@ const Home = () => {
   const menus = [
     { name: "Dashboard", link: "/dashbord", icon: GoHome },
     { name: "Product", link: "/product", icon: MdOutlineDashboard },
+    { name: "Discount", link: "/discount", icon: TbReportAnalytics },
     { name: "Categorie", link: "/categorie", icon: TbReportAnalytics },
     { name: "Subcategorie", link: "/subcategorie", icon: TbReportAnalytics, margin: true },
+    
     { name: "Log out", link: "", icon: FaRegUser, margin: true },
 
   ];

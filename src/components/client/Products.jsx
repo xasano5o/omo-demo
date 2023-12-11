@@ -10,7 +10,6 @@ function Products() {
     useEffect(() => {
         setFilter(product);
     }, [product]);
-    console.log(product, "salom");
     const Loading = () => {
         return (
             <>

@@ -34,8 +34,10 @@ const AddProduct = ({object}) => {
     formData.append('price', inputValue.price);
     formData.append('amount', inputValue.amount);
     formData.append('amount_measure', inputValue.amount_measure);
-    formData.append('category', inputValue.category);
-    formData.append('subcategory', inputValue.subcategory);
+    formData.append('category', inputValue?.category);
+    if (inputValue.subcategory){
+      formData.append('subcategory', inputValue?.subcategory);
+    }
 
     try {
       await createProduct(formData).unwrap();
@@ -132,7 +134,7 @@ const AddProduct = ({object}) => {
                   <option value="Hech Biri">Hech Biri</option>
                   {data.map((value) => {
                     return (
-                      <option value={value.id}>{value.title}</option>
+                      <option value={value.slug}>{value.title}</option>
                     )
                   })}
                 </select>

@@ -16,7 +16,6 @@ const UpdateSubCategories = ({ item }) => {
   const { data,  refetch } = useGetCategoryQuery();
   const [updateSubCategorie, { isLoading }] = useUpdateSubCategorieMutation()
   const [inputValue, setInputValue] = useState(item);
-  console.log(inputValue?.id);
 
   const addData = async () => {
     const formData = new FormData();

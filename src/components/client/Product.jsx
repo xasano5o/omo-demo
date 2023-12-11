@@ -13,9 +13,6 @@ function Product() {
     const [loading, setLoading] = useState(false);
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
     // setProduct(product_object);
-    console.log(isLoading);
-    console.log(product, "images")
-    // console.log(product_object ,"salom");
     const [rotate, setRotate] = useState(false);
     const [count, setCount] = useState(1);
 
@@ -43,7 +40,6 @@ function Product() {
     //     getProduct();
 
     // }, [id]);
-    console.log(id, "id page id");
 
     const Loading = () => {
         return (
