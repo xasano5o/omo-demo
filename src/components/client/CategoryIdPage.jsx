@@ -12,7 +12,7 @@ const CategoryId = () => {
     console.log(id, "idpage");
 
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto mt-20'>
             <div className="col-md-13 py-md-3">
                 <div className="row">
                     {products?.map((product) => (

@@ -119,24 +119,29 @@ function Product() {
                         <div>
                             <div className="row">
                                 <div className="col-md-6">
-                                    <Carousel
-                                        className=''
-                                        animationHandler={true}
-                                        infiniteLoop={true}
-                                    >
-                                        {product?.images.map((item, index) => (
-                                            <div key={index} className=' md:h-96'>
-                                                <img src={item?.image} alt={`Image ${index}`} />
-                                            </div>
-                                        ))}
-                                    </Carousel>
+                                    {product?.images.length > 0 ? (
+                                        <Carousel
+                                            className=''
+                                            animationHandler={true}
+                                            infiniteLoop={true}
+                                        >
+                                            {product.images.map((item, index) => (
+                                                <div key={index} className='md:h-96'>
+                                                    <img src={item?.image} alt={`Image ${index}`} />
+                                                </div>
+                                            ))}
+                                        </Carousel>
+                                    ) : (
+                                        <h1>Mahsulot rasmlari hozircha yoq</h1>
+                                    )}
+
                                 </div>
                                 <div className="col-md-6">
                                     <div className="w-full border p-4 shadow-md">
                                         <div className="mt-4 mb-3">
-                                        <h5 className="text-uppercase">
+                                            <h5 className="text-uppercase">
                                                 {product.title}
-                                            </h5>   
+                                            </h5>
                                             <span className="text-muted text-capitalize">{product.category}</span>
                                             <div className="price d-flex flex-row align-items-center">
                                                 <big className="display-6"><b>{product?.price}</b></big>
