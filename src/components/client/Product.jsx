@@ -9,13 +9,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function Product() {
     const { id } = useParams();
-    // const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
-    // setProduct(product_object);
     const [rotate, setRotate] = useState(false);
     const [count, setCount] = useState(1);
-    console.log(product);
     const addCount = () => {
         setCount((prev) => prev + 1);
     };

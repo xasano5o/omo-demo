@@ -2,39 +2,42 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
-import { useGetUserTokenQuery, useTokenChecUserMutation } from '../../redux/slice/client/auth/useGetToken.js';
+import { useGetUserTokenQuery } from '../../redux/slice/client/auth/useGetToken.js';
 import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
 import { toast } from 'react-toastify';
+import axios from "axios";
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
     const [createBasket] = useCreateBasketMutation()
-    const { data } = useGetUserTokenQuery();
-    const user = localStorage.getItem('user')
-    const [getUserToken] = useTokenChecUserMutation()
-    
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
+    // const [getUserToken] = useTokenChecUserMutation()
+
     if (data?.access_token) {
         localStorage.setItem('user', data?.access_token)
     }
-    useEffect(()=> {
-         if (user) {
-            getUserToken()
-         }
-    },[user])
   
     const [filter, setFilter] = useState(product);
 
     useEffect(() => {
         setFilter(product);
     }, [product]);
+    axios.get('users/get_token/')
+    .then(res => {
+        const token = res.data.access_token;
 
+        // Token'ni localStorage'ga saqlash
+        localStorage.setItem('user', token);
+    })
+    .catch(error => {
+        console.error('Xato yuz berdi:', error);
+    });
     const addData = async (product) => {
-        console.log(product, 'product');
         const formData = new FormData();
         formData.append('amount', 1);
-        formData.append('user', user);
         formData.append('product', product.id);
-
         try {
             await createBasket(formData).unwrap();
             toast.success(`maxsulod  qushildi`);
@@ -130,7 +133,7 @@ function Products() {
 
                                         </div>
                                         <button onClick={() => addData(product)} className="btn btn-sm m-3 border-primary">
-                                            Add To Cart
+                                          Sotib olish
                                         </button>
                                     </div>
                                 </div>

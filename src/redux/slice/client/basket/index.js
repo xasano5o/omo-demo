@@ -1,54 +1,41 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api } from "../../../../api/api.js";
 
-export const GetProducts = createApi({
+export const  BasketCrud = createApi({
     reducerPath: "getBasket",
     baseQuery: api,
     tagTypes: ["Basket"],
     endpoints: (build) => ({
         getBasket: build.query({
-            query: (body) => `basket/`,
-            providesTags: ["basket"],
-        }),
-        getBasketId: build.query({
-            query: (body) => ({
-                url: `basket/${body.id}/`,
+            query: () => ({
+                url: `basket/?product=true`,
                 method: "GET",
             }),
-            invalidatesTags: ["basket"],
+            providesTags: ["basket"], // Endi bu query "basket" tegi bilan bog'liq ma'lumotlarni ta'minlaydi
         }),
-        updateProduct: build.mutation({
-            query: (body) => ({
-                url: `basket/${body.get("id")}/`,
-                method: "PATCH",
-                body,
-            }),
-            invalidatesTags: ["Product"],
-        }),
+
         createBasket: build.mutation({
             query: (body) => ({
                 url: `basket/`,
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Product"],
+            invalidatesTags: ["basket"],
         }),
-        deleteProduct: build.mutation({
+        deleteBasket: build.mutation({
             query: (body) => ({
-                url: `products/${body.id}/`,
+                url: `categories/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
-            invalidatesTags: ["Product"],
+            invalidatesTags: ["basket"],
         }),
+
     }),
 });
 
 export const {
-    useGetProductQuery,
-    useGetProductIdQuery,
-    useGetProductCatgoriQuery,
+    useGetBasketQuery,
      useCreateBasketMutation,
-    useUpdateProductMutation,
-    useDeleteProductMutation,
-} = GetProducts;
+     useDeleteBasketMutation,
+} = BasketCrud ;
