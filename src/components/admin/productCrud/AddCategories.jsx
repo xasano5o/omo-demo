@@ -9,13 +9,13 @@ import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory'
 
 const AddProduct = ({object}) => {
   // state
-  const [open, setOpen] = useState(false);
+  const [skip, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
 
   // redux
   const [createProduct, { isLoading: isCreating }] = useCreateProductMutation();
-  const { data, isLoading, refetch } = useGetCategoryQuery();
-  const { data:subData } = useGetSubCategoryQuery()
+  const { data, isLoading, refetch } = useGetCategoryQuery({skip});
+  const { data:subData } = useGetSubCategoryQuery({skip})
 
 
 
@@ -63,7 +63,7 @@ const AddProduct = ({object}) => {
         +
         Maxsulot
       </button>
-      {open && (
+      {skip && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className='grid grid-cols-2 gap-3 '>
           

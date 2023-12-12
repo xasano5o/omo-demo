@@ -2,17 +2,16 @@ import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
-
-import { useDeleteProductMutation } from "../../../redux/slice/client/getProduct/index.js";
+import { useDeleteDiscountMutation } from "../../../redux/slice/client/discount/index.js";
 
 export default function DeleteCategorie({ ID, }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const closeModal = () => setIsOpen(!isOpen);
-    const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+    const [skip, setIsOpen] = useState(false);
+    const closeModal = () => setIsOpen(!skip);
+    const [deleteProduct, { isLoading }] = useDeleteDiscountMutation({skip});
 
     const handleDelete = async (id) => {
         try {
-            await deleteProduct({ id });
+            await deleteProduct({ ID });
             toast.success("Maxsulot o'chirildi!");
             setIsOpen(false);
         } catch (err) {
@@ -23,14 +22,14 @@ export default function DeleteCategorie({ ID, }) {
     return (
         <div>
             <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => setIsOpen(!skip)}
                 type="button"
                 className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
                 <BsTrash className="-ml-0.5 mr-1.5 h-5 w-5" aria-hidden="true" />
                 O'chirish
             </button>
-            {isOpen && (
+            {skip && (
                 <Modal
                     addFunc={() => handleDelete(ID)}
                     closeModal={closeModal}

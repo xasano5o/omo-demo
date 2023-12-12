@@ -7,30 +7,36 @@ const Navbar = () => {
     <div>
       <nav className="navbar bg-light fixed-top shadow">
         <div className="container-fluid container">
-          {/* <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-          >
-            <i className="fa fa-bars"></i>
-          </button> */}
-          <NavLink to="/">
-            <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} />
-          </NavLink>
-          <div className="d-flex items-center">
+          <div className="flex gap-3 items-center">
+            {/* <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+            >
+              <i className="fa fa-bars"></i>
+            </button> */}
+            <NavLink className='no-underline' to="/">
+              {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
+              <h1 className="no-underline ">Omo <b className="text-yellow-600">Food</b></h1>
+            </NavLink>
+          </div>
+
+
+          
+          <div className="d-flex items-center gap-4">
             <input
               className="form-control"
               list="datalistOptions"
               id="exampleDataList"
               placeholder="Type to search..."
             />
-          <Link to={'/basket'} className="no-underline">
-          <button className="navbar-toggler" type="button">
-              <i className="fa fa-shopping-cart text-black hover:text-black"></i>
-            </button>
-          </Link>
+            <Link to={'/basket'} className="no-underline">
+              <button className="navbar-toggler" type="button">
+                <i className="fa fa-shopping-cart text-black p-1 hover:text-black"></i>
+              </button>
+            </Link>
           </div>
           <div
             className="offcanvas offcanvas-start"

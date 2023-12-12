@@ -9,9 +9,9 @@ import Basket from './components/client/Basket.jsx';
 import CategoryIdPage from './pages/client/categorieid/index.jsx';
 import HomePage from './pages/client/home/index.jsx';
 import ProductPage from './pages/client/product/index.jsx';
-
 // import SubcategorieCom from './components/admin/subCategoriya/TableSub.jsx';
 import DiscountTbale from './components/admin/discountCrud/Table.jsx';
+import BaskerPage from './pages/client/basket/index.jsx';
 
 function App() {
   const location = useLocation();
@@ -23,8 +23,9 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/categories/:id" element={<CategoryIdPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
-        <Route path='basket' element={<Basket />} />
+        <Route path='basket' element={<BaskerPage />} />
         <Route path="/admin" element={<Login />} />
+       
         <Route element={<Layout />}>
           <Route path="/admin/home" element={<ProductTable />} />
           <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
@@ -34,7 +35,6 @@ function App() {
           <Route path="/admin/product" element={<ProductCrud />} />
           <Route path="/admin/order" element={<ProductTable />} />
         </Route>
-
         <Route path="/*" element={<h1>Not Found</h1>} />
       </Routes>
 

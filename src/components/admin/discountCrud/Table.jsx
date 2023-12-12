@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import AddCategories from './AddCategories';
-import NoProduct from "../../../assest/icon/Без названия.png"
 import DeleteCategorie from './DeleteStudents';
 import Loader from '../../Loader/Loader';
 import EmptyBox from "../../EmptyBox/EmptyBox.jsx"
-import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduct/index.js';
 import ViewProduct from './ViewParent.jsx';
-import UpdateProduct from './Update.jsx';
-import AddImgUpload from './ImgUpload.jsx';
 import { useGetDiscountQuery } from '../../../redux/slice/client/discount/index.js';
+import UpdateDiscount from './UpdateDiscount.jsx';
 
 const DiscountTbale = () => {
     const { data, error, isLoading } = useGetDiscountQuery();
-
     const [search, setSearch] = useState('');
-    const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
-    const [isHovered, setIsHovered] = useState(false);
+    const filteredData = data ? data?.filter(item =>  item.title.toLowerCase().includes(search.toLowerCase())): [];
+   
     return (
-        <div className=" "> {/* Set the height to 100vh */}
+        <div className=""> {/* Set the height to 100vh */}
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
                 <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -40,10 +36,10 @@ const DiscountTbale = () => {
                                     <tr>
                                         <th scope="col" className="p-4">Chegirma nomi</th>
                                         <th scope="col" className="p-4">Chegirma turi </th>
+                                        <th scope="col" className="p-4">CHegima Foizi</th>
                                         <th scope="col" className="p-4">Boshlanish vaqti</th>
-                                        <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>
+                                        <th scope="col" className="p-4">Tugash vaqti</th>
                                         <th scope="col" className="p-4"></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,14 +51,32 @@ const DiscountTbale = () => {
                                         ) : filteredData?.length > 0 ? (
                                             filteredData?.map((item) => {
 
-                                                const dateObject = new Date(item.start_date);
-                                                const dateObject1 = new Date(item.end_date);
+                                                // const dateObject = new Date(item.start_date);
+                                                // const dateObject1 = new Date(item.end_date);
 
-                                                const options = { hour12: false };
-                                                const formattedDate = dateObject.toLocaleString('en-US', options);
-                                                const formattedDate2 = dateObject1.toLocaleString('en-US', options);
+                                                // const options = { hour12: false };
+                                                // const formattedDate = dateObject.toLocaleString('en-US', options);
+                                                // const formattedDate2 = dateObject1.toLocaleString('en-US', options);
 
-                                                
+
+                                                const formatDate = (dateString) => {
+                                                    const options = {
+                                                        hour12: false,
+                                                        year: 'numeric',
+                                                        month: '2-digit',
+                                                        day: '2-digit',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        second: '2-digit',
+                                                    };
+                                                    const dateObject = new Date(dateString);
+                                                    return dateObject.toLocaleString('en-US', options);
+                                                };
+
+                                                // Ushbu qismda object.start_date ni formatlangan holda chiqaramiz
+                                                const formattedStartDate = item.start_date ? formatDate(item.start_date) : '';
+                                                const formattedStartDate2 = item.end_date ? formatDate(item.end_date) : '';
+
 
                                                 return (
                                                     <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
@@ -73,28 +87,34 @@ const DiscountTbale = () => {
                                                         </th>
                                                         <td className="px-4 py-3">
                                                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                                                                {item?.products_status=== 'ALL' ? 'Barcha maxsulot chegirma'  :'Bazi bir maxsulotga'}
+                                                                {item?.products_status === 'ALL' ? 'Barcha maxsulot chegirma' : 'Bazi bir maxsulotga'}
+                                                            </span>
+                                                        </td>
+                                                        <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                            <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
+                                                                {item?.value} %
+                                                            </span>
+                                                        </th>
+                                                        <td className="px-4 py-3">
+                                                            <span
+                                                                className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                                                            >
+                                                                {formattedStartDate}
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-3">
                                                             <span
                                                                 className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                                                             >
-                                                                {formattedDate}
-                                                            </span>
-                                                        </td>
-                                                        <td className="px-4 py-3">
-                                                            <span
-                                                                className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                                                            >
-                                                                {formattedDate2}
+                                                                {formattedStartDate2}
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                {/* <ViewProduct object={item} /> */}
+                                                                <ViewProduct object={item} />
                                                                 {/* <AddImgUpload ID={item.id} /> */}
-                                                                <UpdateProduct object={item} />
+                                                                {/* <UpdateProduct object={item} /> */}
+                                                                <UpdateDiscount object={item} />
                                                                 <DeleteCategorie ID={item.id} />
                                                             </div>
                                                         </td>

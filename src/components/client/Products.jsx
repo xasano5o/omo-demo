@@ -2,14 +2,49 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
+import { useGetUserTokenQuery, useTokenChecUserMutation } from '../../redux/slice/client/auth/useGetToken.js';
+import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
+import { toast } from 'react-toastify';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
+    const [createBasket] = useCreateBasketMutation()
+    const { data } = useGetUserTokenQuery();
+    const user = localStorage.getItem('user')
+    const [getUserToken] = useTokenChecUserMutation()
+    
+    if (data?.access_token) {
+        localStorage.setItem('user', data?.access_token)
+    }
+    useEffect(()=> {
+         if (user) {
+            getUserToken()
+         }
+    },[user])
+  
     const [filter, setFilter] = useState(product);
 
     useEffect(() => {
         setFilter(product);
     }, [product]);
+
+    const addData = async (product) => {
+        console.log(product, 'product');
+        const formData = new FormData();
+        formData.append('amount', 1);
+        formData.append('user', user);
+        formData.append('product', product.id);
+
+        try {
+            await createBasket(formData).unwrap();
+            toast.success(`maxsulod  qushildi`);
+
+        } catch (error) {
+            toast.error(`Failed to add category `);
+            console.error('Error creating category:', error);
+        }
+    };
+
     const Loading = () => {
         return (
             <>
@@ -73,18 +108,18 @@ function Products() {
                                 <div className="col-6 col-md-3  col-lg-3 mb-1" key={product?.id}>
                                     <div className="card h-100">
                                         <NavLink to={`/product/${product?.id}`}>
-                                            <img src={product?.image} className="" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
+                                            <img src={product?.thumbnail_image} className="" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
 
                                         </NavLink>
                                         <div className="m-3 mb-0">
                                             <small className="card-title">{product?.title}</small>
                                         </div>
-                                        
+
                                         <div style={{ marginTop: "auto" }}>
-                                            
+
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="m-3"><b>${product?.price}</b></div>
-                                          
+
                                                 <NavLink className="" to={`/product/${product?.id}`}>
                                                     <button className="btn btn-sm m-3 border-primary">
                                                         <i className="fa fa-arrow-right text-muted"></i>
@@ -92,11 +127,11 @@ function Products() {
 
                                                 </NavLink>
                                             </div>
-                                  
+
                                         </div>
-                                        <button className="btn btn-sm m-3 border-primary">
-                                                    Add To Cart
-                                                </button>
+                                        <button onClick={() => addData(product)} className="btn btn-sm m-3 border-primary">
+                                            Add To Cart
+                                        </button>
                                     </div>
                                 </div>
                             );
