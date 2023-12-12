@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useGetProductIdQuery } from '../../redux/slice/client/category';
 import { NavLink, useParams } from 'react-router-dom';
-import { useGetProductCatgoriQuery } from '../../redux/slice/client/getProduct';
 
 const CategoryId = () => {
     const { id } = useParams()
-    const { data: products } = useGetProductCatgoriQuery({ id: id })
+    const { data: products } = useGetProductIdQuery({ id: id })
     const [procate, setProcate] = useState(products)
+    
     
     console.log(products, "sa");
     console.log(id, "idpage");
 
     return (
-        <div>
+        <div className='container mx-auto mt-20'>
             <div className="col-md-13 py-md-3">
                 <div className="row">
                     {products?.map((product) => (

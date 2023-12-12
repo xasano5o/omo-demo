@@ -15,7 +15,7 @@ function Product() {
     // setProduct(product_object);
     const [rotate, setRotate] = useState(false);
     const [count, setCount] = useState(1);
-
+    console.log(product);
     const addCount = () => {
         setCount((prev) => prev + 1);
     };
@@ -95,105 +95,66 @@ function Product() {
     }
 
     const ShowDetails = () => {
+        <Carousel
+            animationHandler={true}
+            infiniteLoop={true}
+        >
+            {product?.images.map((item, index) => (
+                <div key={index}>
+                    <img src={item?.image} alt={`Image ${index}`} />
+                </div>
+            ))}
+        </Carousel>
         return (
+            //   <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"/>
             <>
-                <section className="py-10 font-poppins dark:bg-gray-800">
-                    <Link to={"/"} className='no-underline'>
-
-                        <h1 className="text-gray-600 text-xl flex items-center dark:text-gray-400">
-                            <IoArrowBack />
-                            Ortga
-                        </h1>
-                    </Link>
-                    <div className="max-w-6xl px-4 mx-auto">
-                        <div className="flex flex-wrap mb-24 -mx-4">
-                            <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
-                                <div className="sticky top-0 overflow-hidden ">
-                                    <div className="relative mb-6 lg:mb-10 lg:h-[60vh]">
-                                        {/* <a className="absolute left-0 transform lg:ml-2 top-1/2 translate-1/2" href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-left dark:text-blue-200" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z">
-                                                </path>
-                                            </svg>
-                                        </a>
-                                        <img className="object-contain w-full lg:h-full" src={product
-                                            ?.image} alt="" />
-                                        <a className="absolute right-0 transform lg:mr-2 top-1/2 translate-1/2" href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 text-blue-500 bi bi-chevron-right dark:text-blue-200" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z">
-                                                </path>
-                                            </svg>
-                                        </a> */}
+                <div className="row d-flex justify-content-center w-full">
+                    <div className="col-md-12">
+                        <NavLink className="text-decoration-none text-dark" to={`/`}>
+                            <div className="d-flex align-items-center m-3">
+                                <i className="fa fa-long-arrow-left"></i>
+                                <span className="ml-1">&nbsp;Back</span>
+                            </div>
+                        </NavLink>
+                        <div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    {product?.images.length > 0 ? (
                                         <Carousel
+                                            className=''
                                             animationHandler={true}
                                             infiniteLoop={true}
                                         >
-                                            {product?.images.map((item, index) => (
-                                                <div key={index}>
+                                            {product.images.map((item, index) => (
+                                                <div key={index} className='md:h-96'>
                                                     <img src={item?.image} alt={`Image ${index}`} />
                                                 </div>
                                             ))}
                                         </Carousel>
-
-                                    </div>
+                                    ) : (
+                                        <h1>Mahsulot rasmlari hozircha yoq</h1>
+                                    )}
 
                                 </div>
-                            </div>
-                            <div className="w-full px-4 md:w-1/2">
-                                <div className="lg:pl-20">
-                                    <div className="mb-6 ">
-
-                                        <h2 className="max-w-xl mt-6 mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-700 md:text-2xl dark:text-gray-300">
-                                            {product?.title}
-                                        </h2>
-
-                                        <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
-                                            <span>{product?.price}</span>
-                                        </p>
-                                    </div>
-
-                                    <div className="py-6 mb-6 border-t border-b border-gray-200 dark:border-gray-700">
-                                        <span className="text-base text-gray-600 dark:text-gray-400">{product?.amount} {product?.amount_measure}</span>
-                                        <p className="mt-2 text-sm text-blue-500 dark:text-blue-200">
-                                            <span className="text-gray-600 dark:text-gray-400">
-                                                {product?.description}
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div className="mb-6 "></div>
-                                    <div className="flex flex-wrap items-center mb-6">
-                                        <div className="mb-4 mr-4 lg:mb-0">
-                                            <div className="w-28">
-                                                <div className="relative flex flex-row w-full h-10 bg-transparent rounded-lg">
-                                                    <button className="w-20 h-full text-gray-600 bg-gray-100 border-r rounded-l outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-300">
-                                                        <span className="m-auto text-2xl font-thin">-</span>
-                                                    </button>
-                                                    <input type="number" className="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-100 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black" placeholder="1" />
-                                                    <button className="w-20 h-full text-gray-600 bg-gray-100 border-l rounded-r outline-none cursor-pointer dark:border-gray-700 dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-300">
-                                                        <span className="m-auto text-2xl font-thin">+</span>
-                                                    </button>
-                                                </div>
+                                <div className="col-md-6">
+                                    <div className="w-full border p-4 shadow-md">
+                                        <div className="mt-4 mb-3">
+                                            <h5 className="text-uppercase">
+                                                {product.title}
+                                            </h5>
+                                            <span className="text-muted text-capitalize">{product.category}</span>
+                                            <div className="price d-flex flex-row align-items-center">
+                                                <big className="display-6"><b>{product?.price}</b></big>
                                             </div>
                                         </div>
-                                        <div className="mb-4 lg:mb-0">
-                                            <button className="flex items-center justify-center w-full h-10 p-2 mr-4 text-gray-700 border border-gray-300 lg:w-11 hover:text-gray-50 dark:text-gray-200 dark:border-blue-600 hover:bg-blue-600 hover:border-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 dark:hover:border-blue-500 dark:hover:text-gray-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className=" bi bi-heart" viewBox="0 0 16 16">
-                                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z">
-                                                    </path>
-                                                </svg>
-                                            </button>
-
-                                        </div>
-                                        <Link to="#" className="w-full px-4 py-3 text-center text-blue-600 bg-blue-100 border border-blue-600 dark:hover:bg-gray-900 dark:text-gray-400 dark:border-gray-700 dark:bg-gray-700 hover:bg-blue-600 hover:text-gray-100 lg:w-1/2 rounded-xl">
-                                            Add to cart
-                                        </Link>
+                                        <p className="text-muted whitespace-pre-wrap break-words">{product?.description}</p>
+                                        <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-dark text-uppercase mr-2 px-4">Buy</button> </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </>
         )
     }
