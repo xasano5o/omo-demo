@@ -23,9 +23,9 @@ export default function View({ object }) {
               <div className="md:w-1/3 sm:w-full sx:w-full p-2 h-full">
                 {/* Left column for avatar, etc. */}
                 <div className="bg-white rounded-lg gap-2 shadow-lg border p-4 flex items-center flex-col justify-center">
-                  {object?.thumbnail_image && object.thumbnail_image !== "" ? (
+                  {object?.image && object.image !== "" ? (
                     <img
-                      src={object.thumbnail_image}
+                      src={object.image}
                       alt="avatar"
                       className="mx-auto rounded-full w-40 h-40 object-cover"
                     />

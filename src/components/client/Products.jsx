@@ -2,50 +2,49 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
-import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
 import { useGetUserTokenQuery, useTokenChecUserMutation } from '../../redux/slice/client/auth/useGetToken.js';
+import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
+import { toast } from 'react-toastify';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
-    const { createBasket } = useCreateBasketMutation()
-    const [filter, setFilter] = useState(product);
-    const [tokenChecUser] =useTokenChecUserMutation()
-   
-    const [shouldFetchToken, setShouldFetchToken] = useState(false);
-    const { data } = useGetUserTokenQuery(shouldFetchToken);
+    const [createBasket] = useCreateBasketMutation()
+    const { data } = useGetUserTokenQuery();
+    const user = localStorage.getItem('user')
+    const [getUserToken] = useTokenChecUserMutation()
+    
+    if (data?.access_token) {
+        localStorage.setItem('user', data?.access_token)
+    }
+    useEffect(()=> {
+         if (user) {
+            getUserToken()
+         }
+    },[user])
   
-    useEffect(() => {
-        const userToken = localStorage.getItem('user_token');
-        if (!userToken) {
-          setShouldFetchToken(true);
-        } else if (!data?.access_token && userToken) {
-          // Agar data'da access_token yo'q, lekin localStorage'da token mavjud bo'lsa, tokenChecUser so'rovini yuboramiz
-          tokenChecUser();
-        }
-      }, [data, tokenChecUser]);
-    const addData = async (id) => {
-        console.log(id, 'product');
-        // const formData = new FormData();
-        // formData.append('title', inputValue.name);
-        // formData.append('image', inputValue.img);
-
-        try {
-            //   await createBasket(formData).unwrap();
-            //   toast.success(`Category ${inputValue.name} added successfully`);
-            //   setInputValue({
-            //     name: '',
-            //     img: '',
-            //   });
-        } catch (error) {
-            //   toast.error(`Failed to add category ${inputValue.name}`);
-            //   console.error('Error creating category:', error);
-        }
-    };
-
+    const [filter, setFilter] = useState(product);
 
     useEffect(() => {
         setFilter(product);
     }, [product]);
+
+    const addData = async (product) => {
+        console.log(product, 'product');
+        const formData = new FormData();
+        formData.append('amount', 1);
+        formData.append('user', user);
+        formData.append('product', product.id);
+
+        try {
+            await createBasket(formData).unwrap();
+            toast.success(`maxsulod  qushildi`);
+
+        } catch (error) {
+            toast.error(`Failed to add category `);
+            console.error('Error creating category:', error);
+        }
+    };
+
     const Loading = () => {
         return (
             <>
@@ -130,7 +129,7 @@ function Products() {
                                             </div>
 
                                         </div>
-                                        <button onClick={() => addData(product.id)} className="btn btn-sm m-3 border-primary">
+                                        <button onClick={() => addData(product)} className="btn btn-sm m-3 border-primary">
                                             Add To Cart
                                         </button>
                                     </div>

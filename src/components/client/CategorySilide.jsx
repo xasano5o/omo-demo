@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useGetCategoryQuery } from "../../redux/slice/client/category";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CategorySilide = () => {
   const responsive = {
@@ -23,6 +24,10 @@ export const CategorySilide = () => {
     },
   };
   const { data, isLoading, isError, isSuccess } = useGetCategoryQuery();
+  const navigate = useNavigate();
+
+  console.log(data);
+
   return (
     <div className="mt-5 container mx-auto">
       <h1 className="">Mahsulotlar Kategoriyasi</h1>
@@ -39,12 +44,19 @@ export const CategorySilide = () => {
             return (
               <div>
                 <div className="mt-12" style={{ width: "150px", height: "200px" }}>
-                  <img
-                    src={item?.thumbnail_image}
-                    className="card-img-top rounded-circle"
-                    style={{ height: "128px", width: "128px", objectFit: "cover" }}
-                    alt={item?.title}
-                  />
+                  <Link to={`${item?.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/categories/${item?.slug}`);
+                    }}>
+
+                    <img
+                      src={item?.image}
+                      className="card-img-top rounded-circle"
+                      style={{ height: "128px", width: "128px", objectFit: "cover" }}
+                      alt={item?.title}
+                    />
+                  </Link>
                   <div className="card-body">
                     <p className="card-text text-[13px] font-medium">{item?.title}</p>
                   </div>
