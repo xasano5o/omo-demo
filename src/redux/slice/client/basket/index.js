@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api } from "../../../../api/api.js";
 
-export const  BasketCrud = createApi({
+export const BasketCrud = createApi({
     reducerPath: "getBasket",
     baseQuery: api,
     tagTypes: ["Basket"],
@@ -11,7 +11,7 @@ export const  BasketCrud = createApi({
                 url: `basket/?product=true`,
                 method: "GET",
             }),
-            providesTags: ["basket"], // Endi bu query "basket" tegi bilan bog'liq ma'lumotlarni ta'minlaydi
+            providesTags: ["basket"],
         }),
 
         createBasket: build.mutation({
@@ -24,7 +24,7 @@ export const  BasketCrud = createApi({
         }),
         deleteBasket: build.mutation({
             query: (body) => ({
-                url: `categories/${body.id}/`,
+                url: `basket/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
@@ -36,6 +36,6 @@ export const  BasketCrud = createApi({
 
 export const {
     useGetBasketQuery,
-     useCreateBasketMutation,
-     useDeleteBasketMutation,
-} = BasketCrud ;
+    useCreateBasketMutation,
+    useDeleteBasketMutation,
+} = BasketCrud;

@@ -9,34 +9,8 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function Product() {
     const { id } = useParams();
-    const [loading, setLoading] = useState(false);
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
-    const [rotate, setRotate] = useState(false);
-    const [count, setCount] = useState(1);
-    const addCount = () => {
-        setCount((prev) => prev + 1);
-    };
 
-    const minusCount = () => {
-        if (count > 1) {
-            setCount((prev) => prev - 1);
-        }
-    };
-
-
-
-    // useEffect(() => {
-    //     const getProduct = async () => {
-    //         setLoading(true);
-    //         // const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-    //         // const data = await response.json();
-    //         const {data,isLoading } =useGetProductIdQuery({ID:id});
-    //         setProduct(data);
-    //         setLoading(false);
-    //     }
-    //     getProduct();
-
-    // }, [id]);
 
     const Loading = () => {
         return (
