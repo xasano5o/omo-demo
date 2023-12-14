@@ -8,16 +8,25 @@ export const BasketCrud = createApi({
     endpoints: (build) => ({
         getBasket: build.query({
             query: () => ({
-                url: `basket/?product=true`,
+                url: `basket/?products=true&total_price=true`,
                 method: "GET",
             }),
             providesTags: ["basket"],
         }),
-
+    
         createBasket: build.mutation({
             query: (body) => ({
                 url: `basket/`,
                 method: "POST",
+                body,
+            }),
+            invalidatesTags: ["basket"],
+        }),
+
+        Increment: build.mutation({
+            query: (body) => ({
+                url: `basket/${body.get("id")}/`,
+                method: "PATCH",
                 body,
             }),
             invalidatesTags: ["basket"],
@@ -35,6 +44,7 @@ export const BasketCrud = createApi({
 });
 
 export const {
+    useIncrementMutation,
     useGetBasketQuery,
     useCreateBasketMutation,
     useDeleteBasketMutation,
