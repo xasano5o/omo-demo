@@ -1,6 +1,7 @@
 import React from 'react'
 import Products from './Products';
 import  { CategorySilide } from './CategorySilide.jsx';
+import DIskount from './DIskount.jsx';
 
 const Home = () => {
     return (
@@ -31,6 +32,7 @@ const Home = () => {
                     </button>
                 </div>
                 <CategorySilide/>
+                {/* <DIskount/> */}
                 <Products />
             </div>
         </>

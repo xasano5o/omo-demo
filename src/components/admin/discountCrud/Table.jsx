@@ -6,14 +6,16 @@ import EmptyBox from "../../EmptyBox/EmptyBox.jsx"
 import ViewProduct from './ViewParent.jsx';
 import { useGetDiscountQuery } from '../../../redux/slice/client/discount/index.js';
 import UpdateDiscount from './UpdateDiscount.jsx';
+import DeleteDisk from './DeleteStudents';
 
 const DiscountTbale = () => {
     const { data, error, isLoading } = useGetDiscountQuery();
     const [search, setSearch] = useState('');
-    const filteredData = data ? data?.filter(item =>  item.title.toLowerCase().includes(search.toLowerCase())): [];
-   
+    const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
+
+
     return (
-        <div className=""> {/* Set the height to 100vh */}
+        <div className="">
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
                 <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -50,15 +52,6 @@ const DiscountTbale = () => {
                                             </div>
                                         ) : filteredData?.length > 0 ? (
                                             filteredData?.map((item) => {
-
-                                                // const dateObject = new Date(item.start_date);
-                                                // const dateObject1 = new Date(item.end_date);
-
-                                                // const options = { hour12: false };
-                                                // const formattedDate = dateObject.toLocaleString('en-US', options);
-                                                // const formattedDate2 = dateObject1.toLocaleString('en-US', options);
-
-
                                                 const formatDate = (dateString) => {
                                                     const options = {
                                                         hour12: false,
@@ -73,7 +66,6 @@ const DiscountTbale = () => {
                                                     return dateObject.toLocaleString('en-US', options);
                                                 };
 
-                                                // Ushbu qismda object.start_date ni formatlangan holda chiqaramiz
                                                 const formattedStartDate = item.start_date ? formatDate(item.start_date) : '';
                                                 const formattedStartDate2 = item.end_date ? formatDate(item.end_date) : '';
 
@@ -112,10 +104,8 @@ const DiscountTbale = () => {
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <ViewProduct object={item} />
-                                                                {/* <AddImgUpload ID={item.id} /> */}
-                                                                {/* <UpdateProduct object={item} /> */}
                                                                 <UpdateDiscount object={item} />
-                                                                <DeleteCategorie ID={item.id} />
+                                                                <DeleteDisk ID={item.id} />
                                                             </div>
                                                         </td>
                                                     </tr>

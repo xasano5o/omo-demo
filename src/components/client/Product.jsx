@@ -26,8 +26,6 @@ function Product() {
         }
     };
 
-
-
     // useEffect(() => {
     //     const getProduct = async () => {
     //         setLoading(true);
@@ -140,7 +138,7 @@ function Product() {
                                     <div className="w-full border p-4 shadow-md">
                                         <div className="mt-4 mb-3">
                                             <h5 className="text-uppercase">
-                                                {product.title}
+                                                {product?.title}
                                             </h5>
                                             <span className="text-muted text-capitalize">{product.category}</span>
                                             <div className="price d-flex flex-row align-items-center">
@@ -148,7 +146,7 @@ function Product() {
                                             </div>
                                         </div>
                                         <p className="text-muted whitespace-pre-wrap break-words">{product?.description}</p>
-                                        <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-dark text-uppercase mr-2 px-4">Buy</button> </div>
+                                        <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-primary text-uppercase mr-2 px-4">Buy</button> </div>
                                     </div>
                                 </div>
                             </div>

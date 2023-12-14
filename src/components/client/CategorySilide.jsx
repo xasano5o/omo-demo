@@ -47,7 +47,7 @@ export const CategorySilide = () => {
                   <Link to={`${item?.id}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      navigate(`/categories/${item?.slug}`);
+                      navigate(`/categories/${item?.id}`);
                     }}>
 
                     <img

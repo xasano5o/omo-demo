@@ -48,7 +48,7 @@ export const {
     useGetProductQuery,
     useGetProductIdQuery,
     useGetProductCatgoriQuery,
-     useCreateBasketMutation,
+    useCreateBasketMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
 } = GetProducts;

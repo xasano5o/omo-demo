@@ -1,8 +1,7 @@
-// src/components/admin/dashboard/Dashboard.jsx
 
 import React from 'react';
 import Sidebar from '../Sidebar';
-import '../styles.css'; // Import your custom styles here
+import '../styles.css';
 
 const Dashboard = () => {
     return (

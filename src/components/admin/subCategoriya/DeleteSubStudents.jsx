@@ -10,9 +10,9 @@ export default function DeleteSubCategorie({ ID, }) {
     const closeModal = () => setIsOpen(!isOpen);
     const [deleteTeacher, { isLoading }] = useDeleteSubCategorieMutation();
 
-    const handleDelete = async (id) => {
+    const handleDelete = async (ID) => {
         try {
-            await deleteTeacher({ id });
+            await deleteTeacher({ ID });
             toast.success("Ichki Categorie o'chirildi!");
             setIsOpen(false);
         } catch (err) {

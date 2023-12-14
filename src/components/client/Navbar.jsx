@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import SidebarClient from "./Sidebar";
 
 const Navbar = () => {
+  const [search, setSearch] = useState("")
+  console.log(search);
+  const url = `https://omofood.pythonanywhere.com/api/v1/search/?query=${search}`
   return (
     <div>
       <nav className="navbar bg-light fixed-top shadow">
@@ -22,11 +24,9 @@ const Navbar = () => {
               <h1 className="no-underline ">Omo <b className="text-yellow-600">Food</b></h1>
             </NavLink>
           </div>
-
-
-          
           <div className="d-flex items-center gap-4">
             <input
+              onChange={(e) => setSearch(e.target.value)}
               className="form-control"
               list="datalistOptions"
               id="exampleDataList"
