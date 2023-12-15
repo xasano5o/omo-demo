@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from '../../redux/slice/client/basket'
+import BasketCheckout from './BasktChecout'
 
 const Basket = () => {
   const { data } = useGetBasketQuery()
   const [deleteBasket] = useDeleteBasketMutation()
  const[ Increment]  =  useIncrementMutation()
-
 
   const deleteFunc = async (id) => {
     try {
@@ -13,8 +13,6 @@ const Basket = () => {
     } catch (err) {
     }
   };
-
-
 
   const increment = async (value) => {
     const formData = new FormData();
@@ -37,6 +35,20 @@ const Basket = () => {
     } catch (error) {
     }
   };
+  const [totalAmount, setTotalAmount] = useState(0);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (Array.isArray(data)) {
+        const total = data.reduce((a, b) => a + (b?.total_price || 0), 0);
+        setTotalAmount(total);
+      }
+    }, 0); 
+
+    return () => clearTimeout(timer);
+  }, [data]); 
+   
   return (
     <div>
       <div className="h-screen bg-gray-100 pt-20">
@@ -112,13 +124,14 @@ const Basket = () => {
             </div>
             <hr className="my-4" />
             <div className="flex justify-between">
-              <p className="text-lg font-bold">Total</p>
+              <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">
-                <p className="mb-1 text-lg font-bold">$134.98 USD</p>
+                <p className="mb-1 text-lg font-bold">   {totalAmount.toLocaleString('uz-UZ')} so'm</p>
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+
+            <BasketCheckout/>
           </div>
         </div>
       </div>
