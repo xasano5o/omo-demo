@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { useGetBasketQuery } from "../../redux/slice/client/basket";
 const Navbar = () => {
-  const [search, setSearch] = useState("")
-  console.log(search);
-  const url = `https://omofood.pythonanywhere.com/api/v1/search/?query=${search}`
+  const { data } = useGetBasketQuery()
+
+
   return (
     <div>
       <nav className="navbar bg-light fixed-top shadow">
@@ -24,17 +24,20 @@ const Navbar = () => {
               <h1 className="no-underline ">Omo <b className="text-yellow-600">Food</b></h1>
             </NavLink>
           </div>
-          <div className="d-flex items-center gap-4">
+
+
+
+          <div className="d-flex items-center gap-4 ">
             <input
-              onChange={(e) => setSearch(e.target.value)}
               className="form-control"
               list="datalistOptions"
               id="exampleDataList"
               placeholder="Type to search..."
             />
-            <Link to={'/basket'} className="no-underline">
-              <button className="navbar-toggler" type="button">
-                <i className="fa fa-shopping-cart text-black p-1 hover:text-black"></i>
+            <Link to={'/basket'} className="no-underline  flex flex-col items-center ">
+              <span className="bg-yellow-500 rounded-full  px-2">{data?.length}</span>
+              <button className="navbar-toggler left-0" type="button">
+                <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>
             </Link>
           </div>

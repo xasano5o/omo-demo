@@ -1,27 +1,39 @@
 // Login.js
 
-import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useTokenUserMutation } from '../../../redux/slice/client/auth/useGetToken';
 
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [credentials, setCredentials] = useState({
-        login: '',
-        password: '',
+        username: 'admin',
+        password: '123',
     });
 
-    const correctLogin = 'xasan';
-    const correctPassword = '1234';
-
+    // const correctLogin = 'xasan';
+    // const correctPassword = '1234';
+    // console.log(credentials);
+    const [login_set,{isLoading}] = useTokenUserMutation();
+    
     const handleLogin = () => {
-        if (credentials.login === correctLogin && credentials.password === correctPassword) {
-            navigate('/admin/home');
-        } else {
-        }
+        const data=login_set(credentials).unwrap();
+        data.then(
+            (item)=>{
+
+                console.log(item);
+            }
+        );
+      
+        localStorage.setItem('user',data);
+        // navigate('/admin/home');
+        // if (credentials.username === correctLogin && credentials.password === correctPassword) {
+      
     };
+    
 
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">
@@ -38,7 +50,7 @@ const Login = () => {
                                     type="text"
                                     className="form-control"
                                     id="username"
-                                    onChange={(e) => setCredentials({ ...credentials, login: e.target.value })}
+                                    onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
                                     required
                                 />
                             </div>

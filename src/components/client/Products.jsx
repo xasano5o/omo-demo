@@ -2,49 +2,51 @@ import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
 import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js';
-import { useGetUserTokenQuery, useTokenChecUserMutation } from '../../redux/slice/client/auth/useGetToken.js';
 import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
 import { toast } from 'react-toastify';
+import axios from "axios";
 import { useGetDiscountQuery } from '../../redux/slice/client/discount/index.js';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
-    const [createBasket] = useCreateBasketMutation()
-    const { data } = useGetUserTokenQuery();
-    console.log(product);
-    const user = localStorage.getItem('user')
-    const [getUserToken] = useTokenChecUserMutation()
-    const { data: discount } = useGetDiscountQuery()
-    console.log(discount,'dis');
-    if (data?.access_token) {
-        localStorage.setItem('user', data?.access_token)
-    }
-    useEffect(() => {
-        if (user) {
-            getUserToken()
-        }
-    }, [user])
+    const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation()
 
-    const [filter, setFilter] = useState(product);
+
+    const token = localStorage.getItem('user')
+    if (token) {
+        axios.post('users/check_token/', {}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("user")}`
+            }
+        })
+    }
+    else {
+        axios.get('users/get_token/')
+            .then(res => {
+                const token = res.data.access_token;
+                localStorage.setItem('user', token);
+            })
+        setTimeout(() => {
+            window.location.reload()
+        }, 1500)
+    }
+
 
     useEffect(() => {
         setFilter(product);
     }, [product]);
+    const [filter, setFilter] = useState(product);
 
     const addData = async (product) => {
-        console.log(product, 'product');
         const formData = new FormData();
         formData.append('amount', 1);
-        formData.append('user', user);
         formData.append('product', product.id);
-
         try {
             await createBasket(formData).unwrap();
             toast.success(`maxsulod  qushildi`);
 
         } catch (error) {
             toast.error(`Failed to add category `);
-            console.error('Error creating category:', error);
         }
     };
 
@@ -128,7 +130,12 @@ function Products() {
                                                 </NavLink>
                                             </div>
                                         </div>
-                                        <button onClick={() => addData(product)} className="btn btn-outline-primary">Add to Cart</button>
+
+                                        <button
+                                            className="btn  btn-sm m-3 border-primary"
+                                            onClick={() => addData(product)}>
+                                            Sotib olish
+                                        </button>
                                     </div>
                                 </div>
                             );

@@ -1,54 +1,51 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api } from "../../../../api/api.js";
 
-export const GetProducts = createApi({
+export const BasketCrud = createApi({
     reducerPath: "getBasket",
     baseQuery: api,
     tagTypes: ["Basket"],
     endpoints: (build) => ({
         getBasket: build.query({
-            query: (body) => `basket/`,
-            providesTags: ["basket"],
-        }),
-        getBasketId: build.query({
-            query: (body) => ({
-                url: `basket/${body.id}/`,
+            query: () => ({
+                url: `basket/?products=true&total_price=true`,
                 method: "GET",
             }),
-            invalidatesTags: ["basket"],
+            providesTags: ["basket"],
         }),
-        updateProduct: build.mutation({
-            query: (body) => ({
-                url: `basket/${body.get("id")}/`,
-                method: "PATCH",
-                body,
-            }),
-            invalidatesTags: ["Product"],
-        }),
+    
         createBasket: build.mutation({
             query: (body) => ({
                 url: `basket/`,
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Product"],
+            invalidatesTags: ["basket"],
         }),
-        deleteProduct: build.mutation({
+
+        Increment: build.mutation({
             query: (body) => ({
-                url: `products/${body.id}/`,
+                url: `basket/${body.get("id")}/`,
+                method: "PATCH",
+                body,
+            }),
+            invalidatesTags: ["basket"],
+        }),
+        deleteBasket: build.mutation({
+            query: (body) => ({
+                url: `basket/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
-            invalidatesTags: ["Product"],
+            invalidatesTags: ["basket"],
         }),
+
     }),
 });
 
 export const {
-    useGetProductQuery,
-    useGetProductIdQuery,
-    useGetProductCatgoriQuery,
+    useIncrementMutation,
+    useGetBasketQuery,
     useCreateBasketMutation,
-    useUpdateProductMutation,
-    useDeleteProductMutation,
-} = GetProducts;
+    useDeleteBasketMutation,
+} = BasketCrud;

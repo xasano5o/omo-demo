@@ -7,7 +7,7 @@ import { useDeleteDiscountMutation } from "../../../redux/slice/client/discount/
 export default function DeleteDisk({ ID, }) {
     const [skip, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!skip);
-    const [deleteProduct, { isLoading }] = useDeleteDiscountMutation({skip});
+    const [deleteProduct, { isLoading }] = useDeleteDiscountMutation({ skip });
 
     const handleDelete = async (id) => {
         try {

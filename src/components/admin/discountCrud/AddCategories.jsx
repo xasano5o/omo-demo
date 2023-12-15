@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import Modal from '../../generic/Modal';
 import { toast } from 'react-toastify';
-import {  useGetProductQuery } from '../../../redux/slice/client/getProduct';
+import { useGetProductQuery } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
-import { useCreateDiscountMutation,  } from '../../../redux/slice/client/discount';
+import { useCreateDiscountMutation, } from '../../../redux/slice/client/discount';
 
 const AddProduct = ({ object }) => {
   // state
@@ -24,9 +24,9 @@ const AddProduct = ({ object }) => {
 
   // redux
   const [createDiscount, { isLoading: isCreating }] = useCreateDiscountMutation();
-  const { data, isLoading, refetch } = useGetCategoryQuery(    { skip });
-  const { data: subData } = useGetSubCategoryQuery(    { skip })
-  const { data: productData } = useGetProductQuery(    { skip })
+  const { data, isLoading, refetch } = useGetCategoryQuery({ skip });
+  const { data: subData } = useGetSubCategoryQuery({ skip })
+  const { data: productData } = useGetProductQuery({ skip })
 
 
 
@@ -50,54 +50,54 @@ const AddProduct = ({ object }) => {
   };
 
   // post data
-const addData = async () => {
-  const formData = new FormData();
-  formData.append('title', inputValue.title);
-  formData.append('value', inputValue.value);
-  formData.append('is_active', isChecked);
-  formData.append('start_date', inputValue.start_date);
-  formData.append('end_date', inputValue.end_date);
-  formData.append('products_status', direction);
+  const addData = async () => {
+    const formData = new FormData();
+    formData.append('title', inputValue.title);
+    formData.append('value', inputValue.value);
+    formData.append('is_active', isChecked);
+    formData.append('start_date', inputValue.start_date);
+    formData.append('end_date', inputValue.end_date);
+    formData.append('products_status', direction);
 
-  if (direction === 'CUSTOM') {
-    if (inputValue.products.length > 0) {
-      inputValue.products.forEach(product => {
-        formData.append('products', product);
-      });
+    if (direction === 'CUSTOM') {
+      if (inputValue.products.length > 0) {
+        inputValue.products.forEach(product => {
+          formData.append('products', product);
+        });
+      }
+      if (inputValue.category.length > 0) {
+        inputValue.category.forEach(category => {
+          formData.append('category', category);
+        });
+      }
+      if (inputValue.subcategory.length > 0) {
+        inputValue.subcategory.forEach(subcat => {
+          formData.append('subcategory', subcat);
+        });
+      }
     }
-    if (inputValue.category.length > 0) {
-      inputValue.category.forEach(category => {
-        formData.append('category', category);
-      });
+
+    try {
+      const response = await createDiscount(formData).unwrap();
+      toast.success(`Category '${inputValue.title}' added successfully`);
+      // Foydalanuvchi interfeysini yangilash
+      setInputValue({ ...inputValue, title: '', products: [], category: [], subcategory: [] });
+      setOpen(false);
+    } catch (error) {
+      toast.error(`Failed to add category '${inputValue.title}'. Error: ${error.message}`);
+      console.error('Error creating category:', error);
     }
-    if (inputValue.subcategory.length > 0) {
-      inputValue.subcategory.forEach(subcat => {
-        formData.append('subcategory', subcat);
-      });
-    }
-  }
+  };
 
-  try {
-    const response = await createDiscount(formData).unwrap();
-    toast.success(`Category '${inputValue.title}' added successfully`);
-    // Foydalanuvchi interfeysini yangilash
-    setInputValue({ ...inputValue, title: '', products: [], category: [], subcategory: [] });
-    setOpen(false);
-  } catch (error) {
-    toast.error(`Failed to add category '${inputValue.title}'. Error: ${error.message}`);
-    console.error('Error creating category:', error);
-  }
-};
+  const handleSelectionChange = (field, event) => {
+    const selectedOptions = event.target.selectedOptions;
+    const selectedData = Array.from(selectedOptions).map(option => option.value);
+    setInputValue({ ...inputValue, [field]: selectedData });
+  };
 
-const handleSelectionChange = (field, event) => {
-  const selectedOptions = event.target.selectedOptions;
-  const selectedData = Array.from(selectedOptions).map(option => option.value);
-  setInputValue({ ...inputValue, [field]: selectedData });
-};
-
-const handleCheckboxChange = () => {
-  setIsChecked(!isChecked);
-};
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   return (
     <div>
       <button
@@ -206,13 +206,8 @@ const handleCheckboxChange = () => {
                   ))}
                 </select>
               </div>
-
-
-
             </div>
           </form>
-
-
         </Modal>
       )}
     </div>

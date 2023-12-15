@@ -1,43 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useParams } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
-import { useGetProductCatgoriQuery, useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
-import { IoArrowBack } from "react-icons/io5";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
 
 function Product() {
     const { id } = useParams();
-    // const [product, setProduct] = useState({});
-    const [loading, setLoading] = useState(false);
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
-    // setProduct(product_object);
-    const [rotate, setRotate] = useState(false);
-    const [count, setCount] = useState(1);
-    console.log(product);
-    const addCount = () => {
-        setCount((prev) => prev + 1);
-    };
-
-    const minusCount = () => {
-        if (count > 1) {
-            setCount((prev) => prev - 1);
-        }
-    };
-
-    // useEffect(() => {
-    //     const getProduct = async () => {
-    //         setLoading(true);
-    //         // const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-    //         // const data = await response.json();
-    //         const {data,isLoading } =useGetProductIdQuery({ID:id});
-    //         setProduct(data);
-    //         setLoading(false);
-    //     }
-    //     getProduct();
-
-    // }, [id]);
 
     const Loading = () => {
         return (
@@ -140,7 +111,7 @@ function Product() {
                                             <h5 className="text-uppercase">
                                                 {product?.title}
                                             </h5>
-                                            <span className="text-muted text-capitalize">{product.category}</span>
+                                            <span className="text-muted text-capitalize">{product?.category}</span>
                                             <div className="price d-flex flex-row align-items-center">
                                                 <big className="display-6"><b>{product?.price}</b></big>
                                             </div>
