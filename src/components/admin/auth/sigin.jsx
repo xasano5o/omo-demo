@@ -5,36 +5,36 @@ import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useTokenUserMutation } from '../../../redux/slice/client/auth/useGetToken';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+
     const [credentials, setCredentials] = useState({
         username: 'admin',
         password: '123',
     });
-
-    // const correctLogin = 'xasan';
-    // const correctPassword = '1234';
-    // console.log(credentials);
-    const [login_set,{isLoading}] = useTokenUserMutation();
+ 
+    const [login_set] = useTokenUserMutation();
     
     const handleLogin = () => {
-        const data=login_set(credentials).unwrap();
-        data.then(
-            (item)=>{
-
-                console.log(item);
-            }
-        );
-      
-        localStorage.setItem('user',data);
-        // navigate('/admin/home');
-        // if (credentials.username === correctLogin && credentials.password === correctPassword) {
-      
+        const data = login_set(credentials).unwrap();
+        data.then((item) => {
+                if (item.refresh && item.access) {
+                    localStorage.setItem("token", JSON.stringify(item));
+                    navigate('/admin/home');
+                    toast.success(`successfully`);
+                } else {
+                    toast.error(`Login failed`);
+                }
+            })
+            .catch((error) => {
+                toast.error(`Username yoki parolda xatolik bor`);
+            });
     };
     
-
+    
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">
             <div className="col-md-6">
