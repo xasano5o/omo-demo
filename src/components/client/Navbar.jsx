@@ -24,9 +24,6 @@ const Navbar = () => {
               <h1 className="no-underline ">Omo <b className="text-yellow-600">Food</b></h1>
             </NavLink>
           </div>
-
-
-
           <div className="d-flex items-center gap-4 ">
             <input
               className="form-control"
