@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { useCreateSubCategoriaMutation } from '../../redux/slice/client/subcategory';
 import { useGetCategoryQuery } from '../../redux/slice/client/category';
 import Modal from '../generic/Modal';
-import ImageUpload from '../ImageUpload/ImageUpload';
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
 
 const BasketCheckout = () => {
@@ -19,15 +17,20 @@ const BasketCheckout = () => {
   const [inputValue, setInputValue] = useState({
     name: '',
     img: '',
-    subcategory: ""
+    subcategory: '',
+    location: [55.684758, 37.738521], // Default location
   });
-  console.log(inputValue,'inputValue');
 
+
+  console.log(inputValue.location, 'inputValue');
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.name);
     formData.append('image', inputValue.img);
     formData.append('category', inputValue.subcategory);
+    // Add the latitude and longitude to formData
+    formData.append('latitude', inputValue.location[0]);
+    formData.append('longitude', inputValue.location[1]);
 
     try {
       await createSubCategoria(formData).unwrap();
@@ -35,6 +38,8 @@ const BasketCheckout = () => {
       setInputValue({
         name: '',
         img: '',
+        subcategory: '',
+        location: [55.684758, 37.738521], // Reset location to default after submission
       });
       setOpen(false);
     } catch (error) {
@@ -42,16 +47,23 @@ const BasketCheckout = () => {
       console.error('Error creating category:', error);
     }
   };
+
   const defaultState = {
     center: inputValue.location,
-    zoom: 13,
+    zoom: 15,
   };
 
-  const [userLocation, setUserLocation] = useState([55.684758, 37.738521]);
+  const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
 
-  const handleBoundsChange = (e) => {
-    const newCenter = e.get('newCenter');
-    setUserLocation(newCenter);
+  const handleMapClick = (e) => {
+    const coordinates = e.get('coords');
+    // Update the marker coordinates when the map is clicked
+    setMarkerGeometry(coordinates);
+    // Update the inputValue state with the selected coordinates
+    setInputValue({
+      ...inputValue,
+      location: coordinates,
+    });
   };
 
   useEffect(() => {
@@ -81,32 +93,34 @@ const BasketCheckout = () => {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+        className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+      >
+        Check out
+      </button>
 
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
-          <div className=" w-[700px] flex flex-col gap-3">
-            <div className='flex flex-col  w-full'>
-              <label>Familiya *</label>
-              <input
-                type="text"
-                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-              />
+          <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">
 
-              <label>Ism *</label>
-              <input
-                type="text"
-                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-              />
-
-              <label>Telefon raqami *</label>
-              <input
-                type="text"
-                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-              />
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+              <div>
+                <label>Familiya *</label>
+                <input
+                  type="text"
+                  value={inputValue.name}
+                  onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                />
+              </div>
+              <div>
+                <label>Ism *</label>
+                <input
+                  type="text"
+                  value={inputValue.name}
+                  onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                />
+              </div>
             </div>
 
             <YMaps query={{ lang: 'en_RU' }}>
@@ -114,13 +128,9 @@ const BasketCheckout = () => {
                 width={'100%'}
                 height={'400px'}
                 defaultState={defaultState}
-                onClick={(e) => {
-                  const coordinates = e.get('coords');
-                  // Handle the selected coordinates (e.g., store them in state or send to the server)
-                  console.log('Selected coordinates:', coordinates);
-                }}
+                onClick={handleMapClick}
               >
-                <Placemark geometry={[55.684758, 37.738521]} options={{ draggable: true }} />
+                <Placemark geometry={markerGeometry} options={{ draggable: true }} />
               </Map>
             </YMaps>
           </div>
