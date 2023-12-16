@@ -18,29 +18,21 @@ export default function View({ object }) {
       </button>
       {open && (
         <Modal closeModal={onClose} actionType="view">
-          <div className="w-[50vw] p-4">
+          <div className="w-[80vw] p-4">
             <div className="flex w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
-              <div className="md:w-1/3 sm:w-full sx:w-full p-2 h-full">
-                {/* Left column for avatar, etc. */}
-                <div className="bg-white rounded-lg gap-2 shadow-lg border p-4 flex items-center flex-col justify-center">
-                  {object?.image && object.image !== "" ? (
+            <div className="md:w-1/3 sm:w-full sx:w-full p-2 h-full">
+                <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
+                {object?.image && object.image !== "" ? (
                     <img
                       src={object.image}
                       alt="avatar"
-                      className="mx-auto rounded-full w-40 h-40 object-cover"
+                      classNameName="mx-auto rounded-full w-40 h-40 object-cover"
                     />
                   ) : (
-                    <div className="w-40 h-40 rounded-full border bg-gray-200 flex justify-center items-center">
-                      <FaUserTie className="text-7xl text-primary" />
+                    <div classNameName="w-40 h-40 rounded-full border bg-gray-200 flex justify-center items-center">
+                      <FaUserTie classNameName="text-7xl text-primary" />
                     </div>
                   )}
-
-                  <h2 className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                    {object.title}
-                  </h2>
-                  <h2 className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                    {object.price} So'm
-                  </h2>
 
                 </div>
               </div>
@@ -70,7 +62,7 @@ export default function View({ object }) {
             </div>
 
             <div>
-              <h1 className="text-black">descriptaion</h1>
+              <h1 className="text-black">description</h1>
             </div>
           </div>
         </Modal>

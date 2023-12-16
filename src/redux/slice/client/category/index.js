@@ -28,16 +28,16 @@ export const CategoryCrud = createApi({
         }),
         updateCategorie: build.mutation({
             query: (body) => ({
-                url: `categories/${body.get("id")}/`,
+                url: `categories/${body.id}/`,
                 method: "PATCH",
-                body,
+                body: body.form_data,
             }),
             invalidatesTags: ["getCategoryt"],
         }),
 
         deleteCategorie: build.mutation({
             query: (body) => ({
-                url: `categories/${body.ID}/`,
+                url: `categories/${body.id}/`,
                 method: "DELETE",
                 body,
             }),

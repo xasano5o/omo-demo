@@ -60,7 +60,7 @@ const AddSubCategories = () => {
                   <option value="Hech Biri">Hech Biri</option>
                   {data.map((value) => {
                     return (
-                      <option value={value.slug}>{value.title}</option>
+                      <option value={value.id}>{value.title}</option>
                     )
                   })}
                 </select>

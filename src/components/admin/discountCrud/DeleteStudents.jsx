@@ -4,10 +4,10 @@ import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
 import { useDeleteDiscountMutation } from "../../../redux/slice/client/discount/index.js";
 
-export default function DeleteCategorie({ ID, }) {
+export default function DeleteDisk({ ID, }) {
     const [skip, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!skip);
-    const [deleteProduct, { isLoading }] = useDeleteDiscountMutation({skip});
+    const [deleteProduct, { isLoading }] = useDeleteDiscountMutation({ skip });
 
     const handleDelete = async (id) => {
         try {

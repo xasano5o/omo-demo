@@ -28,11 +28,11 @@ function App() {
        
         <Route element={<Layout />}>
           <Route path="/admin/home" element={<ProductTable />} />
-          <Route path="/admin/subcategorie" element={<SubcategorieCom />} />
+          <Route path="/admin/subcategories" element={<SubcategorieCom />} />
           <Route path="/admin/dashbord" element={<ProductTable />} />
           <Route path="/admin/discount" element={<DiscountTbale />} />
-          <Route path="/admin/categorie" element={<CategoriesCrud />} />
-          <Route path="/admin/product" element={<ProductCrud />} />
+          <Route path="/admin/categories" element={<CategoriesCrud />} />
+          <Route path="/admin/products" element={<ProductCrud />} />
           <Route path="/admin/order" element={<ProductTable />} />
         </Route>
         <Route path="/*" element={<h1>Not Found</h1>} />

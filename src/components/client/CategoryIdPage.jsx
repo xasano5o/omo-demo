@@ -32,17 +32,16 @@ const CategoryId = () => {
 
                                 <div style={{ marginTop: "auto" }}>
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <div className="m-3"><b>${product?.price}</b></div>
-                                        <NavLink className="" to={`/products/${product?.id}`}>
+                                        <div className="m-3"><b>{product?.price}</b></div>
+                                        <NavLink className="" to={`/product/${product?.id}`}>
                                             <button className="btn btn-sm m-3 border-primary">
                                                 <i className="fa fa-arrow-right text-muted"></i>
                                             </button>
                                         </NavLink>
                                     </div>
                                 </div>
-                                <button className="btn btn-sm m-3 border-primary">
-                                    Add To Cart
-                                </button>
+                                <button className="btn btn-outline-primary">Add to Cart</button>
+
                             </div>
                         </div>
                     ))}

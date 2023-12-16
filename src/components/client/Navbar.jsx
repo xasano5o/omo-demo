@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useGetBasketQuery } from "../../redux/slice/client/basket";
 const Navbar = () => {
-const {data} = useGetBasketQuery()
+  const { data } = useGetBasketQuery()
 
 
   return (
@@ -26,7 +26,7 @@ const {data} = useGetBasketQuery()
           </div>
 
 
-          
+
           <div className="d-flex items-center gap-4 ">
             <input
               className="form-control"
@@ -35,7 +35,7 @@ const {data} = useGetBasketQuery()
               placeholder="Type to search..."
             />
             <Link to={'/basket'} className="no-underline  flex flex-col items-center ">
-                 <span className="bg-yellow-500 rounded-full  px-2">{data?.length}</span>
+              <span className="bg-yellow-500 rounded-full  px-2">{data?.length}</span>
               <button className="navbar-toggler left-0" type="button">
                 <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>

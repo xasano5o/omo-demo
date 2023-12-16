@@ -5,11 +5,12 @@ import { useGetProductQuery } from '../../redux/slice/client/getProduct/index.js
 import { useCreateBasketMutation } from '../../redux/slice/client/basket/index.js';
 import { toast } from 'react-toastify';
 import axios from "axios";
+import { useGetDiscountQuery } from '../../redux/slice/client/discount/index.js';
 
 function Products() {
     const { data: product, isLoading, } = useGetProductQuery();
     const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation()
-    console.log(isSuccess, 'isSuccess');
+
 
     const token = localStorage.getItem('user')
     if (token) {
@@ -112,30 +113,26 @@ function Products() {
                                 <div className="col-6 col-md-3  col-lg-3 mb-1" key={product?.id}>
                                     <div className="card h-100">
                                         <NavLink to={`/product/${product?.id}`}>
-                                            <img src={product?.thumbnail_image} className="" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
-
+                                            <img src={product?.thumbnail_image} className="w-full aspect-square object-cover" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
                                         </NavLink>
+
                                         <div className="m-3 mb-0">
                                             <small className="card-title">{product?.title}</small>
                                         </div>
 
                                         <div style={{ marginTop: "auto" }}>
-
                                             <div className="d-flex justify-content-between align-items-center">
-                                                <div className="m-3"><b>${product?.price}</b></div>
-
+                                                <div className="m-3"><b>{product?.price}</b></div>
                                                 <NavLink className="" to={`/product/${product?.id}`}>
                                                     <button className="btn btn-sm m-3 border-primary">
                                                         <i className="fa fa-arrow-right text-muted"></i>
                                                     </button>
-
                                                 </NavLink>
                                             </div>
-
                                         </div>
 
                                         <button
-                                            className="btn   btn-sm m-3 border-primary"
+                                            className="btn  btn-sm m-3 border-primary"
                                             onClick={() => addData(product)}>
                                             Sotib olish
                                         </button>

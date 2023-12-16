@@ -7,6 +7,7 @@ import Footer from '../../../components/client/Footer.jsx'
 const HomePage = () => {
     return (
         <div>
+
             <Navbar/>
             <Home/>
             <Footer/>
