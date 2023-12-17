@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useCreateSubCategoriaMutation } from '../../redux/slice/client/subcategory';
 import { useGetCategoryQuery } from '../../redux/slice/client/category';
 import Modal from '../generic/Modal';
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
+import { useOrderCreateMutation } from '../../redux/slice/client/order';
 
-const BasketCheckout = () => {
+const BasketCheckout = ({ selectProduct }) => {
   const [open, setOpen] = useState(false);
-  const [createSubCategoria, { isLoading: isCreating }] = useCreateSubCategoriaMutation();
+  const [orderCreate, { isLoading: isCreating }] = useOrderCreateMutation();
   const { data } = useGetCategoryQuery();
 
   const onClose = () => {
@@ -15,44 +15,55 @@ const BasketCheckout = () => {
   };
 
   const [inputValue, setInputValue] = useState({
-    name: '',
-    img: '',
-    subcategory: '',
     location: [55.684758, 37.738521], // Default location
+    first_name: '',
+    last_name: '',
+    phone: '',
+    address: '',
+    longitude: '',
+    latitude: '',
+    address_status: '',
   });
 
 
-  console.log(inputValue.location, 'inputValue');
   const addData = async () => {
     const formData = new FormData();
-    formData.append('title', inputValue.name);
-    formData.append('image', inputValue.img);
-    formData.append('category', inputValue.subcategory);
-    // Add the latitude and longitude to formData
-    formData.append('latitude', inputValue.location[0]);
-    formData.append('longitude', inputValue.location[1]);
+
+    // Iterate through each element in selectProduct
+    selectProduct.forEach((file, index) => {
+      // Append each file with a unique key, for example: basket_products_0, basket_products_1, etc.
+      formData.append(`basket_products`,file);
+    });
+
+    // Append other form fields
+    formData.append('user.first_name', inputValue.first_name);
+    formData.append('user.last_name', inputValue.last_name);
+    formData.append('user.phone', inputValue.phone);
+    formData.append('location.address', inputValue.address);
+    formData.append('location.longitude', inputValue.location[0]);
+    formData.append('location.latitude', inputValue.location[1]);
+    formData.append('address_status', inputValue.address_status);
 
     try {
-      await createSubCategoria(formData).unwrap();
-      toast.success(`Category ${inputValue.name} added successfully`);
+      await orderCreate(formData).unwrap();
+      toast.success(`Maxsulod haridi amalga oshirildi tez orada siz bilan bog'lanamiz`);
       setInputValue({
-        name: '',
-        img: '',
-        subcategory: '',
-        location: [55.684758, 37.738521], // Reset location to default after submission
+        location: '', // Default location
+        first_name: '',
+        last_name: '',
+        phone: '',
+        address: '',
+        address_status: '',
       });
       setOpen(false);
     } catch (error) {
-      toast.error(`Failed to add category ${inputValue.name}`);
-      console.error('Error creating category:', error);
+      toast.error(`Ma'lumot to'ldiring tuliq`);
     }
   };
-
   const defaultState = {
     center: inputValue.location,
     zoom: 15,
   };
-
   const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
 
   const handleMapClick = (e) => {
@@ -99,34 +110,66 @@ const BasketCheckout = () => {
       </button>
 
       {open && (
-        <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
+        <Modal loader={isCreating} isDisabled={inputValue?.phone.length<=10 } closeModal={onClose} addFunc={addData}>
           <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
               <div>
-                <label>Familiya *</label>
+                <label>Ism *</label>
                 <input
                   type="text"
-                  value={inputValue.name}
-                  onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                  value={inputValue.first_name}
+                  onChange={(e) => setInputValue({ ...inputValue, first_name: e.target.value })}
                   className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
                 />
               </div>
               <div>
-                <label>Ism *</label>
+                <label>Familiya *</label>
                 <input
                   type="text"
-                  value={inputValue.name}
-                  onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                  value={inputValue.last_name}
+                  onChange={(e) => setInputValue({ ...inputValue, last_name: e.target.value })}
                   className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
                 />
+              </div>
+              <div>
+                <label>Telfon Raqam *</label>
+                <input
+                placeholder='+998'
+                  type="number"
+                  value={inputValue.phone}
+                  onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}
+                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                />
+              </div>
+              <div>
+                <label>Manzil tetx</label>
+                <textarea
+                  onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })}
+                  placeholder='Namagan shahar uychi atrofi'
+                  type="text"
+                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                />
+              </div>
+              <div>
+                <label>Manzil Turi *</label>
+                <select
+                  onChange={(e) => setInputValue({ ...inputValue, address_status: e.target.value })}
+                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+
+                >
+                  <option value="Hech biri">Hech biri</option>
+                  <option value="CITY_IN">Shahar ichi</option>
+                  <option value="CITY_OUT">Shahar tashqarisi</option>
+
+                </select>
               </div>
             </div>
 
             <YMaps query={{ lang: 'en_RU' }}>
               <Map
                 width={'100%'}
-                height={'400px'}
+                height={'300px'}
                 defaultState={defaultState}
                 onClick={handleMapClick}
               >

@@ -6,6 +6,7 @@ import { SubCategoryCrud } from "../slice/client/subcategory/index.jsx";
 import { DiscountCrud } from "../slice/client/discount/index.js";
 import { GetUserToekn } from "../slice/client/auth/useGetToken.js";
 import { BasketCrud } from "../slice/client/basket/index.js";
+import { OrderCrud } from "../slice/client/order/index.js";
 
 
 export const store = configureStore({
@@ -16,6 +17,9 @@ export const store = configureStore({
         [DiscountCrud.reducerPath]: DiscountCrud.reducer,
         [GetUserToekn.reducerPath]:GetUserToekn.reducer,
         [BasketCrud.reducerPath]:BasketCrud.reducer,
+        [OrderCrud.reducerPath]:OrderCrud.reducer,
+
+        
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
@@ -25,6 +29,8 @@ export const store = configureStore({
             DiscountCrud.middleware,
             GetUserToekn.middleware,
             BasketCrud.middleware,
+            OrderCrud.middleware,
+
         ),
 });
 
