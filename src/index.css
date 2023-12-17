@@ -86,3 +86,7 @@ body {
 .offcanvas-start{
   width: 320px !important;
 }
+
+.control-arrow .control-next{
+  width: 800px;
+}

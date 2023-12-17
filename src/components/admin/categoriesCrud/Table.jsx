@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import AddCategories from './addCategories';
+import NoProduct from "../../../assest/icon/Без названия.png";
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
-import NoProduct from "../../../assest/icon/Без названия.png"
-import DeleteCategorie from './DeleteStudents';
 import EmptyBox from '../../EmptyBox/EmptyBox';
-import Loader from "../../Loader/Loader"
+import Loader from "../../Loader/Loader";
+import UpdateCategories from './UpdateCategorie';
+import AddCategories from './addCategories';
+import DeleteCategorie from './DeleteCategorie';
+
+
 const ProductCrud = () => {
     const { data, isLoading, refetch } = useGetCategoryQuery();
     const [search, setSearch] = useState('');
@@ -12,7 +15,7 @@ const ProductCrud = () => {
 
 
     return (
-        <div className=" "> {/* Set the height to 100vh */}
+        <div className=" ">
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
                 <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -29,7 +32,7 @@ const ProductCrud = () => {
                             <AddCategories />
                         </div>
                         <br />
-                        <div className=" h-[80vh] ">
+                        <div className="overflow-x-auto h-[80vh] ">
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className=" text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
@@ -43,11 +46,11 @@ const ProductCrud = () => {
                                         isLoading ? (
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <Loader color="#36d7b7" />
-                                            </div> 
+                                            </div>
                                         ) : filteredData.length > 0 ? (
                                             filteredData.map((item) => {
                                                 return (
-                                                    <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700" key={item.id}>
+                                                    <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center mr-3">
                                                                 {item?.image && item?.image !== "" ? (
@@ -65,8 +68,7 @@ const ProductCrud = () => {
                                                                         />
                                                                     </div>
                                                                 )}
-                                                                {/* sad */}
-                                                            </div> 
+                                                            </div>
                                                         </th>
                                                         <td className="px-4 py-3">
                                                             <span className="bg-primary-100 text-primary-800 text-base font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
@@ -75,8 +77,10 @@ const ProductCrud = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <ww item={item} />
-                                                                <DeleteCategorie  ID= {item.id}/>
+                                                                <div className="flex items-center space-x-4">
+                                                                    <UpdateCategories item={item} />
+                                                                </div>
+                                                                <DeleteCategorie id={item.id} />
                                                             </div>
                                                         </td>
                                                     </tr>

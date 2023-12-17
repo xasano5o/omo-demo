@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import Modal from "../../generic/Modal";
 import { AiOutlineEye } from "react-icons/ai";
-import { FaUserTie } from "react-icons/fa";
-import { data } from "autoprefixer";
-import EmptyBox from "../../EmptyBox/EmptyBox";
+import Modal from "../../generic/Modal";
 
 export default function View({ object }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +16,7 @@ export default function View({ object }) {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-    };
+    };  
     const dateObject = new Date(dateString);
     return dateObject.toLocaleString('en-US', options);
   };
@@ -62,7 +59,7 @@ export default function View({ object }) {
                 <div className="bg-white rounded-lg shadow-lg border p-4 text-gray-800   ">
                   <h2 className="text-xl mb-2">Barcha malumotlar</h2>
                   <p>
-                    <strong >Chegirmani nomi:    </strong>  {object.title}
+                    <strong >Chegirmani nomi:</strong>  {object.title}
                   </p>
                   <p>
                     <strong>Chegirma boshlanish vaqti: &nbsp; </strong> {formattedStartDate || 'malumot kiritilmagan'}
@@ -96,8 +93,6 @@ export default function View({ object }) {
                 </div>
               </div>
             </div>
-
-
           </div>
         </Modal>
       )}

@@ -19,10 +19,9 @@ const UpdateCategories = ({item}) => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    formData.append('image', inputValue.img);
-    formData.append('id', inputValue.id);
+    if(inputValue.img){formData.append('image', inputValue.img)}
     try {
-      await updateCategorie(formData).unwrap();
+      await updateCategorie({id:item.id,form_data:formData}).unwrap();
       toast.success(`Category ${inputValue.title} o'zgartirildi`);
       setInputValue({
         title: '',

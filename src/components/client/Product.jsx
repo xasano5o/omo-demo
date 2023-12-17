@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { useParams } from 'react-router';
-import { Link, NavLink } from 'react-router-dom';
-import { useGetProductCatgoriQuery, useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
-import { IoArrowBack } from "react-icons/io5";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { useGetProductIdQuery } from '../../redux/slice/client/getProduct/index.js';
 
 function Product() {
     const { id } = useParams();
     const { data: product, isLoading } = useGetProductIdQuery({ id: id });
-
 
     const Loading = () => {
         return (
@@ -111,15 +109,15 @@ function Product() {
                                     <div className="w-full border p-4 shadow-md">
                                         <div className="mt-4 mb-3">
                                             <h5 className="text-uppercase">
-                                                {product.title}
+                                                {product?.title}
                                             </h5>
-                                            <span className="text-muted text-capitalize">{product.category}</span>
+                                            <span className="text-muted text-capitalize">{product?.category}</span>
                                             <div className="price d-flex flex-row align-items-center">
                                                 <big className="display-6"><b>{product?.price}</b></big>
                                             </div>
                                         </div>
                                         <p className="text-muted whitespace-pre-wrap break-words">{product?.description}</p>
-                                        <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-dark text-uppercase mr-2 px-4">Buy</button> </div>
+                                        <div className="cart mt-4 align-items-center"> <button className="btn btn-outline-primary text-uppercase mr-2 px-4">Buy</button> </div>
                                     </div>
                                 </div>
                             </div>

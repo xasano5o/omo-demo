@@ -6,9 +6,11 @@ import Footer from '../../../components/client/Footer'
 const BaskerPage = () => {
   return (
     <div>
+
         <Navbar/>
         <Basket/>
         <Footer/>
+        
     </div>
   )
 }

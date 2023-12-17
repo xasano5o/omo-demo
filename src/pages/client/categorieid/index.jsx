@@ -5,10 +5,11 @@ import Footer from '../../../components/client/Footer.jsx'
 
 const CategoryIdPage = () => {
     return (
-        <div> <Navbar/>
+        <div>
+            <Navbar />
             <CategoryId />
-             <Footer/>
-            </div>
+            <Footer />
+        </div>
     )
 }
 

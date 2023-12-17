@@ -22,18 +22,17 @@ const Basket = () => {
     }
   };
 
-  const handleSelectAmount = async (e, productId) => {
-    const newAmount = e.target.value;
+  const handleSelectAmount = async (e) => {
+    const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
 
     const formData = new FormData();
-    formData.append('id', productId);
     formData.append('amount', newAmount);
 
     try {
       await Increment(formData).unwrap();
     } catch (error) {
-      console.error('Error updating item:', error);
+      console.error('Error incrementing item:', error);
     }
   };
 
@@ -191,7 +190,7 @@ const Basket = () => {
                           +{' '}
                         </span>
                       </div>
-                      <select  onChange={(e) => handleSelectAmount(e, value.id)}>
+                      <select value={selectTotal} onChange={handleSelectAmount}>
                         <option value="1">1</option>
                         <option value="10">10</option>
                         <option value="20">20</option>

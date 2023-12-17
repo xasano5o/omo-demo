@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useCreateCategoriaMutation } from '../../../redux/slice/client/category';
-import Modal from '../../generic/Modal';
-import ImageUpload from '../../ImageUpload/ImageUpload';
 import { MdOutlineInsertPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { useCreateCategoriaMutation } from '../../../redux/slice/client/category';
+import ImageUpload from '../../ImageUpload/ImageUpload';
+import Modal from '../../generic/Modal';
 
 const AddCategories = () => {
   const [open, setOpen] = useState(false);

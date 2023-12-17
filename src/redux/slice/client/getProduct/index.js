@@ -15,7 +15,6 @@ export const GetProducts = createApi({
             providesTags: ["Product"],
         }),
 
-
         getProductId: build.query({
             query: (body) => ({
                 url: `products/${body.id}/?images=true`,
