@@ -6,7 +6,7 @@ export const OrderCrud = createApi({
     baseQuery: api,
     tagTypes: ["Order"],
     endpoints: (build) => ({
-        getCategory: build.query({
+        getOrder: build.query({
             query: (body) => "orders/checkout/",
             providesTags: ["Order"],
         }),
@@ -40,7 +40,7 @@ export const OrderCrud = createApi({
 });
 
 export const {
-    useGetCategoryQuery,
+    useGetOrderQuery,
     useOrderCreateMutation,
     useDeleteCategorieMutation,
     useUpdateCategorieMutation,

@@ -10,7 +10,9 @@ const Home = () => {
   const navigate = useNavigate()
 
   const menus = [
+
     { name: "Dashboard", link: "/dashbord", icon: GoHome },
+    { name: "Banners", link: "/banners", icon: GoHome },
     { name: "Product", link: "/products", icon: MdOutlineDashboard },
     { name: "Discount", link: "/discount", icon: TbReportAnalytics },
     { name: "Categorie", link: "/categories", icon: TbReportAnalytics },

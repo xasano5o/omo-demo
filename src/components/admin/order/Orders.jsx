@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import NoProduct from "../../../assest/icon/Без названия.png";
-import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduct/index.js';
+import { useGetOrderQuery } from '../../../redux/slice/client/order/index.js';
 import EmptyBox from "../../EmptyBox/EmptyBox.jsx";
 import Loader from '../../Loader/Loader';
-import AddCategories from './AddCategories';
-import DeleteCategorie from './DeleteStudents';
-import AddImgUpload from './ImgUpload.jsx';
-import UpdateProduct from './Update.jsx';
-import ViewProduct from './ViewParent.jsx';
+import DeleteOrder from './OrderDelete.jsx';
+import OrderUpdate from './OrderUpdate.jsx';
 
-const ProductCrud = () => {
-    const { data, error, isLoading } = useGetProductCatgoriQuery();
+const Orders = () => {
+    const { data, error, isLoading } = useGetOrderQuery();
 
     const [search, setSearch] = useState('');
     const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
@@ -30,7 +27,7 @@ const ProductCrud = () => {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                             />
-                            <AddCategories />
+
                         </div>
                         <br />
                         <div className="overflow-x-auto  h-[80vh] ">
@@ -42,7 +39,6 @@ const ProductCrud = () => {
                                         <th scope="col" className="p-4">Maxsulot Narxi</th>
                                         <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>
                                         <th scope="col" className="p-4"></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +51,7 @@ const ProductCrud = () => {
                                             filteredData?.map((item) => {
 
                                                 const dateObject = new Date(item.created_date);
+
                                                 const options = { hour12: false };
                                                 const formattedDate = dateObject.toLocaleString('en-US', options);
 
@@ -86,11 +83,7 @@ const ProductCrud = () => {
                                                                 )}
                                                             </div>
                                                         </th>
-                                                        <td className="px-4 py-3">
-                                                            <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                                                                {item?.category?.title}
-                                                            </span>
-                                                        </td>
+
                                                         <td className="px-4 py-3">
                                                             <span
                                                                 className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
@@ -107,10 +100,12 @@ const ProductCrud = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
-                                                                <ViewProduct object={item} />
-                                                                <AddImgUpload ID={item.id} />
-                                                                <UpdateProduct object={item} />
-                                                                <DeleteCategorie ID={item.id} />
+                                                                <div>
+                                                                    <OrderUpdate object={item} />
+                                                                </div>
+                                                                <div>
+                                                                    <DeleteOrder ID={item.id} />
+                                                                </div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -130,4 +125,4 @@ const ProductCrud = () => {
     )
 }
 
-export default ProductCrud;
+export default Orders;

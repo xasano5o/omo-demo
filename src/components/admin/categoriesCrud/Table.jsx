@@ -3,12 +3,12 @@ import NoProduct from "../../../assest/icon/Без названия.png";
 import { useGetCategoryQuery } from '../../../redux/slice/client/category';
 import EmptyBox from '../../EmptyBox/EmptyBox';
 import Loader from "../../Loader/Loader";
+import DeleteCategorie from './DeleteCategorie';
 import UpdateCategories from './UpdateCategorie';
 import AddCategories from './addCategories';
-import DeleteCategorie from './DeleteCategorie';
 
 
-const ProductCrud = () => {
+const CategoriesCrud = () => {
     const { data, isLoading, refetch } = useGetCategoryQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
@@ -78,7 +78,7 @@ const ProductCrud = () => {
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <div className="flex items-center space-x-4">
-                                                                    <UpdateCategories item={item} />
+                                                                    <UpdateCategories item={item.id} />
                                                                 </div>
                                                                 <DeleteCategorie id={item.id} />
                                                             </div>
@@ -100,4 +100,4 @@ const ProductCrud = () => {
     )
 }
 
-export default ProductCrud;
+export default CategoriesCrud;
