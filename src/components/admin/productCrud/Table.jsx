@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import AddCategories from './AddCategories';
-import NoProduct from "../../../assest/icon/Без названия.png"
-import DeleteCategorie from './DeleteStudents';
-import Loader from '../../Loader/Loader';
-import EmptyBox from "../../EmptyBox/EmptyBox.jsx"
+import NoProduct from "../../../assest/icon/Без названия.png";
 import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduct/index.js';
-import ViewProduct from './ViewParent.jsx';
-import UpdateProduct from './Update.jsx';
+import EmptyBox from "../../EmptyBox/EmptyBox.jsx";
+import Loader from '../../Loader/Loader';
+import AddCategories from './AddCategories';
+import DeleteCategorie from './DeleteStudents';
 import AddImgUpload from './ImgUpload.jsx';
+import UpdateProduct from './Update.jsx';
+import ViewProduct from './ViewParent.jsx';
 
 const ProductCrud = () => {
     const { data, error, isLoading } = useGetProductCatgoriQuery();
@@ -37,7 +37,7 @@ const ProductCrud = () => {
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Maxsulot rasm</th>
+                                        <th scope="col" className="p-4">Maxsulot rassssm</th>
                                         <th scope="col" className="p-4">Maxsulot Kategoriyasi</th>
                                         <th scope="col" className="p-4">Maxsulot Narxi</th>
                                         <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>

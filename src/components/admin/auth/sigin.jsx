@@ -12,29 +12,32 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const [credentials, setCredentials] = useState({
-        username: 'admin',
-        password: '123',
+        username: '',
+        password: '',
     });
- 
-    const [login_set] = useTokenUserMutation();
     
+    const [login_set] = useTokenUserMutation();
+
     const handleLogin = () => {
         const data = login_set(credentials).unwrap();
-        data.then((item) => {
+        data
+            .then((item) => {
                 if (item.refresh && item.access) {
                     localStorage.setItem("token", JSON.stringify(item));
                     navigate('/admin/home');
                     toast.success(`successfully`);
                 } else {
                     toast.error(`Login failed`);
+                    
                 }
             })
             .catch((error) => {
                 toast.error(`Username yoki parolda xatolik bor`);
             });
     };
-    
-    
+
+
+
     return (
         <div className="container d-flex justify-content-center align-items-center vh-100">
             <div className="col-md-6">

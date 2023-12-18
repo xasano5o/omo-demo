@@ -51,9 +51,9 @@ const Basket = () => {
   return (
     <div>
       <div className="h-screen bg-gray-100 pt-20">
-        <h1 className="mx-auto max-w-7xl px-2  text-2xl font-bold">Savatga OLingan Maxsulodlar {data?.length}  </h1>
+        <h1 className="container mx-auto max-w-7xl px-2  text-2xl font-bold">Savatga OLingan Maxsulodlar {data?.length}  </h1>
 
-        <div className="mx-auto justify-center px-6 md:flex md:space-x-6 xl:px-0">
+        <div className="container mx-auto justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div className="rounded-lg md:w-2/3 p-4 flex flex-col gap-2 h-[85vh] overflow-x-auto">
             {data?.map((value) => {
               return (
@@ -112,7 +112,9 @@ const Basket = () => {
                   </div>
                 </>
               )
+            
             })}
+            
             {/* mobile */}
             <div className="mt-6 h-full rounded-lg border md:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
             <div className="mb-2 flex justify-between">

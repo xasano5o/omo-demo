@@ -56,7 +56,7 @@ function Products() {
 
                 <div className="col-md-13 py-md-3">
                     <div className="row">
-                        
+
                         <div className="col-6 col-md-6 col-lg-3 mb-3">
                             <Skeleton height={400} width={"100%"} />
                         </div>
@@ -67,7 +67,7 @@ function Products() {
                             <Skeleton height={400} width={"100%"} />
                         </div>
                         <div className="col-6 col-md-6 col-lg-3 mb-3">
-                            <Skeleton height={400} width={"100%"} />
+                               <Skeleton height={400} width={"100%"} />
                         </div>
                         <div className="col-6 col-md-6 col-lg-3 mb-3">
                             <Skeleton height={400} width={"100%"} />
