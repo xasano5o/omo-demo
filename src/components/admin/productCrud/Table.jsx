@@ -55,7 +55,6 @@ const ProductCrud = () => {
                                             filteredData?.map((item) => {
 
                                                 const dateObject = new Date(item.created_date);
-
                                                 const options = { hour12: false };
                                                 const formattedDate = dateObject.toLocaleString('en-US', options);
 

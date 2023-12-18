@@ -1,26 +1,36 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api } from "../../../../api/api.js";
 
-export const GetOrder = createApi({
-    reducerPath: "getOrder",
+export const OrderCrud = createApi({
+    reducerPath: "getOrdertData",
     baseQuery: api,
     tagTypes: ["Order"],
     endpoints: (build) => ({
         getOrder: build.query({
-            query: (body) => `orders/`,
+            query: (body) => "orders/checkout/",
             providesTags: ["Order"],
         }),
-        updateOrder: build.mutation({
+
+        orderCreate: build.mutation({
             query: (body) => ({
-                url: `orders/${body.id}/`,
+                url: 'orders/checkout/',
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: ["Order"]
+        }),
+        updateCategorie: build.mutation({
+            query: (body) => ({
+                url: `categories/${body.get("id")}/`,
                 method: "PATCH",
                 body,
             }),
             invalidatesTags: ["Order"],
         }),
-        deleteOrders: build.mutation({
+
+        deleteCategorie: build.mutation({
             query: (body) => ({
-                url: `orders/${body.id}/`,
+                url: `categories/${body.ID}/`,
                 method: "DELETE",
                 body,
             }),
@@ -30,7 +40,8 @@ export const GetOrder = createApi({
 });
 
 export const {
-    useDeleteOrdersMutation,
     useGetOrderQuery,
-    useUpdateOrderMutation,
-} = GetOrder;
+    useOrderCreateMutation,
+    useDeleteCategorieMutation,
+    useUpdateCategorieMutation,
+} = OrderCrud;

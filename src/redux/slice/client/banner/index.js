@@ -4,7 +4,6 @@ import { api } from "../../../../api/api.js";
 export const GetBanner = createApi({
     reducerPath: "getBanner",
     baseQuery: api,
-    
     tagTypes: ["Banner"],
     endpoints: (build) => ({
         GetBanners: build.query({
@@ -20,7 +19,6 @@ export const GetBanner = createApi({
             }),
             invalidatesTags: ["getCategoryt"]
         }),
-
         updateBanners: build.mutation({
             query: (body) => ({
                 url: `banners/${body.id}/`,
@@ -29,7 +27,6 @@ export const GetBanner = createApi({
             }),
             invalidatesTags: ["Banner"],
         }),
-
         deleteBanners: build.mutation({
             query: (body) => ({
                 url: `banners/${body.id}/`,
