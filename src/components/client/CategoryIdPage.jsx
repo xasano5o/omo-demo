@@ -62,8 +62,7 @@ const CategoryId = () => {
                 <NavLink to={`/product/${product?.id}`}>
                   <img
                     src={product?.image}
-                    className=""
-                    style={{ height: "300px", width: "", objectFit: "contain" }}
+                    className="aspect-square object-cover w-full h-[300px]"
                     alt={product?.title}
                   />
                 </NavLink>
