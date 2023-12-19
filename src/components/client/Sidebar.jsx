@@ -19,7 +19,7 @@ const Sidebar = () => {
                 to={`${value?.id}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate(`/categories/${value?.slug}`);
+                  navigate(`/categories/${value?.id}`);
                 }}
               >
                 <div className="w-full text-black">

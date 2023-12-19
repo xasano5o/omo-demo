@@ -172,7 +172,7 @@ const AddProduct = ({ object }) => {
                   onChange={(e) => handleSelectionChange('category', e)}
                 >
                   {data?.map((value) => (
-                    <option key={value?.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value?.id} disabled={direction === 'ALL'} value={value.id}>{value.title}</option>
                   ))}
                 </select>
               </div>
