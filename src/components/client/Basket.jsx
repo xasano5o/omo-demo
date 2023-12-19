@@ -135,7 +135,7 @@ const Basket = () => {
                 <img
                   src={value?.product?.image}
                   alt="product-image"
-                  className="w-full rounded-lg md:ml-7 lg:ml-7 xl:ml-7sm:w-40 object-contain"
+                  className="w-full rounded-lg md:ml-7 lg:ml-7 xl:ml-7 sm:w-40 object-contain"
                 />
                 <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between p-3">
                 <div className="mt-5 sm:mt-0">
