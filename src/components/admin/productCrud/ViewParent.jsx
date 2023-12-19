@@ -22,9 +22,9 @@ export default function View({ object }) {
             <div className="flex w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
             <div className="md:w-1/3 sm:w-full sx:w-full p-2 h-full">
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
-                {object?.image && object.image !== "" ? (
+                {object?.images.image && object.images.image !== "" ? (
                     <img
-                      src={object.image}
+                      src={object.images.image}
                       alt="avatar"
                       classNameName="mx-auto rounded-full w-40 h-40 object-cover"
                     />
