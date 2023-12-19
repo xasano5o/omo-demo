@@ -23,7 +23,7 @@ const Login = () => {
         data
             .then((item) => {
                 if (item.refresh && item.access) {
-                    localStorage.setItem("token", JSON.stringify(item));
+                    localStorage.setItem("token", JSON.stringify(item.refresh));
                     navigate('/admin/home');
                     toast.success(`successfully`);
                 } else {
