@@ -108,7 +108,7 @@ function Products() {
                                 <div className="col-6 col-md-3  col-lg-3 mb-1" key={product?.id}>
                                     <div className="card h-100">
                                         <NavLink to={`/product/${product?.id}`}>
-                                            <img src={product?.thumbnail_image} className="w-full aspect-square object-cover" style={{ height: "300px", width: "", objectFit: "contain" }} alt={product?.title} />
+                                            <img src={product?.image} className="w-full aspect-square object-cover"  alt={product?.title} />
                                         </NavLink>
 
                                         <div className="m-3 mb-0">
@@ -127,7 +127,7 @@ function Products() {
                                         </div>
 
                                         <button
-                                            className="btn  btn-sm m-3 border-primary"
+                                            className="btn btn-sm m-3 border-primary"
                                             onClick={() => addData(product)}>
                                             Sotib olish
                                         </button>

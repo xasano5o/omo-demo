@@ -66,7 +66,7 @@ export const CategorySilide = () => {
           })}
         </Carousel>
       ) : (
-        <h1>Hech vaqo yo'q</h1>
+        <h1>Malumotlar hozircha yuklanmoqda</h1>
       )}
     </div>
   );
