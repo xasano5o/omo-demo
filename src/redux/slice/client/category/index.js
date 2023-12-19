@@ -12,7 +12,7 @@ export const CategoryCrud = createApi({
         }),
         getProductId: build.query({
             query: (body) => ({
-                url: `categories/${body.id}/get_products/`,
+                url: `categories/${body.id}/get_products/?category=true`,
                 method: "GET",
             }),
             invalidatesTags: ["getCategoryt"],

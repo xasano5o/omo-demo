@@ -17,7 +17,7 @@ export const GetProducts = createApi({
 
         getProductId: build.query({
             query: (body) => ({
-                url: `products/${body.id}/?images=true`,
+                url: `products/${body.id}/?images=true&category=true`,
                 method: "GET",
             }),
             invalidatesTags: ["Product"],
