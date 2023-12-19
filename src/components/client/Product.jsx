@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateBasketMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
+import { CategorySilide } from "./CategorySilide.jsx";
 
 function Product() {
   const { id } = useParams();
@@ -194,6 +195,7 @@ function Product() {
               </div>
             </div>
           </div>
+          <CategorySilide />
         </div>
       </>
     );

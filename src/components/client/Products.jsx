@@ -87,41 +87,7 @@ function Products() {
   const ShowProducts = () => {
     return (
       <>
-        <div className="col-md-5 my-3">
-          <div className="position-sticky" style={{ top: "100px" }}>
-            <button
-              className="btn btn-outline-dark m-1 btn-sm"
-              onClick={() => setFilter(product)}
-            >
-              Top maxsulotlar
-            </button>
-            <button
-              className="btn btn-outline-dark m-1 btn-sm"
-              onClick={() => filterProduct("women's clothing")}
-            >
-              Aralash maxsulotlar
-            </button>
-            <button
-              className="btn btn-outline-dark m-1 btn-sm"
-              onClick={() => filterProduct("men's clothing")}
-            >
-              Skidkadgi maxsulotlar
-            </button>
-            <button
-              className="btn btn-outline-dark m-1 btn-sm"
-              onClick={() => filterProduct("jewelery")}
-            >
-              Jewelery
-            </button>
-            <button
-              className="btn btn-outline-dark m-1 btn-sm"
-              onClick={() => filterProduct("electronics")}
-            >
-              Electronics
-            </button>
-          </div>
-        </div>
-
+        <h3>Mahsulotlarimiz</h3>
         <div className="col-md-13 py-md-3">
           <div className="row">
             {filter?.map((product) => {
@@ -146,11 +112,11 @@ function Products() {
                     <div style={{ marginTop: "auto" }}>
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="m-3">
-                          <b>{product?.price.toLocaleString("ru-Ru")}</b>
+                          <b>{product?.price.toLocaleString("ru-Ru")} so'm</b>
                         </div>
                         <NavLink className="" to={`/product/${product?.id}`}>
                           <button className="btn btn-sm m-3 border-primary">
-                            <i className="fa fa-arrow-right text-muted"></i>
+                            <span className="fa fa-arrow-right text-muted" />
                           </button>
                         </NavLink>
                       </div>
