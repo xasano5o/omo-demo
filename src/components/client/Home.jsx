@@ -1,11 +1,11 @@
 import React from 'react';
+import { useGetBannersQuery } from '../../redux/slice/client/banner/index.js';
 import { CategorySilide } from './CategorySilide.jsx';
 import Products from './Products';
-import Diskount from './discount/Diskount.jsx';
-import { useGetBannersQuery } from '../../redux/slice/client/banner/index.js';
 
 const Home = () => {
-    const {data}=useGetBannersQuery()
+     
+    const { data } = useGetBannersQuery()
     return (
         <>
             <div className="container px-0" style={{ marginTop: "66px" }}>
@@ -13,10 +13,9 @@ const Home = () => {
                     <div className="carousel-inner">
                         {data?.map((item) => {
                             return <>
-                            <div className="carousel-item active" data-bs-interval="10000">
-                                <img src={item?.image} className="d-block w-100 h-96 object-contain" alt="..." />
-                            </div>
-
+                                <div className="carousel-item active" data-bs-interval="10000">
+                                    <img src={item?.image} className="d-block w-100 h-96 object-contain" alt="..." />
+                                </div>
                             </>
                         })}
 
@@ -30,7 +29,6 @@ const Home = () => {
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>
-                {/* <Diskount /> */}
                 <CategorySilide />
                 <Products />
             </div>

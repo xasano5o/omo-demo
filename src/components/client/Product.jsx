@@ -64,17 +64,7 @@ function Product() {
     }
 
     const ShowDetails = () => {
-        <Carousel
-            animationHandler={true}
-            infiniteLoop={true}
-        >
-            {product?.images.map((item, index) => (
-                <div key={index}>
-                    <img src={item?.image} alt={`Image ${index}`} />
-                </div>
-            ))}
-        </Carousel>
-        
+  
         return (
             //   <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"/>
             <>
@@ -89,15 +79,18 @@ function Product() {
                         <div>
                             <div className="row">
                                 <div className="col-md-6">
-                                    {product?.images.length > 0 ? (
+                                    {product?.image ? (
                                         <Carousel
                                             className=''
                                             animationHandler={true}
                                             infiniteLoop={true}
                                         >
+                                            <div className="">
+                                                <img src={product?.image} alt={`Image`} className='object-cover' />
+                                            </div>
                                             {product.images.map((item, index) => (
-                                                <div key={index} className='md:h-96'>
-                                                    <img src={item?.image} alt={`Image ${index}`} />
+                                                <div key={index} className="">
+                                                    <img src={item?.image} alt={`Image ${index}`} className='object-cover' />
                                                 </div>
                                             ))}
                                         </Carousel>
