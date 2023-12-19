@@ -164,7 +164,7 @@ const AddProduct = ({ object }) => {
                 </div>
               </div>
               <div>
-                <label htmlFor="category-select" className="block mb-2 text-sm font-medium text-gray-900">Kategoriya tanlang</label>
+                <label htmlFor="category-select" className="block mb-2 text-sm font-medium text-gray-900">  Mahsulod turi tanlang</label>
                 <select
                   id="category-select"
                   multiple
@@ -179,7 +179,7 @@ const AddProduct = ({ object }) => {
 
               {/* Category Select */}
               <div>
-                <label htmlFor="subcategory-select" className="block mb-2 text-sm font-medium text-gray-900">Ichki kategoriya tanlang</label>
+                <label htmlFor="subcategory-select" className="block mb-2 text-sm font-medium text-gray-900">Ichki Mahsulod turi tanlang</label>
                 <select
                   id="subcategory-select"
                   multiple

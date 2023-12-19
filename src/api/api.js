@@ -8,7 +8,15 @@ axios.defaults.baseURL = baseUrl
 
 export const api = fetchBaseQuery({
     baseUrl,
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("user")}`,
-    },
-});
+    prepareHeaders: (headers) => {
+        const token = localStorage.getItem("user");
+        if (token) {
+          headers.set('authorization', `Bearer ${token}`);
+        }
+        return headers;
+      },
+    }
+
+
+
+);

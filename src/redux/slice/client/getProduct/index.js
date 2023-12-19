@@ -11,7 +11,7 @@ export const GetProducts = createApi({
             providesTags: ["Product"],
         }),
         getProductCatgori: build.query({
-            query: () => `products/?category=true&images=true`,
+            query: () => `products/?images=true`,
             providesTags: ["Product"],
         }),
 

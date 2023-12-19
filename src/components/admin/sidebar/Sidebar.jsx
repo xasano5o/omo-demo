@@ -4,6 +4,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
+import { PiTaxi } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
     { name: "Discount", link: "/discount", icon: TbReportAnalytics },
     { name: "Categorie", link: "/categories", icon: TbReportAnalytics },
     { name: "Subcategorie", link: "/subcategories", icon: TbReportAnalytics, margin: true },
+    { name: "Deliveries", link: "/deliveries", icon:PiTaxi },
     { name: "Log out", link: "", icon: FaRegUser, margin: true },
 
   ];
@@ -29,11 +31,8 @@ const Home = () => {
       >
 
         <div className="py-3 flex justify-end text-center items-center gap-6">
-
-
           <Link to={"/admin/home"} className={`no-underline ${open ? "block" : "hidden"}`} >
             <h1 className="text-black">Omo Food</h1>
-
           </Link>
 
           {
@@ -57,7 +56,6 @@ const Home = () => {
             <div className=""
               onClick={() => navigate(`/admin${menu.link}/`)}
             >
-
               <Link
                 to={menu?.link}
                 key={i}
