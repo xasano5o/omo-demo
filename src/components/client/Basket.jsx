@@ -22,7 +22,7 @@ const Basket = () => {
     }
   };
 
-  const handleSelectAmount = async (e,value) => {
+  const handleSelectAmount = async (e, value) => {
     const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
 
@@ -63,7 +63,7 @@ const Basket = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (Array.isArray(dataBasket)) {
+      if (Array?.isArray(dataBasket)) {
         const total = dataBasket.reduce(
           (a, b) => a + (b?.total_price?.price || 0) * b.amount,
           0
@@ -101,12 +101,13 @@ const Basket = () => {
     return selectedUsers.length === dataBasket.length;
   };
   return (
-    <div>
-      <div className="h-screen bg-gray-100 pt-20">
-        <h1 className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-          Savatga OLingan Maxsulodlar {dataBasket?.length}{" "}
+    <div className="h-screen bg-gray-100 pt-20">
+      <div className="container mx-auto">
+        <h1 className="mx-auto max-w-5xl justify-center container px-6 md:flex md:space-x-6 xl:px-0">
+          Savatga Olingan Maxsulotlar soni: {dataBasket?.length}{" "}
         </h1>
         <div className="mx-auto max-w-7xl flex items-center gap-2">
+          
           <input
             id="selectAll"
             name="selectAll"
@@ -131,42 +132,58 @@ const Basket = () => {
                     onChange={() => handleUserSelect(value)}
                   />
                 </div>
+                <div className="flex justify-end mb-2 xl:mb-0 lg:mb-0 md:mb-0 -mt-3 md:-mt-0 xl:-mt-0 lg:-mt-0 sm:block md:hidden sm:items-center lg:hidden xl:hidden">
+                  <svg
+                    onClick={() => deleteFunc(value?.id)}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
                 <img
                   src={value?.product?.image}
                   alt="product-image"
                   className="w-full rounded-lg md:ml-7 lg:ml-7 xl:ml-7 sm:w-40 object-contain"
                 />
-                <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between p-3">
-                <div className="mt-5 sm:mt-0">
-                        <h2 className="text-lg font-bold text-gray-900">
-                          {value?.product?.title}
-                        </h2>
-                        <p className="mt-1 text-base text-gray-700">
-                          {value.product?.description?.length > 100
-                            ? `${value?.product?.description.substring(
-                                0,
-                                70
-                              )}...`
-                            : value?.product?.description}
-                        </p>
+                <div className="sm:ml-4 sm:flex md:flex-nowrap sm:w-full sm:justify-between p-3">
+                  <div className="mt-5 sm:mt-0 ">
+                    <h2 className="text-lg font-bold text-gray-900">
+                      {value?.product?.title}
+                    </h2>
+                    <p className="mt-1 text-base text-gray-700">
+                      {value.product?.description?.length > 100
+                        ? `${value?.product?.description.substring(0, 70)}...`
+                        : value?.product?.description}
+                    </p>
+                  </div>
+                  <div className="flex justify-between flex-wrap md:flex-nowrap lg:flex-nowrap xl:flex-nowrap im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                    <div className="hidden lg:block xl:block md:block">
+                      <div className="flex justify-end">
+                        <svg
+                          onClick={() => deleteFunc(value?.id)}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
                       </div>
-                  <div className="flex justify-between im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                    <div className="flex justify-end">
-                      <svg
-                        onClick={() => deleteFunc(value?.id)}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
                     </div>
                     <div className="flex gap-4">
                       <div className="flex items-center border-gray-100">
@@ -191,7 +208,7 @@ const Basket = () => {
                           +{" "}
                         </span>
                       </div>
-                      <select onChange= {(e)=> handleSelectAmount(e,value) }>
+                      <select onChange={(e) => handleSelectAmount(e, value)}>
                         <option value="1">1</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -203,10 +220,10 @@ const Basket = () => {
                     </div>
                     <div className="flex items-center flex-col justify-between">
                       <p className="text-sm">
-                        {value?.total_price?.discount_price?.toLocaleString(
+                        {value?.product?.price?.toLocaleString(
                           "uz-UZ"
-                        )}{" "}
-                        so'm
+                        )} so'm`` {" "}
+                       
                       </p>
                       <del>
                         {value?.product?.price.toLocaleString("uz-UZ")} so'm
@@ -216,8 +233,8 @@ const Basket = () => {
                 </div>
               </div>
             ))}
-             {/* mobile */}
-             <div className="mt-6 h-full rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
+            {/* mobile */}
+            <div className="mt-6 h-full rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
               <div className="mb-2 flex justify-between">
                 <p className="text-gray-700">Subtotal</p>
                 <p className="text-gray-700"></p>
@@ -259,7 +276,7 @@ const Basket = () => {
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <BasketCheckout  selectProduct={selectedUsers}/>
+            <BasketCheckout selectProduct={selectedUsers} />
           </div>
         </div>
       </div>

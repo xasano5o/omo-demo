@@ -9,7 +9,7 @@ import OrderUpdate from './OrderUpdate.jsx';
 const OrderCrud = () => {
     const { data, error, isLoading } = useGetOrderQuery();
     const [search, setSearch] = useState('');
-    // const filteredData = data ? data?.filter(item => item?.title.toLowerCase()?.includes(search?.toLowerCase())) : [];
+    // const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
     const [isHovered, setIsHovered] = useState(false);
     return (
         <div className=" "> {/* Set the height to 100vh */}
@@ -50,7 +50,6 @@ const OrderCrud = () => {
                                             data?.map((item) => {
 
                                                 const dateObject = new Date(item.created_date);
-
                                                 const options = { hour12: false };
                                                 const formattedDate = dateObject.toLocaleString('en-US', options);
 
