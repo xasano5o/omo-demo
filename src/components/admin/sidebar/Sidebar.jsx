@@ -6,6 +6,8 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
 import { PiTaxi } from "react-icons/pi";
 import { Link, useNavigate } from "react-router-dom";
+import { PiUsersFourLight } from "react-icons/pi";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
 const Home = () => {
   const navigate = useNavigate()
@@ -13,7 +15,8 @@ const Home = () => {
   const menus = [
 
     { name: "Dashboard", link: "/dashbord", icon: GoHome },
-    { name: "Banners", link: "/banners", icon: GoHome },
+    { name: "Order", link: "/order", icon: PiUsersFourLight },
+    { name: "Banners", link: "/banners", icon: MdOutlineAddPhotoAlternate },
     { name: "Product", link: "/products", icon: MdOutlineDashboard },
     { name: "Discount", link: "/discount", icon: TbReportAnalytics },
     { name: "Categorie", link: "/categories", icon: TbReportAnalytics },

@@ -30,7 +30,7 @@ export const CategorySilide = () => {
 
   return (
     <div className="mt-5 container mx-auto">
-      <h1 className="">Mahsulotlar Kategoriyasi</h1>
+      <h3 className="">Mahsulotlar turlari</h3>
       {data ? (
         <Carousel
           itemclassName="slideitem"
@@ -66,7 +66,7 @@ export const CategorySilide = () => {
           })}
         </Carousel>
       ) : (
-        <h1>Hech vaqo yo'q</h1>
+        <h1>Malumotlar hozircha yuklanmoqda</h1>
       )}
     </div>
   );

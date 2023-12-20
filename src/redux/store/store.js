@@ -9,6 +9,7 @@ import { OrderCrud } from "../slice/client/order/index.js";
 import { SubCategoryCrud } from "../slice/client/subcategory/index.jsx";
 import { GetBanner } from "../slice/client/banner/index.js";
 import { DeliveriesCrud } from "../slice/client/deliveries/index.js";
+import { SearchData } from "../slice/client/search/index.js";
 
 
 export const store = configureStore({
@@ -22,6 +23,7 @@ export const store = configureStore({
         [BasketCrud.reducerPath]: BasketCrud.reducer,
         [OrderCrud.reducerPath]: OrderCrud.reducer,
         [DeliveriesCrud.reducerPath]:DeliveriesCrud.reducer,
+        [SearchData.reducerPath]:SearchData.reducer,
 
     },
     middleware: (getDefaultMiddleware) =>
@@ -35,6 +37,7 @@ export const store = configureStore({
             BasketCrud.middleware,
             OrderCrud.middleware,
             DeliveriesCrud.middleware,
+            SearchData.middleware,
 
         ),
 });
