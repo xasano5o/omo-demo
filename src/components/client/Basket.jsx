@@ -220,10 +220,10 @@ const Basket = () => {
                     </div>
                     <div className="flex items-center flex-col justify-between">
                       <p className="text-sm">
-                        {value?.total_price?.discount_price?.toLocaleString(
+                        {value?.product?.price?.toLocaleString(
                           "uz-UZ"
-                        )}{" "}
-                      
+                        )} so'm`` {" "}
+                       
                       </p>
                       <del>
                         {value?.product?.price.toLocaleString("uz-UZ")} so'm

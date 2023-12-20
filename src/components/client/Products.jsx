@@ -9,8 +9,7 @@ import { useGetDiscountQuery } from "../../redux/slice/client/discount/index.js"
 
 function Products() {
   const { data: product, isLoading } = useGetProductQuery();
-  const [createBasket, { isLoading: createIsloading, isSuccess }] =
-    useCreateBasketMutation();
+  const [createBasket, { isLoading: createIsloading, isSuccess }] =   useCreateBasketMutation();
 
   const token = localStorage.getItem("user");
   if (token) {
