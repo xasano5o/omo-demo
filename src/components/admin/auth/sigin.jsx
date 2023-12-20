@@ -25,9 +25,9 @@ const Login = () => {
                 if (item.refresh && item.access) {
                     localStorage.setItem("token", JSON.stringify(item.refresh));
                     navigate('/admin/home');
-                    toast.success(`successfully`);
+                    toast.success(`Siz muvofaqiyatli kirdingiz`);
                 } else {
-                    toast.error(`Login failed`);
+                    toast.error(`Siz kira olmadingiz`);
                     
                 }
             })

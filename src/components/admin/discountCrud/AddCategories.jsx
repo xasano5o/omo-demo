@@ -91,7 +91,7 @@ const AddProduct = ({ object }) => {
 
   const handleSelectionChange = (field, event) => {
     const selectedOptions = event.target.selectedOptions;
-    const selectedData = Array.from(selectedOptions).map(option => option.value);
+    const selectedData = Array.from(selectedOptions).map(option => option?.value);
     setInputValue({ ...inputValue, [field]: selectedData });
   };
 

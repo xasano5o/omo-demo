@@ -47,8 +47,7 @@ const AddBanners = ({ object }) => {
             });
             setOpen(false);
         } catch (error) {
-            toast.error(`Failed to add category ${inputValue.title}`);
-            console.error('Error creating category:', error);
+            toast.error(`Mahsulotlar turlari qushilmadi${inputValue.title}`);
         }
     };
 
