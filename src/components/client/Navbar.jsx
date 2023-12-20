@@ -44,7 +44,7 @@ const Navbar = () => {
           <div className="flex gap-3 items-center">
             <NavLink className='no-underline' to="/">
               {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
-              <h1 className="no-underline ">Omo <b className="text-yellow-600">Food</b></h1>
+              <h1 className="no-underline ">Omo<b className="text-yellow-600">Food</b></h1>
             </NavLink>
           </div>
 
@@ -85,30 +85,84 @@ const Navbar = () => {
             </div>
             {
               skip &&
-              <div onClick={close} className="transition duration-150 ease-out md:ease-in absolute  -z-10 w-[100%] h-[100vh]">
+              <div className=" transition duration-150 ease-out md:ease-in absolute -z-50  w-[100%] h-[100vh]">
+
+                {/* <NavLink className="" to={`/product/${product?.id}`}>
+                  <button className="btn btn-sm m-3 border-primary">
+                    <span className="fa fa-arrow-right text-muted" />
+                  </button>
+                </NavLink> */}
+
                 <div className="bg-white absolute p-6 rounded shadow-lg flex flex-col gap-4 w-[350px] h-[200px] sx:overflow-y-auto sx:h-[30vh]">
-             
+                  {data?.result?.categories?.map((value) => {
+                    return (
+                      <div>
+                        <NavLink className={'no-underline'} to={`/categories/${value?.id}`}>
+                          <p className="flex items-center gap-2 cursor-pointer ">
+                            <span>                    <svg
+                              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 20 20"
+                            >
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg></span> {value?.title}</p>
+                        </NavLink>
+
+                      </div>
+                    )
+                  })}
+                  {data?.result?.products?.map((value) => {
+                    return (
+                      <div>
+                        <NavLink className='no-underline' to={`/product/${value?.id}`}>
+                          <p className="flex items-center gap-2 cursor-pointer">
+                            <span>                    <svg
+                              className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 20 20"
+                            >
+                              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg></span> {value?.title}</p>
+                        </NavLink>
+                      </div>
+                    )
+                  })}
+
+                  {data?.result?.subcategories?.map((value) => {
+                    return (
+                      <div>
+                        <p className="flex items-center gap-2 cursor-pointer">
+                          <span>                    <svg
+                            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                          </svg></span> {value?.title}
+                        </p>
+                      </div>
+                    )
+                  })}
                 </div>
-                </div>
+              </div>
             }
 
           </div>
-          <div className="d-flex items-center gap-4 ">
+          <div className="">
             <Link to={'/basket'} className="no-underline  flex flex-col items-center ">
-              <span className="bg-yellow-500 rounded-full  px-2">{data?.length}</span>
+              <h1>{data?.length}</h1>
               <button className="navbar-toggler left-0" type="button">
                 <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>
             </Link>
           </div>
-          <div
-            className="offcanvas offcanvas-start"
-            tabIndex="-1"
-            id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel"
-          >
-        
-          </div>
+
         </div>
       </nav>
     </div>
