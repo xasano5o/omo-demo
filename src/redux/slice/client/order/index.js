@@ -30,12 +30,12 @@ export const OrderCrud = createApi({
 
         deleteCategorie: build.mutation({
             query: (body) => ({
-                url: `categories/${body.ID}/`,
+                url: `banners/${body.id}/`,
                 method: "DELETE",
                 body,
             }),
             invalidatesTags: ["Order"],
-        }),
+        }),   
     }),
 });
 
