@@ -14,7 +14,7 @@ export default function DeleteBanners({ ID, }) {
     const handleDelete = async (id) => {
         try {
             await deleteProduct({ id });
-            toast.success("Maxsulot o'chirildi!");
+            toast.success("Banner o'chirildi!");
             setIsOpen(false);
         } catch (err) {
             toast.error("Maxsulot o'chirishda xatolik:", err);

@@ -6,6 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { useCreateBasketMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
 import { CategorySilide } from "./CategorySilide.jsx";
@@ -124,34 +125,35 @@ function Product() {
             </NavLink>
             <div>
               <div className="row">
-                <div className="col-md-6">
-                  {product?.image ? (
-                    <Carousel
-                      className=""
-                      animationHandler={true}
-                      infiniteLoop={true}
-                    >
-                      <div className="">
-                        <img
-                          src={product?.image}
-                          alt={`Image`}
-                          className="object-cover"
-                        />
-                      </div>
-                      {product.images.map((item, index) => (
-                        <div key={index} className="">
-                          <img
-                            src={item?.image}
-                            alt={`Image ${index}`}
-                            className="object-cover"
-                          />
-                        </div>
-                      ))}
-                    </Carousel>
-                  ) : (
-                    <h1>Mahsulot rasmlari hozircha yoq</h1>
-                  )}
-                </div>
+              <div className="col-md-6">
+      {product?.image ? (
+        <Carousel
+          className="w-full"
+          animationHandler={true}
+          infiniteLoop={true}
+        >
+          <div className="">
+            <img
+              src={product?.image}
+              alt={`Image`}
+              className="object-cover w-full"
+            />
+          </div>
+          {product.images.map((item, index) => (
+            <div key={index} className="">
+              <img
+                src={item?.image}
+                alt={`Image ${index}`}
+                className="object-cover w-full"
+              />
+            </div>
+          ))}
+        </Carousel>
+      ) : (
+        <h1>Mahsulot rasmlari hozircha yoq</h1>
+      )}
+    </div>
+
                 <div className="col-md-6">
                   <div className="w-full border p-4 shadow-md">
                     <div className="mt-4 mb-3">
