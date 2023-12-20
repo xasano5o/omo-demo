@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useGetSearchQuery } from "../../redux/slice/client/search";
+import { useGetBasketQuery} from "../../redux/slice/client/basket";
 const Navbar = () => {
   const [skip, setSkip] = useState(false)
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const { data } = useGetSearchQuery(debouncedSearch);
+  const { data: dataBasket } = useGetBasketQuery();
+
   // Debounce function
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
@@ -156,7 +159,7 @@ const Navbar = () => {
           </div>
           <div className="">
             <Link to={'/basket'} className="no-underline  flex flex-col items-center ">
-              <h1>{data?.length}</h1>
+              <h5>{dataBasket?.length}</h5>
               <button className="navbar-toggler left-0" type="button">
                 <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>

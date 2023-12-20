@@ -9,7 +9,7 @@ import OrderUpdate from './OrderUpdate.jsx';
 const OrderCrud = () => {
     const { data, error, isLoading } = useGetOrderQuery();
     const [search, setSearch] = useState('');
-    const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
+    // const filteredData = data ? data?.filter(item => item?.title.toLowerCase()?.includes(search?.toLowerCase())) : [];
     const [isHovered, setIsHovered] = useState(false);
     return (
         <div className=" "> {/* Set the height to 100vh */}
@@ -46,8 +46,8 @@ const OrderCrud = () => {
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <Loader color="#36d7b7" />
                                             </div>
-                                        ) : filteredData?.length > 0 ? (
-                                            filteredData?.map((item) => {
+                                        ) : data?.length > 0 ? (
+                                            data?.map((item) => {
 
                                                 const dateObject = new Date(item.created_date);
 
