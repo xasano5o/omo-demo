@@ -11,7 +11,7 @@ const Basket = () => {
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(true); // Set the initial state to true
+  const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
 
   const deleteFunc = async (id) => {
@@ -22,13 +22,13 @@ const Basket = () => {
     }
   };
 
-  const handleSelectAmount = async (e) => {
+  const handleSelectAmount = async (e,value) => {
     const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
 
     const formData = new FormData();
     formData.append("amount", newAmount);
-
+    formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
     } catch (error) {
@@ -100,7 +100,6 @@ const Basket = () => {
   const isAllUsersSelected = () => {
     return selectedUsers.length === dataBasket.length;
   };
-
   return (
     <div>
       <div className="h-screen bg-gray-100 pt-20">
@@ -192,7 +191,7 @@ const Basket = () => {
                           +{" "}
                         </span>
                       </div>
-                      <select onChange={handleSelectAmount}>
+                      <select onChange= {(e)=> handleSelectAmount(e,value) }>
                         <option value="1">1</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -260,7 +259,7 @@ const Basket = () => {
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <BasketCheckout />
+            <BasketCheckout  selectProduct={selectedUsers}/>
           </div>
         </div>
       </div>

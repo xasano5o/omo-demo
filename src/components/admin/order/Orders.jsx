@@ -6,9 +6,8 @@ import Loader from '../../Loader/Loader';
 import DeleteOrder from './OrderDelete.jsx';
 import OrderUpdate from './OrderUpdate.jsx';
 
-const Orders = () => {
+const OrderCrud = () => {
     const { data, error, isLoading } = useGetOrderQuery();
-
     const [search, setSearch] = useState('');
     const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
     const [isHovered, setIsHovered] = useState(false);
@@ -34,7 +33,7 @@ const Orders = () => {
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Maxsulot rassssm</th>
+                                        <th scope="col" className="p-4">Maxsulot rasm</th>
                                         <th scope="col" className="p-4">Maxsulot Kategoriyasi</th>
                                         <th scope="col" className="p-4">Maxsulot Narxi</th>
                                         <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>
@@ -125,4 +124,4 @@ const Orders = () => {
     )
 }
 
-export default Orders;
+export default OrderCrud;

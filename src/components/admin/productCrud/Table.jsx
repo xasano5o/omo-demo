@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NoProduct from "../../../assest/icon/Без названия.png";
-import { useGetProductCatgoriQuery } from '../../../redux/slice/client/getProduct/index.js';
+import { useGetProductCatgoriQuery, useGetProductQuery } from '../../../redux/slice/client/getProduct/index.js';
 import EmptyBox from "../../EmptyBox/EmptyBox.jsx";
 import Loader from '../../Loader/Loader';
 import AddCategories from './AddCategories';
@@ -10,8 +10,7 @@ import UpdateProduct from './Update.jsx';
 import ViewProduct from './ViewParent.jsx';
 
 const ProductCrud = () => {
-    const { data, error, isLoading } = useGetProductCatgoriQuery();
-
+    const { data, error, isLoading } = useGetProductQuery();
     const [search, setSearch] = useState('');
     const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
     const [isHovered, setIsHovered] = useState(false);
@@ -42,7 +41,6 @@ const ProductCrud = () => {
                                         <th scope="col" className="p-4">Maxsulot Narxi</th>
                                         <th scope="col" className="p-4">Maxsulot Yaratilgan Vaqti</th>
                                         <th scope="col" className="p-4"></th>
-
                                     </tr>
                                 </thead>
                                 <tbody>

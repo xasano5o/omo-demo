@@ -12,8 +12,9 @@ import ProductPage from './pages/client/product/index.jsx';
 import NotFound from './NotFound.jsx';
 import DiscountTbale from './components/admin/discountCrud/Table.jsx';
 import BaskerPage from './pages/client/basket/index.jsx';
-import Orders from './components/admin/order/Orders.jsx';
 import Banners from './components/admin/banner/Banners.jsx';
+import Deliveries from './components/admin/deliveries/Table.jsx';
+import OrderCrud from './components/admin/order/Orders.jsx';
 
 function App() {
   const location = useLocation();
@@ -29,18 +30,18 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path='basket' element={<BaskerPage />} />
         <Route path="/admin" element={<Login />} />
-
         {
           is_admin ? (
             <Route element={<Layout />}>
-
-              <Route path="/admin/home" element={<Orders />} />
+              <Route path="/admin/home" element={<OrderCrud />} />
+              <Route path="/admin/order" element={<OrderCrud />} />
               <Route path="/admin/subcategories" element={<SubcategorieCom />} />
               <Route path="/admin/banners" element={<Banners />} />
               <Route path="/admin/dashbord" element={<ProductTable />} />
               <Route path="/admin/discount" element={<DiscountTbale />} />
               <Route path="/admin/categories" element={<CategoriesCrud />} />
               <Route path="/admin/products" element={<ProductCrud />} />
+              <Route path="/admin/deliveries" element={<Deliveries />} />
               {/* <Route path="/admin/order" element={<ProductTable />} /> */}
             </Route>
           ) : null

@@ -4,12 +4,12 @@ import { api } from "../../../../api/api.js";
 export const GetBanner = createApi({
     reducerPath: "getBanner",
     baseQuery: api,
-    tagTypes: ["Banner"],
+    tagTypes: ["baner"],
     endpoints: (build) => ({
         GetBanners: build.query({
             query: (body) => `banners/`,
             method:"GET",
-            providesTags: ["Banner"],
+            providesTags: ["baner"],
         }),
         createBanners: build.mutation({
             query: (body) => ({
@@ -17,7 +17,7 @@ export const GetBanner = createApi({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: ["getCategoryt"]
+            invalidatesTags: ["baner"]
         }),
         updateBanners: build.mutation({
             query: (body) => ({
@@ -25,7 +25,7 @@ export const GetBanner = createApi({
                 method: "PATCH",
                 body,
             }),
-            invalidatesTags: ["Banner"],
+            invalidatesTags: ["baner"],
         }),
         deleteBanners: build.mutation({
             query: (body) => ({
@@ -33,7 +33,7 @@ export const GetBanner = createApi({
                 method: "DELETE",
                 body,
             }),
-            invalidatesTags: ["Banner"],
+            invalidatesTags: ["baner"],
         }),        
     }),
 });

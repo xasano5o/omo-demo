@@ -4,11 +4,13 @@ import { useGetCategoryQuery } from '../../redux/slice/client/category';
 import Modal from '../generic/Modal';
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
 import { useOrderCreateMutation } from '../../redux/slice/client/order';
+import { useGetDeliveriesQuery } from '../../redux/slice/client/deliveries';
 
 const BasketCheckout = ({ selectProduct }) => {
   const [open, setOpen] = useState(false);
   const [orderCreate, { isLoading: isCreating }] = useOrderCreateMutation();
-  const { data } = useGetCategoryQuery();
+  const { data:deliveries, isLoading, refetch } = useGetDeliveriesQuery();
+
 
   const onClose = () => {
     setOpen(false);
@@ -28,13 +30,11 @@ const BasketCheckout = ({ selectProduct }) => {
 
   const addData = async () => {
     const formData = new FormData();
-
     // Iterate through each element in selectProduct
-    selectProduct.forEach((file, index) => {
+    selectProduct?.forEach((file, index) => {
       // Append each file with a unique key, for example: basket_products_0, basket_products_1, etc.
       formData.append(`basket_products`,file);
     });
-
     // Append other form fields
     formData.append('user.first_name', inputValue.first_name);
     formData.append('user.last_name', inputValue.last_name);
@@ -42,7 +42,9 @@ const BasketCheckout = ({ selectProduct }) => {
     formData.append('location.address', inputValue.address);
     formData.append('location.longitude', inputValue.location[0]);
     formData.append('location.latitude', inputValue.location[1]);
-    formData.append('address_status', inputValue.address_status);
+    formData.append('delivery', inputValue.address_status);
+    formData.append('payment_method', 'NAQD');
+
 
     try {
       await orderCreate(formData).unwrap();
@@ -156,12 +158,17 @@ const BasketCheckout = ({ selectProduct }) => {
                 <select
                   onChange={(e) => setInputValue({ ...inputValue, address_status: e.target.value })}
                   className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-
                 >
-                  <option value="Hech biri">Hech biri</option>
-                  <option value="CITY_IN">Shahar ichi</option>
-                  <option value="CITY_OUT">Shahar tashqarisi</option>
 
+                  <option>Hech biri</option>
+                  {
+                    deliveries?.map((value) => {
+                      return (
+
+                        <option value={value.id}>{value.name}</option>
+                      )
+                    })
+                  }
                 </select>
               </div>
             </div>
