@@ -7,7 +7,7 @@ export const SearchData = createApi({
     tagTypes: ["getSubCategoryt"],
     endpoints: (build) => ({
         getSearch: build.query({
-            query: (search) => `search/?query=${search}`,
+            query: (search) => `search/?query=${search}true`,
             providesTags: ["getSubCategoryt"],
         }),
     }),
