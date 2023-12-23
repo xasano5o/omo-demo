@@ -9,6 +9,7 @@ export const SearchData = createApi({
         getSearch: build.query({
             query: (search) => `search/?query=${search}`,
             providesTags: ["getSubCategoryt"],
+            refetchOnReconnect: true, // Ensure refetchOnReconnect is set if needed
         }),
     }),
 });

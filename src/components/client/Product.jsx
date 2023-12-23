@@ -17,26 +17,18 @@ function Product() {
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();
 
-  const token = localStorage.getItem("user");
-  if (token) {
-    axios.post(
-      "users/check_token/",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("user")}`,
-        },
-      }
-    );
-  } else {
-    axios.get("users/get_token/").then((res) => {
-      const token = res.data.access_token;
-      localStorage.setItem("user", token);
-    });
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
-  }
+  // const token = localStorage.getItem("user");
+  // if (token) {
+
+  // } else {
+  //   axios.get("users/get_token/").then((res) => {
+  //     const token = res.data.access_token;
+  //     localStorage.setItem("user", token);
+  //   });
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 1500);
+  // }
 
   useEffect(() => {
     setFilter(product);
@@ -125,34 +117,34 @@ function Product() {
             </NavLink>
             <div>
               <div className="row">
-              <div className="col-md-6">
-      {product?.image ? (
-        <Carousel
-          className="w-full"
-          animationHandler={true}
-          infiniteLoop={true}
-        >
-          <div className="">
-            <img
-              src={product?.image}
-              alt={`Image`}
-              className="object-cover w-full"
-            />
-          </div>
-          {product.images.map((item, index) => (
-            <div key={index} className="">
-              <img
-                src={item?.image}
-                alt={`Image ${index}`}
-                className="object-cover w-full"
-              />
-            </div>
-          ))}
-        </Carousel>
-      ) : (
-        <h1>Mahsulot rasmlari hozircha yoq</h1>
-      )}
-    </div>
+                <div className="col-md-6">
+                  {product?.image ? (
+                    <Carousel
+                      className="w-full"
+                      animationHandler={true}
+                      infiniteLoop={true}
+                    >
+                      <div className="">
+                        <img
+                          src={product?.image}
+                          alt={`Image`}
+                          className="object-cover w-full"
+                        />
+                      </div>
+                      {product.images.map((item, index) => (
+                        <div key={index} className="">
+                          <img
+                            src={item?.image}
+                            alt={`Image ${index}`}
+                            className="object-cover w-full"
+                          />
+                        </div>
+                      ))}
+                    </Carousel>
+                  ) : (
+                    <h1>Mahsulot rasmlari hozircha yoq</h1>
+                  )}
+                </div>
 
                 <div className="col-md-6">
                   <div className="w-full border p-4 shadow-md">

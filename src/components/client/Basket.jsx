@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useDeleteBasketMutation,
-  useGetBasketQuery,
-  useIncrementMutation,
-} from "../../redux/slice/client/basket";
+import { useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket";
 import BasketCheckout from "./BasktChecout";
 
 const Basket = () => {
@@ -18,7 +14,6 @@ const Basket = () => {
     try {
       await deleteBasket({ id });
     } catch (err) {
-      console.error("Error deleting item:", err);
     }
   };
 
@@ -32,7 +27,6 @@ const Basket = () => {
     try {
       await Increment(formData).unwrap();
     } catch (error) {
-      console.error("Error incrementing item:", error);
     }
   };
 
@@ -44,18 +38,15 @@ const Basket = () => {
     try {
       await Increment(formData).unwrap();
     } catch (error) {
-      console.error("Error incrementing item:", error);
     }
   };
   const decrement = async (value) => {
     const formData = new FormData();
     formData.append("amount", value.amount - 1);
     formData.append("id", value.id);
-
     try {
       await Increment(formData).unwrap();
     } catch (error) {
-      console.error("Error decrementing item:", error);
     }
   };
 
@@ -107,7 +98,6 @@ const Basket = () => {
           Savatga Olingan Maxsulotlar soni: {dataBasket?.length}{" "}
         </h1>
         <div className="mx-auto max-w-7xl flex items-center gap-2">
-          
           <input
             id="selectAll"
             name="selectAll"
@@ -223,7 +213,7 @@ const Basket = () => {
                         {value?.product?.price?.toLocaleString(
                           "uz-UZ"
                         )} so'm`` {" "}
-                       
+
                       </p>
                       <del>
                         {value?.product?.price.toLocaleString("uz-UZ")} so'm

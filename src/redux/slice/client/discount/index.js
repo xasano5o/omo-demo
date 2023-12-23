@@ -8,12 +8,12 @@ export const DiscountCrud = createApi({
     endpoints: (build) => ({
         getDiscount: build.query({
             query: (body) => "discounts/?products=true&category=true&subcategory",
-            providesTags: ["getDataDiscounts"],
+            providesTags: ["getDataDiscount"],
         }),
         getDiscoutTrue: build.query({
             query: (body) => ({
                 url: `discounts/?products=true`,
-                providesTags: ["getDataDiscountTrue"],
+                providesTags: ["getDataDiscount"],
 
             }),
             invalidatesTags: ["getDataDiscount"],

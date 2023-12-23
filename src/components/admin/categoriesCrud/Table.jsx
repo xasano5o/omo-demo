@@ -36,8 +36,8 @@ const CategoriesCrud = () => {
                             <table className=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead className=" text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="p-4">Kategoriya rasm</th>
-                                        <th scope="col" className="p-4">Kategoriya Nomi</th>
+                                        <th scope="col" className="p-4">Mahsulod turi rasmi</th>
+                                        <th scope="col" className="p-4">Mahsulod turi nomi</th>
                                         <th scope="col" className="p-4"></th>
                                     </tr>
                                 </thead>

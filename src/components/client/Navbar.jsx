@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useGetSearchQuery } from "../../redux/slice/client/search";
-import { useGetBasketQuery} from "../../redux/slice/client/basket";
+import { useGetBasketQuery } from "../../redux/slice/client/basket";
+import axios from "axios";
 const Navbar = () => {
   const [skip, setSkip] = useState(false)
   const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const { data } = useGetSearchQuery(debouncedSearch);
   const { data: dataBasket } = useGetBasketQuery();
+  const [data, setData] = useState([])
 
   // Debounce function
   useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      setDebouncedSearch(search);
+    let debounceTimer = setTimeout(() => {
+      if (search?.length > 0) {
+        axios.get(`search/?query=${search}`)
+          .then((response) => setData(response.data))
+      }
     }, 500);
-
-    // Cleanup function to clear the timer if the search value changes
     return () => clearTimeout(debounceTimer);
+
   }, [search]);
+
 
   const handleInputChange = (e) => {
     setSearch(e.target.value);
@@ -28,7 +31,7 @@ const Navbar = () => {
   }, [search]);
 
   useEffect(() => {
-    if (skip === false) setSearch('');
+    if (skip === false) setSearch(null);
   }, [skip]);
 
   const handleSubmit = (e) => {
@@ -96,7 +99,7 @@ const Navbar = () => {
                   </button>
                 </NavLink> */}
 
-                <div className="bg-white absolute p-6 rounded shadow-lg flex flex-col gap-4 w-[350px] h-[200px] sx:overflow-y-auto sx:h-[30vh]">
+                <div className="bg-white absolute px-6 rounded shadow-lg flex flex-col   w-[350px] h-[200px] sx:overflow-y-auto sx:h-[30vh]">
                   {data?.result?.categories?.map((value) => {
                     return (
                       <div>
@@ -112,7 +115,6 @@ const Navbar = () => {
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg></span> {value?.title}</p>
                         </NavLink>
-
                       </div>
                     )
                   })}
@@ -147,7 +149,8 @@ const Navbar = () => {
                             viewBox="0 0 20 20"
                           >
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                          </svg></span> {value?.title}
+                          </svg>
+                          </span> {value?.title}
                         </p>
                       </div>
                     )

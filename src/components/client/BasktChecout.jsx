@@ -9,7 +9,7 @@ import { useGetDeliveriesQuery } from '../../redux/slice/client/deliveries';
 const BasketCheckout = ({ selectProduct }) => {
   const [open, setOpen] = useState(false);
   const [orderCreate, { isLoading: isCreating }] = useOrderCreateMutation();
-  const { data:deliveries, isLoading, refetch } = useGetDeliveriesQuery();
+  const { data: deliveries, isLoading, refetch } = useGetDeliveriesQuery();
 
 
   const onClose = () => {
@@ -33,7 +33,7 @@ const BasketCheckout = ({ selectProduct }) => {
     // Iterate through each element in selectProduct
     selectProduct?.forEach((file, index) => {
       // Append each file with a unique key, for example: basket_products_0, basket_products_1, etc.
-      formData.append(`basket_products`,file);
+      formData.append(`basket_products`, file);
     });
     // Append other form fields
     formData.append('user.first_name', inputValue.first_name);
@@ -70,9 +70,7 @@ const BasketCheckout = ({ selectProduct }) => {
 
   const handleMapClick = (e) => {
     const coordinates = e.get('coords');
-    // Update the marker coordinates when the map is clicked
     setMarkerGeometry(coordinates);
-    // Update the inputValue state with the selected coordinates
     setInputValue({
       ...inputValue,
       location: coordinates,
@@ -80,7 +78,6 @@ const BasketCheckout = ({ selectProduct }) => {
   };
 
   useEffect(() => {
-    // Fetch user's current location using the browser's geolocation service
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -91,12 +88,10 @@ const BasketCheckout = ({ selectProduct }) => {
           });
         },
         (error) => {
-          console.error('Error fetching user location:', error);
           toast.error('Failed to fetch user location. Defaulting to the default location.');
         }
       );
     } else {
-      console.warn('Geolocation is not supported by this browser.');
       toast.warning('Geolocation is not supported by this browser. Defaulting to the default location.');
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
@@ -112,7 +107,7 @@ const BasketCheckout = ({ selectProduct }) => {
       </button>
 
       {open && (
-        <Modal loader={isCreating} isDisabled={inputValue?.phone.length<=10 } closeModal={onClose} addFunc={addData}>
+        <Modal loader={isCreating} isDisabled={inputValue?.phone.length <= 10} closeModal={onClose} addFunc={addData}>
           <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
@@ -137,7 +132,7 @@ const BasketCheckout = ({ selectProduct }) => {
               <div>
                 <label>Telfon Raqam *</label>
                 <input
-                placeholder='+998'
+                  placeholder='+998'
                   type="number"
                   value={inputValue.phone}
                   onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}

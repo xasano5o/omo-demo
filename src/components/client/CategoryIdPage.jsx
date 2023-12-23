@@ -16,7 +16,6 @@ const CategoryId = () => {
   if (token) {
     axios.post(
       "users/check_token/",
-      {},
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user")}`,
@@ -25,7 +24,7 @@ const CategoryId = () => {
     );
   } else {
     axios.get("users/get_token/").then((res) => {
-      const token = res.data.access_token;
+      const token = res.data?.access_token;
       localStorage.setItem("user", token);
     });
     setTimeout(() => {
@@ -49,8 +48,6 @@ const CategoryId = () => {
       toast.error(`Failed to add category `);
     }
   };
-  console.log(products, "sa");
-  console.log(id, "idpage");
 
   return (
     <div className="container mx-auto mt-20">
