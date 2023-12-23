@@ -42,22 +42,32 @@ export const CategorySilide = () => {
           {data?.map((item) => {
             return (
               <div>
-                <div className="mt-12" style={{ width: "150px", height: "200px" }}>
-                  <Link to={`${item?.id}`}
+                <div
+                  className="mt-12"
+                  style={{ width: "150px", height: "200px" }}
+                >
+                  <Link
+                    to={`${item?.id}`}
                     onClick={(e) => {
                       e.preventDefault();
                       navigate(`/categories/${item?.id}`);
-                    }}>
-
+                    }}
+                  >
                     <img
                       src={item?.image}
                       className="card-img-top rounded-circle"
-                      style={{ height: "128px", width: "128px", objectFit: "cover" }}
+                      style={{
+                        height: "128px",
+                        width: "128px",
+                        objectFit: "cover",
+                      }}
                       alt={item?.title}
                     />
                   </Link>
                   <div className="card-body">
-                    <p className="card-text text-[13px] font-medium">{item?.title}</p>
+                    <p className="card-text text-[13px] font-medium">
+                      {item?.title}
+                    </p>
                   </div>
                 </div>
               </div>

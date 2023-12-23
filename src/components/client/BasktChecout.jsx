@@ -107,78 +107,80 @@ const BasketCheckout = ({ selectProduct }) => {
       </button>
 
       {open && (
-        <Modal loader={isCreating} isDisabled={inputValue?.phone.length <= 10} closeModal={onClose} addFunc={addData}>
-          <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">
+        <Modal loader={isCreating} isDisabled={inputValue?.phone.length<=10 } closeModal={onClose} addFunc={addData} className="">
+      <div className="check">
+      <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">
 
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-              <div>
-                <label>Ism *</label>
-                <input
-                  type="text"
-                  value={inputValue.first_name}
-                  onChange={(e) => setInputValue({ ...inputValue, first_name: e.target.value })}
-                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-                />
-              </div>
-              <div>
-                <label>Familiya *</label>
-                <input
-                  type="text"
-                  value={inputValue.last_name}
-                  onChange={(e) => setInputValue({ ...inputValue, last_name: e.target.value })}
-                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-                />
-              </div>
-              <div>
-                <label>Telfon Raqam *</label>
-                <input
-                  placeholder='+998'
-                  type="number"
-                  value={inputValue.phone}
-                  onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}
-                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-                />
-              </div>
-              <div>
-                <label>Manzil tetx</label>
-                <textarea
-                  onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })}
-                  placeholder='Namagan shahar uychi atrofi'
-                  type="text"
-                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-                />
-              </div>
-              <div>
-                <label>Manzil Turi *</label>
-                <select
-                  onChange={(e) => setInputValue({ ...inputValue, address_status: e.target.value })}
-                  className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
-                >
+<div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+  <div>
+    <label>Ism *</label>
+    <input
+      type="text"
+      value={inputValue.first_name}
+      onChange={(e) => setInputValue({ ...inputValue, first_name: e.target.value })}
+      className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+    />
+  </div>
+  <div>
+    <label>Familiya *</label>
+    <input
+      type="text"
+      value={inputValue.last_name}
+      onChange={(e) => setInputValue({ ...inputValue, last_name: e.target.value })}
+      className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+    />
+  </div>
+  <div>
+    <label>Telfon Raqam *</label>
+    <input
+    placeholder='+998'
+      type="number"
+      value={inputValue.phone}
+      onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}
+      className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+    />
+  </div>
+  <div>
+    <label>Manzil tetx</label>
+    <textarea
+      onChange={(e) => setInputValue({ ...inputValue, address: e.target.value })}
+      placeholder='Namagan shahar uychi atrofi'
+      type="text"
+      className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+    />
+  </div>
+  <div>
+    <label>Manzil Turi *</label>
+    <select
+      onChange={(e) => setInputValue({ ...inputValue, address_status: e.target.value })}
+      className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+    >
 
-                  <option>Hech biri</option>
-                  {
-                    deliveries?.map((value) => {
-                      return (
+      <option>Hech biri</option>
+      {
+        deliveries?.map((value) => {
+          return (
 
-                        <option value={value.id}>{value.name}</option>
-                      )
-                    })
-                  }
-                </select>
-              </div>
-            </div>
+            <option value={value.id}>{value.name}</option>
+          )
+        })
+      }
+    </select>
+  </div>
+</div>
 
-            <YMaps query={{ lang: 'en_RU' }}>
-              <Map
-                width={'100%'}
-                height={'300px'}
-                defaultState={defaultState}
-                onClick={handleMapClick}
-              >
-                <Placemark geometry={markerGeometry} options={{ draggable: true }} />
-              </Map>
-            </YMaps>
-          </div>
+<YMaps query={{ lang: 'en_RU' }}>
+  <Map
+    width={'100%'}
+    height={'300px'}
+    defaultState={defaultState}
+    onClick={handleMapClick}
+  >
+    <Placemark geometry={markerGeometry} options={{ draggable: true }} />
+  </Map>
+</YMaps>
+</div>
+      </div>
         </Modal>
       )}
     </div>

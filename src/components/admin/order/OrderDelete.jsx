@@ -4,11 +4,13 @@ import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
 
 import { useDeleteProductMutation } from "../../../redux/slice/client/getProduct/index.js";
+import { useDeleteCategorieMutation } from "../../../redux/slice/client/category/index.js";
+import { useDeleteOrderMutation } from "../../../redux/slice/client/order/index.js";
 
 export default function DeleteOrder({ ID, }) {
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!isOpen);
-    const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+    const [deleteProduct, { isLoading }] = useDeleteOrderMutation();
 
     const handleDelete = async (id) => {
         try {
