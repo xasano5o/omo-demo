@@ -1,56 +1,62 @@
-import React, { useState } from 'react';
-import { useGetCategoryQuery } from '../../../redux/slice/client/category';
-import Modal from '../../generic/Modal';
-import ImageUpload from '../../ImageUpload/ImageUpload';
-import { MdOutlineInsertPhoto } from 'react-icons/md';
-import { toast } from 'react-toastify';
-import { useCreateProductMutation, useUpdateProductMutation } from '../../../redux/slice/client/getProduct';
-import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
-import { BiEdit } from 'react-icons/bi';
+import React, { useState } from "react";
+import { useGetCategoryQuery } from "../../../redux/slice/client/category";
+import Modal from "../../generic/Modal";
+import ImageUpload from "../../ImageUpload/ImageUpload";
+import { MdOutlineInsertPhoto } from "react-icons/md";
+import { toast } from "react-toastify";
+import {
+  useCreateProductMutation,
+  useUpdateProductMutation,
+} from "../../../redux/slice/client/getProduct";
+import { useGetSubCategoryQuery } from "../../../redux/slice/client/subcategory";
+import { BiEdit } from "react-icons/bi";
+import {
+  useGetOrderQuery,
+  useUpdateOrderMutation,
+} from "../../../redux/slice/client/order";
 
-const OrderUpdate = ({object}) => {
+const OrderUpdate = ({ object }) => {
   // state
   const [skip, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
-
   // redux
-  const [updateProduct, { isLoading: isCreating }] = useUpdateProductMutation();
-  const { data, isLoading, refetch } = useGetCategoryQuery({skip});
-  const { data:subData } = useGetSubCategoryQuery({skip})
-
-
+  const [updateProduct, { isLoading: isCreating }] = useUpdateOrderMutation();
+  const { data, isLoading, refetch } = useGetOrderQuery({ skip });
+  const { data: subData } = useGetSubCategoryQuery({ skip });
 
   // fuction
   const onClose = () => {
     setOpen(false);
   };
 
-
   // post data
   const addData = async () => {
     const formData = new FormData();
-    formData.append('title', inputValue.title);
-    formData.append('image', inputValue.img);
-    formData.append('description', inputValue.description);
-    formData.append('price', inputValue.price);
-    formData.append('amount', inputValue.amount);
-    formData.append('amount_measure', inputValue.amount_measure);
-    formData.append('category', inputValue.category);
-    formData.append('subcategory', inputValue.subcategory);
-    formData.append('id', inputValue.id);
+    formData.append("user", inputValue.user);
+    formData.append("total_price", inputValue.total_price);
+    formData.append("delivery_status", inputValue.delivery_status);
+    formData.append("payment_method", inputValue.payment_method);
+    formData.append("total_price", inputValue.total_price);
+    formData.append("payment_method", "NAQD");
+    formData.append("id", inputValue.id);
     try {
       await updateProduct(formData).unwrap();
-      toast.success(`Maxsulot ${inputValue.title} o'zgartirildi `);
+      toast.success(`Maxsulot ${inputValue.user.first_name} o'zgartirildi `);
       setInputValue({
-        title: '',
-        img: '',
+        user: "",
+        total_price: "",
+        delivery_status: "",
+        location: "",
+        user: "",
+        delivery: "",
+        each_products: "",
       });
       setOpen(false);
     } catch (error) {
-      toast.error(`Failed to add maxsulot ${inputValue.title}`);
-
+      toast.error(`Failed to add maxsulot ${inputValue.user.first_name}`);
     }
   };
+  console.log(inputValue);
 
   return (
     <div>
@@ -63,116 +69,195 @@ const OrderUpdate = ({object}) => {
       </button>
       {skip && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
-          <div className='grid grid-cols-2 gap-3 '>
-          
-            <div className='flex flex-col gap-2'>
+          <div className="grid grid-cols-2 gap-3 ">
+            <div className="flex flex-col gap-2">
               <div>
-                <label htmlFor="Maxsulot Nomi:" className='text-black'>Maxsulot Nomi:</label>
+                <label htmlFor="Maxsulot Nomi:" className="text-black">
+                  Umumiy narx:
+                </label>
+                <input
+                  type="number"
+                  id="table-search-users"
+                  className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder=""
+                  value={inputValue.total_price}
+                  onChange={(e) =>
+                    setInputValue({
+                      ...inputValue,
+                      total_price: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <label htmlFor="Maxsulot Name:">Yetkazilganligi haqida:</label>
                 <input
                   type="text"
                   id="table-search-users"
                   className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
-                  value={inputValue.title}
-                  onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
+                  value={inputValue.delivery_status}
+                  onChange={(e) =>
+                    setInputValue({
+                      ...inputValue,
+                      delivery_status: e.target.value,
+                    })
+                  }
                 />
               </div>
               <div>
-                <label htmlFor="Maxsulot Name:" className='text-black'>Maxsulot Narxi:</label>
+                <label htmlFor="Maxsulot Name:">To'lov turi:</label>
                 <input
-                  type="number"
+                  type="text"
                   id="table-search-users"
                   className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
-                  value={inputValue.price}
-                  onChange={(e) => setInputValue({ ...inputValue, price: e.target.value })}
+                  value={inputValue.payment_method}
+                  onChange={(e) =>
+                    setInputValue({
+                      ...inputValue,
+                      payment_method: e.target.value,
+                    })
+                  }
                 />
               </div>
+
               <div>
-                <label htmlFor="Maxsulot Name:">Maxsulot Miqdori:</label>
+                <label
+                  htmlFor="message"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Yaratilgan sana
+                </label>
                 <input
-                  type="number"
-                  id="table-search-users"
-                  className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder=""
-                  value={inputValue.amount}
-                  onChange={(e) => setInputValue({ ...inputValue, amount: e.target.value })}
-                />
-              </div>
-              <div>
-                <label htmlFor="Maxsulot Name:">Maxsulot o'lchov:</label>
-                <select
-                value={inputValue.amount_measure}
-                 
-                onChange={(e) => setInputValue({ ...inputValue, amount_measure: e.target.value })}
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option value="Hech Biri">Hech Biri</option>
-                   <option value="kg">kg</option>
-                   <option value="dona">dona</option>
-                   <option value="litr">litr</option>
-                   <option value="metr">metr</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 ">Mahsulox haqida....</label>
-                <textarea
-                 value={inputValue.description}
-                id="message"
+                  value={inputValue.created_date}
+                  id="message"
                   rows="4"
-                  onChange={(e) => setInputValue({ ...inputValue, description: e.target.value })}
+                  onChange={(e) =>
+                    setInputValue({
+                      ...inputValue,
+                      created_date: e.target.value,
+                    })
+                  }
                   className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder=""
                   required
-                ></textarea>
+                  type="datetime-local"
+                />
               </div>
-
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block mb-2 text-sm font-medium text-gray-900 "
+                >
+                  Yangilangan sana
+                </label>
+                <input
+                  value={inputValue.updated_date}
+                  id="message"
+                  rows="4"
+                  onChange={(e) =>
+                    setInputValue({
+                      ...inputValue,
+                      updated_date: e.target.value,
+                    })
+                  }
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder=""
+                  required
+                  type="datetime-local"
+                />
+              </div>
             </div>
-            <div className='flex flex-col '>
-              <div className='flex flex-col'>
-                <label htmlFor="" className='text-gray-900'>Kategorie Tanlang</label>
-                <select
-                   value={inputValue?.category?.title}
-                 onChange={(e) => setInputValue({ ...inputValue, category: e.target.value })}
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  <option value="Hech Biri">Hech Biri</option>
-                  {data.map((value) => {
-                    return (
-                      <option value={value.id}>{value.title}</option>
-                    )
-                  })}
-                </select>
+            <div className="flex flex-col ">
+              <div className="flex flex-col">
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Yetkaziladigan manzili
+                  </label>
+                  <input
+                    value={inputValue.delivery.name}
+                    id="message"
+                    rows="4"
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, delivery: e.target.value })
+                    }
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder=""
+                    required
+                    type="text"
+                  />
+                </div>
 
-                <div className='flex flex-col '>
-                  <label htmlFor="" className='text-gray-900'> Ichki Kategoriyani Tanlash</label>
-                  <select
-                    value={inputValue?.subcategory?.title}
-                  onChange={(e) => setInputValue({ ...inputValue, subcategory: e.target.value })}
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="Hech Biri">Hech Biri</option>
-                    {subData.map((value) => {
-                      return (
-                        <option value={value.id}>{value.title}</option>
-                      )
-                    })}
-                  </select>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Xaridorning joylashuvi
+                  </label>
+                  <input
+                    value={inputValue.location.address}
+                    id="message"
+                    rows="4"
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, location: e.target.value })
+                    }
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder=""
+                    required
+                    type="text"
+                  />
                 </div>
                 <div>
-                  <ImageUpload
-                    title={'Image'}
-                    iconName={<MdOutlineInsertPhoto className="text-5xl" />}
-                    iconTitle={'Upload Image'}
-                    fileType={'PNG, JPG, JPEG up to 5MB'}
-                    LabelFor={'img'}
-                    setInputValue={setInputValue}
-                    inputValue={inputValue}
+                  <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Xaridorning Ismi
+                  </label>
+                  <input
+                    value={inputValue.user.first_name}
+                    id="message"
+                    rows="4"
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, user: e.target.value })
+                    }
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder=""
+                    required
+                    type="text"
                   />
-                  <div>
-                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
+                  >
+                    Xaridorning Familiyasi
+                  </label>
+                  <input
+                    value={inputValue.user.last_name}
+                    id="message"
+                    rows="4"
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, user: e.target.value })
+                    }
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder=""
+                    required
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <div></div>
                 </div>
               </div>
             </div>
           </div>
-
         </Modal>
       )}
     </div>

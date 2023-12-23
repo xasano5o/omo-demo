@@ -1,39 +1,35 @@
-import React from 'react';
-import { useGetBannersQuery } from '../../redux/slice/client/banner/index.js';
-import { CategorySilide } from './CategorySilide.jsx';
-import Products from './Products';
+import React from "react";
+import { useGetBannersQuery } from "../../redux/slice/client/banner/index.js";
+import { CategorySilide } from "./CategorySilide.jsx";
+import Products from "./Products";
+import { Carousel } from "react-responsive-carousel";
 
 const Home = () => {
-     
-    const { data } = useGetBannersQuery()
-    return (
-        <>
-            <div className="container px-0" style={{ marginTop: "66px" }}>
-                <div id="OmoFood" className="carousel slide" data-bs-ride="carousel">
-                    <div className="carousel-inner">
-                        {data?.map((item) => {
-                            return <>
-                                <div className="carousel-item active" data-bs-interval="10000">
-                                    <img src={item?.image} className="d-block w-100 h-96 object-contain" alt="..." />
-                                </div>
-                            </>
-                        })}
-
-                    </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#OmoFood" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#OmoFood" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
+  const { data } = useGetBannersQuery();
+  return (
+    <>
+      <div className="container px-0" style={{ marginTop: "86px" }}>
+        <Carousel className="" autoPlay={true} infiniteLoop={true} showArrows={true}>
+          {data?.map((item) => {
+            return (
+              <>
+                <div className="carousel-item active" data-bs-interval="10000">
+                  <img
+                    src={item?.image}
+                    className="h-96 object-contain w-full"
+                    alt="..."
+                  />
                 </div>
-                <CategorySilide />
-                <Products />
-            </div>
-        </>
-    )
-}
+              </>
+            );
+          })}
+        </Carousel>
+
+        <CategorySilide />
+        <Products />
+      </div>
+    </>
+  );
+};
 
 export default Home;

@@ -8,12 +8,13 @@ import OrderUpdate from "./OrderUpdate.jsx";
 
 const OrderCrud = () => {
   const { data, error, isLoading } = useGetOrderQuery();
+  console.log(data, "order");
   const [search, setSearch] = useState("");
-  // const filteredData = data ? data?.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
+
   const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className=" ">
-      {" "}
       {/* Set the height to 100vh */}
       <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
@@ -30,28 +31,29 @@ const OrderCrud = () => {
               />
             </div>
             <br />
-            <div className="overflow-x-auto  h-[80vh] ">
+            <div className="overflow-x-auto h-[80vh] w-[100%] ">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4">
-                       Mahsulot rasmi
+                      Mahsulot rasmi
                     </th>
                     <th scope="col" className="p-4">
-                    Maxsulot Narxi
+                      Maxsulot Narxi
                     </th>
                     <th scope="col" className="p-4">
-                     To'lov turi
+                      To'lov turi
                     </th>
                     <th scope="col" className="p-4">
                       Maxsulotga Buyurtma berilgan Vaqti
                     </th>
                     <th scope="col" className="p-4">
-                        Yetkazilganligi haqida
+                      Yetkazilganligi haqida
                     </th>
                     <th scope="col" className="p-4">
-                       Haridorning joylashuvi
+                      Haridorning Manzili
                     </th>
+                    <th scope="col" className="p-4"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -115,7 +117,7 @@ const OrderCrud = () => {
                               {item?.payment_method}
                             </span>
                           </td>
-                      
+
                           <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
@@ -134,7 +136,7 @@ const OrderCrud = () => {
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
-                              {item?.location}
+                              {item?.location.address}
                             </span>
                           </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
