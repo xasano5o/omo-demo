@@ -8,7 +8,7 @@ const Home = () => {
   const { data } = useGetBannersQuery();
   return (
     <>
-      <div className="container px-0" style={{ marginTop: "86px" }}>
+      <div className="container px-0">
         <Carousel className="" autoPlay={true} infiniteLoop={true} showArrows={true}>
           {data?.map((item) => {
             return (

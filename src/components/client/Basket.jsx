@@ -101,9 +101,9 @@ const Basket = () => {
     return selectedUsers.length === dataBasket.length;
   };
   return (
-    <div className="bg-gray-100 pt-20 h-screen">
+    <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
-        <h1 className=" px-6 md:flex md:space-x-6 xl:px-0">
+        <h1 className="text-xl">
           Savatga Olingan Maxsulotlar soni: {dataBasket?.length}{" "}
         </h1>
         <div className="mx-auto max-w-7xl flex items-center gap-2">

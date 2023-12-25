@@ -12,11 +12,11 @@ const OrderCrud = () => {
   const [search, setSearch] = useState("");
 
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div className=" ">
+      
       {/* Set the height to 100vh */}
-      <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
+      <section className="bg-gray-50 dark:bg-white-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
           <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <br />

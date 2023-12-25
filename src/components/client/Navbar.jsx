@@ -42,7 +42,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <nav className="navbar bg-light fixed-top shadow">
+      <nav className="navbar bg-light shadow">
         <div className="container-fluid container grid grid-cols-3 ">
           <div className="flex gap-3 items-center">
             <NavLink className='no-underline' to="/">
