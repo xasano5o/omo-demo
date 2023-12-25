@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 import { useCreateBasketMutation, useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 
 
@@ -14,25 +15,25 @@ function Products() {
   const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation();
 
 
-  // const token = localStorage.getItem("user");
-  // if (token) {
-  //   axios.post(
-  //     "users/check_token/",
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("user")}`,
-  //       },
-  //     }
-  //   );
-  // } else {
-  //   axios.get("users/get_token/").then((res) => {
-  //     const token = res.data.access_token;
-  //     localStorage.setItem("user", token);
-  //   });
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 1500);
-  // }
+  const token = localStorage.getItem("user");
+  if (token) {
+    axios.post(
+      "users/check_token/",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
+        },
+      }
+    );
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   useEffect(() => {
     setFilter(product);
