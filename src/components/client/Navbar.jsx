@@ -10,10 +10,16 @@ const Navbar = () => {
   const [data, setData] = useState([])
 
   // Debounce function
+  const token =localStorage.getItem('user')
   useEffect(() => {
     let debounceTimer = setTimeout(() => {
       if (search?.length > 0) {
-        axios.get(`search/?query=${search}`)
+        axios.get(`search/?query=${search}`,{
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          }
+        })
           .then((response) => setData(response.data))
       }
     }, 500);
@@ -99,7 +105,7 @@ const Navbar = () => {
                   </button>
                 </NavLink> */}
 
-                <div className="bg-white absolute px-6 rounded shadow-lg flex flex-col   w-[350px] h-[200px] sx:overflow-y-auto sx:h-[30vh]">
+<div className="bg-white absolute px-6 rounded shadow-lg flex flex-col w-[350px] h-[200px] sx:overflow-y-auto sx:h-[30vh]">
                   {data?.result?.categories?.map((value) => {
                     return (
                       <div>
