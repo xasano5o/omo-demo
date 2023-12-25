@@ -33,7 +33,6 @@ const AddCategories = () => {
       setOpen(false);
     } catch (error) {
       toast.error(`Failed to add category ${inputValue.name}`);
-      console.error('Error creating category:', error);
     }
   };
 
@@ -45,13 +44,13 @@ const AddCategories = () => {
         className="inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         +
-        Kategoriya
+        Mahsulod turi
       </button>
       {open && (
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className="flex flex-col gap-3">
             <div>
-              <label>Kategoriya Name:</label>
+              <label>Mahsuldo turi nomi:</label>
               <input
                 type="text"
                 onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}

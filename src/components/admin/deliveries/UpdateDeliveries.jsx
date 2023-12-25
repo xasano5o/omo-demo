@@ -25,7 +25,6 @@ const UpdateDeliveries = ({ item }) => {
       toast.error(`Failed to add category ${inputValue.name}`);
     }
   };
- console.log(inputValue.name);
   return (
     <div>
       <button

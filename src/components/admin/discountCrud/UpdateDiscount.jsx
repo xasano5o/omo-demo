@@ -76,7 +76,6 @@ const UpdateDiscount = ({ object }) => {
       setOpen(false);
     } catch (error) {
       toast.error(`O'zgartirildi '${inputValue.title}'`);
-      console.error('Error creating category:', error);
     }
   };
 

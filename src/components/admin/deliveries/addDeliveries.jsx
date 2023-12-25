@@ -32,7 +32,6 @@ const AddDelivveries = () => {
       setOpen(false);
     } catch (error) {
       toast.error(`Manzil${inputValue.name} Qo'shilmadi`);
-      console.error('Error creating category:', error);
     }
   };
 

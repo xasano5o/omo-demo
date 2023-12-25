@@ -26,7 +26,6 @@ export const CategorySilide = () => {
   const { data, isLoading, isError, isSuccess } = useGetCategoryQuery();
   const navigate = useNavigate();
 
-  console.log(data);
 
   return (
     <div className="mt-5 container mx-auto">

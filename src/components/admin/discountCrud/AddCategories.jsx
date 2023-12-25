@@ -85,7 +85,6 @@ const AddProduct = ({ object }) => {
       setOpen(false);
     } catch (error) {
       toast.error(`Failed to add category '${inputValue.title}'. Error: ${error.message}`);
-      console.error('Error creating category:', error);
     }
   };
 

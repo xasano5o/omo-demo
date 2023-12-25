@@ -68,10 +68,8 @@ const BasketCheckout = ({ selectProduct }) => {
   const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
 
   const handleMapClick = (e) => {
-    const coordinates = e.get("coords");
-    // Update the marker coordinates when the map is clicked
+    const coordinates = e.get('coords');
     setMarkerGeometry(coordinates);
-    // Update the inputValue state with the selected coordinates
     setInputValue({
       ...inputValue,
       location: coordinates,
@@ -79,7 +77,6 @@ const BasketCheckout = ({ selectProduct }) => {
   };
 
   useEffect(() => {
-    // Fetch user's current location using the browser's geolocation service
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -90,17 +87,11 @@ const BasketCheckout = ({ selectProduct }) => {
           });
         },
         (error) => {
-          console.error("Error fetching user location:", error);
-          toast.error(
-            "Failed to fetch user location. Defaulting to the default location."
-          );
+          toast.error('Failed to fetch user location. Defaulting to the default location.');
         }
       );
     } else {
-      console.warn("Geolocation is not supported by this browser.");
-      toast.warning(
-        "Geolocation is not supported by this browser. Defaulting to the default location."
-      );
+      toast.warning('Geolocation is not supported by this browser. Defaulting to the default location.');
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
