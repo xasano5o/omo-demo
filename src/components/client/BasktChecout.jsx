@@ -141,6 +141,7 @@ const BasketCheckout = ({ selectProduct }) => {
       className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
     />
   </div>
+  {/* salom */}
   <div>
     <label>Manzil tetx</label>
     <textarea
