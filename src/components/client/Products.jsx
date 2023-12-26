@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { NavLink } from "react-router-dom";
-import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
-import { useCreateBasketMutation, useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
+// import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
+import { useCreateBasketMutation, useDeleteBasketMutation, useGetBasketQuery, useGetProductQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 
 
 function Products() {
+ 
+ 
+ 
+//  redux
   const { data: product, isLoading, refetch } = useGetProductQuery();
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();

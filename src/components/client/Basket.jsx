@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket";
 import BasketCheckout from "./BasktChecout";
+import { useGetProductQuery } from "../../redux/slice/client/getProduct";
 
 const Basket = () => {
-  const { data: dataBasket } = useGetBasketQuery();
-  const [deleteBasket] = useDeleteBasketMutation();
-  const [Increment] = useIncrementMutation();
+// state
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [skip, setSkip] =useState(false)
+  const { data: product, isLoading, refetch } = useGetProductQuery(skip);
 
+  let res = window.location.pathname;
+
+// redux
+  const { data: dataBasket } = useGetBasketQuery();
+  const [deleteBasket] = useDeleteBasketMutation();
+  const [Increment] = useIncrementMutation();
+// backend send
   const deleteFunc = async (id) => {
     try {
       await deleteBasket({ id });
     } catch (err) {
     }
+    setSkip(true)
   };
 
   const handleSelectAmount = async (e, value) => {
@@ -28,6 +38,8 @@ const Basket = () => {
       await Increment(formData).unwrap();
     } catch (error) {
     }
+    setSkip(true)
+
   };
 
   const increment = async (value) => {
@@ -39,6 +51,7 @@ const Basket = () => {
       await Increment(formData).unwrap();
     } catch (error) {
     }
+    setSkip(true)
   };
   const decrement = async (value) => {
     const formData = new FormData();
@@ -50,7 +63,6 @@ const Basket = () => {
     }
   };
 
-  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -91,6 +103,9 @@ const Basket = () => {
   const isAllUsersSelected = () => {
     return selectedUsers.length === dataBasket.length;
   };
+
+
+
   return (
     <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
