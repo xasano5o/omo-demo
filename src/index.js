@@ -16,7 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
+ <div className='z'>
+   <BrowserRouter>
       <ToastContainer
         position="top-center"
         autoClose={5000}
@@ -33,4 +34,5 @@ root.render(
     <App/>
     </Provider>
   </BrowserRouter>
+ </div>
 );
