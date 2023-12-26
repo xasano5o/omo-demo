@@ -109,7 +109,7 @@ const Navbar = () => {
               <div className=" transition duration-150 ease-out md:ease-in absolute -z-50  w-[100%] h-[100vh]">
                 {/* <NavLink className="" to={`/product/${product?.id}`}>
                   <button className="btn btn-sm m-3 border-primary">
-                    <span className="fa fa-arrow-right text-muted" />
+                    <spans className="fa fa-arrow-right text-muted" />
                   </button>
                 </NavLink> */}
 
