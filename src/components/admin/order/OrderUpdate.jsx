@@ -14,9 +14,38 @@ import {
   useGetOrderQuery,
   useUpdateOrderMutation,
 } from "../../../redux/slice/client/order";
+import axios from "axios";
 
 const OrderUpdate = ({ object }) => {
   // state
+  const [payment, setPayment] = useState([
+    {
+      key: "to'lov tizimi",
+      value: "TO'LOV TIZIMI",
+    },
+    {
+      key: "naqd",
+      value: "NAQD",
+    },
+  ]);
+  const [status, setStatus] = useState([
+    {
+      key: "bekor qilindi",
+      value: "BEKOR QILINDI",
+    },
+    {
+      key: "qabul qilindi",
+      value: "QABUL QILINDI",
+    },
+    {
+      key: "yetkazilmoqda",
+      value: "YETKAZILMOQDA",
+    },
+    {
+      key: "yetkazildi",
+      value: "YETKAZILDI",
+    },
+  ]);
   const [skip, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(object);
   // redux
@@ -71,7 +100,7 @@ const OrderUpdate = ({ object }) => {
         <Modal loader={isCreating} closeModal={onClose} addFunc={addData}>
           <div className="grid grid-cols-2 gap-3 ">
             <div className="flex flex-col gap-2">
-              <div>
+              {/* <div>
                 <label htmlFor="Maxsulot Nomi:" className="text-black">
                   Umumiy narx:
                 </label>
@@ -88,41 +117,56 @@ const OrderUpdate = ({ object }) => {
                     })
                   }
                 />
-              </div>
-              <div>
-                <label htmlFor="Maxsulot Name:">Yetkazilganligi haqida:</label>
-                <input
-                  type="text"
-                  id="table-search-users"
-                  className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder=""
-                  value={inputValue.delivery_status}
-                  onChange={(e) =>
-                    setInputValue({
-                      ...inputValue,
-                      delivery_status: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <label htmlFor="Maxsulot Name:">To'lov turi:</label>
-                <input
-                  type="text"
-                  id="table-search-users"
-                  className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-60 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder=""
-                  value={inputValue.payment_method}
-                  onChange={(e) =>
-                    setInputValue({
-                      ...inputValue,
-                      payment_method: e.target.value,
-                    })
-                  }
-                />
-              </div>
+              </div> */}
+              <label htmlFor="" className="text-gray-900">
+                Statusni tanlang
+              </label>
+              <select
+                value={inputValue?.delivery_status?.choices}
+                onChange={(e) =>
+                  setInputValue({
+                    ...inputValue,
+                    delivery_status: e.target.value,
+                  })
+                }
+                className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Hech Biri">Hech Biri</option>
+                {status.map((item) => {
+                  return (
+                    <>
+                      <option value={item.value}>{item.key}</option>
+                    </>
+                  );
+                })}
+              </select>
 
-              <div>
+  
+              <label htmlFor="" className="text-gray-900">
+             To'lov turini tanlang
+              </label>
+              <select
+                value={inputValue?.payment_method?.choices}
+                onChange={(e) =>
+                  setInputValue({
+                    ...inputValue,
+                    payment_method: e.target.value,
+                  })
+                }
+                className="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="Hech Biri">Hech Biri</option>
+                {payment.map((item) => {
+                  return (
+                    <>
+                      <option value={item.value}>{item.key}</option>
+                    </>
+                  );
+                })}
+              </select>
+
+
+              {/* <div>
                 <label
                   htmlFor="message"
                   className="block mb-2 text-sm font-medium text-gray-900 "
@@ -167,9 +211,9 @@ const OrderUpdate = ({ object }) => {
                   required
                   type="datetime-local"
                 />
-              </div>
+              </div> */}
             </div>
-            <div className="flex flex-col ">
+            {/* <div className="flex flex-col ">
               <div className="flex flex-col">
                 <div>
                   <label
@@ -256,7 +300,7 @@ const OrderUpdate = ({ object }) => {
                   <div></div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </Modal>
       )}

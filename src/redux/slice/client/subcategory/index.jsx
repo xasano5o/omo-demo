@@ -37,7 +37,7 @@ export const SubCategoryCrud = createApi({
 
         deleteSubCategorie: build.mutation({
             query: (body) => ({
-                url: `sub-categories/${body.id}`,
+                url: `sub-categories/${body.ID}`,
                 method: "DELETE",
                 body,
             }),
