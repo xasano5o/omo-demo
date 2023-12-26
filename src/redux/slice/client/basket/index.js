@@ -13,7 +13,10 @@ export const BasketCrud = createApi({
             }),
             providesTags: ["basket"],
         }),
-    
+        getProduct: build.query({
+            query: (body) => `products/`,
+            providesTags: ["basket"],
+        }),
         createBasket: build.mutation({
             query: (body) => ({
                 url: `basket/`,
@@ -45,6 +48,7 @@ export const BasketCrud = createApi({
 
 export const {
     useIncrementMutation,
+    useGetProductQuery,
     useGetBasketQuery,
     useCreateBasketMutation,
     useDeleteBasketMutation,
