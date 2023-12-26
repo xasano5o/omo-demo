@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { NavLink } from "react-router-dom";
-// import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
-import { useCreateBasketMutation, useDeleteBasketMutation, useGetBasketQuery, useGetProductQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
+import { useCreateBasketMutation, useDeleteBasketMutation,  useGetProductQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
 import axios from "axios";
 
 
 
 function Products() {
- 
- 
- 
-//  redux
+
+  //  redux
   const { data: product, isLoading, refetch } = useGetProductQuery();
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation();
- 
+
   const token = localStorage.getItem("user");
- 
- 
+
+
   function sendRequest() {
     axios.post(
       "users/check_token/",
-      {},
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("user")}`,
@@ -32,11 +28,11 @@ function Products() {
       }
     );
   }
-  
+
 
   if (token) {
     // Birinchi marta surovni yuborish
-  
+
     // Keyin har 24 soatda bir avtomatik ravishda yuborish
     setInterval(() => {
       sendRequest();
@@ -86,7 +82,7 @@ function Products() {
     formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
-    } catch (error) {  }
+    } catch (error) { }
     const id = value?.id
     if (value?.amount == 0) {
       deleteBasket({ id });
@@ -94,7 +90,49 @@ function Products() {
     refetch()
   };
 
+  // Remaining time state
+  const [remainingTime, setRemainingTime] = useState(null);
 
+  const calculateTimeRemaining = (endDateString) => {
+    const endDateObject = new Date(endDateString);
+    const now = new Date();
+    const timeDifference = endDateObject - now;
+
+    const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const secondsRemaining = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return { hoursRemaining, minutesRemaining, secondsRemaining };
+  };
+
+  // useEffect(() => {
+  //   // Calculate and update remaining time for each product with a discount
+  //   const updatedProducts = filter?.map((product) => {
+  //     if (product.discount?.end_date) {
+  //       const { hoursRemaining, minutesRemaining, secondsRemaining } = calculateTimeRemaining(product.discount.end_date);
+  //       return { ...product, remainingTime: { hoursRemaining, minutesRemaining, secondsRemaining } };
+  //     }
+  //     return product;
+  //   });
+
+  //   setFilter(updatedProducts);
+
+  //   // Update remaining time every second
+  //   const intervalId = setInterval(() => {
+  //     const updatedProducts = filter?.map((product) => {
+  //       if (product.discount?.end_date) {
+  //         const { hoursRemaining, minutesRemaining, secondsRemaining } = calculateTimeRemaining(product.discount.end_date);
+  //         return { ...product, remainingTime: { hoursRemaining, minutesRemaining, secondsRemaining } };
+  //       }
+  //       return product;
+  //     });
+
+  //     setFilter(updatedProducts);
+  //   }, 1000);
+
+  //   return () => clearInterval(intervalId); // Clear interval on component unmount
+
+  // }, [filter]);
 
 
   const Loading = () => {
@@ -138,6 +176,30 @@ function Products() {
         <div className="col-md-13 py-md-3">
           <div className="row">
             {filter?.map((product) => {
+              const formatDate = (dateString) => {
+                const options = {
+                  hour12: false,
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                };
+                const dateObject = new Date(dateString);
+                return dateObject.toLocaleString('en-US', options);
+              };
+              const formattedStartDate = product.discount.start_date ? formatDate(product.discount.start_date) : '';
+              const formattedEndDate = product.discount.end_date ? formatDate(product.discount.end_date) : '';
+
+              console.log(`Start Date: ${formattedStartDate}`);
+              console.log(`End Date: ${formattedEndDate}`);
+
+              // Use remaining time from state with default values
+              const { hoursRemaining = 0, minutesRemaining = 0, secondsRemaining = 0 } = product.remainingTime || {};
+              console.log(`Remaining Time: ${hoursRemaining} hours, ${minutesRemaining} minutes, ${secondsRemaining} seconds`);
+
+
 
               return (
                 <div
@@ -153,16 +215,26 @@ function Products() {
                       />
                     </NavLink>
 
-                    <div className="m-3 mb-0">
+                    <div className="m-3 mb-0 flex justify-between">
                       <small className="card-title">{product?.title}</small>
+                      {/* {hoursRemaining !== undefined && (
+                        <small>
+                          {`${hoursRemaining}:${minutesRemaining}:${secondsRemaining}`}
+                        </small>
+                      )} */}
                     </div>
 
                     <div style={{ marginTop: "auto" }}>
                       <div className="d-flex justify-content-between align-items-center">
-                        <div className="m-3">
-                          <b>{product?.price.toLocaleString("ru-Ru")} so'm</b>
+                        <div className="m-3 flex flex-col">
+                          {
+                            product?.discount?.product_discount_price ? <b className="text-xm">{product?.discount?.product_discount_price?.toLocaleString("ru-Ru")} so'm</b> : ''
+                          }
+                          {
+                            product?.discount?.product_discount_price ? <del> {product?.price.toLocaleString("ru-Ru")} so'm</del> : <b className="text-xm">{product?.price.toLocaleString("ru-Ru")} so'm</b>
+                          }
                         </div>
-                        <NavLink className="" to={`/product/${product?.id}`}>
+                        <NavLink to={`/product/${product?.id}`}>
                           <button className="btn btn-sm m-3 border-primary">
                             <span className="fa fa-arrow-right text-muted" />
                           </button>

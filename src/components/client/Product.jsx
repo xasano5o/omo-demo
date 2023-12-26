@@ -161,6 +161,7 @@ function Product() {
                       </span>
                       <div className="price d-flex flex-row align-items-center">
                         <big className="display-6">
+                          
                           <b>{product?.price.toLocaleString("ru-Ru")}</b>so'm
                         </big>
                       </div>
