@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket";
-import BasketCheckout from "./BasktChecout";
+import {
+  useDeleteBasketMutation,
+  useGetBasketQuery,
+  useIncrementMutation,
+} from "../../redux/slice/client/basket";
 import { useGetProductQuery } from "../../redux/slice/client/getProduct";
+import BasketCheckout from "./BasktChecout";
 
 const Basket = () => {
-// state
+  // state
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
+  const [isAllSelected, setIsAllSelected] = useState(true); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [skip, setSkip] =useState(false)
+  const [skip, setSkip] = useState(true);
   const { data: product, isLoading, refetch } = useGetProductQuery(skip);
 
   let res = window.location.pathname;
 
-// redux
+  // redux
   const { data: dataBasket } = useGetBasketQuery();
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
-// backend send
+  // backend send
   const deleteFunc = async (id) => {
     try {
       await deleteBasket({ id });
-    } catch (err) {
-    }
-    setSkip(true)
+    } catch (err) {}
+    setSkip(true);
   };
 
   const handleSelectAmount = async (e, value) => {
@@ -36,10 +39,8 @@ const Basket = () => {
     formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
-    } catch (error) {
-    }
-    setSkip(true)
-
+    } catch (error) {}
+    setSkip(true);
   };
 
   const increment = async (value) => {
@@ -49,9 +50,8 @@ const Basket = () => {
 
     try {
       await Increment(formData).unwrap();
-    } catch (error) {
-    }
-    setSkip(true)
+    } catch (error) {}
+    setSkip(true);
   };
   const decrement = async (value) => {
     const formData = new FormData();
@@ -59,10 +59,8 @@ const Basket = () => {
     formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
-    } catch (error) {
-    }
+    } catch (error) {}
   };
-
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -80,7 +78,7 @@ const Basket = () => {
 
   const selectAll = () => {
     const allUserIds = dataBasket.map((user) => user.id);
-    setIsAllSelected(!isAllSelected);
+    setIsAllSelected(isAllSelected);
     setSelectedUsers(isAllSelected ? [] : allUserIds);
   };
 
@@ -104,13 +102,11 @@ const Basket = () => {
     return selectedUsers.length === dataBasket.length;
   };
 
-
-
   return (
     <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
         <h1 className="text-xl">
-          Savatga Olingan Maxsulotlar soni: {dataBasket?.length}{" "}
+          Savatga olingan maxsulotlar soni: {dataBasket?.length}{" "}
         </h1>
         <div className="mx-auto max-w-7xl flex items-center gap-2">
           <input
@@ -225,13 +221,19 @@ const Basket = () => {
                     </div>
                     <div className="flex items-center flex-col justify-between">
                       <p className="text-sm">
-                        {value?.product?.price?.toLocaleString(
+                        {value?.product?.discount?.product_discount_price?.toLocaleString(
                           "uz-UZ"
-                        )} so'm {" "}
-                       
+                        )}{" "}
+                        so'm{" "}
+                      </p>
+                      <p className="text-sm">
+                        {value?.total_price?.discount_price?.toLocaleString(
+                          "uz-UZ"
+                        )}{" "}
+                        so'm{" "}
                       </p>
                       <del>
-                        {value?.product?.price.toLocaleString("uz-UZ")} so'm
+                        {value?.product?.price?.toLocaleString("uz-UZ")} so'm
                       </del>
                     </div>
                   </div>
@@ -240,15 +242,7 @@ const Basket = () => {
             ))}
             {/* mobile */}
             <div className="mt-6 h-full rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
-              <div className="mb-2 flex justify-between">
-                <p className="text-gray-700">Subtotal</p>
-                <p className="text-gray-700"></p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-gray-700">Shipping</p>
-                <p className="text-gray-700">$4.99</p>
-              </div>
-              <hr className="my-4" />
+        
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
@@ -263,15 +257,7 @@ const Basket = () => {
           </div>
           {/* desktop */}
           <div className="hidden mt-6 h-full rounded-lg border md:block lg:block xl:block bg-white p-6 shadow-md md:mt-6 md:w-1/3">
-            <div className="mb-2 flex justify-between">
-              <p className="text-gray-700">Subtotal</p>
-              <p className="text-gray-700"></p>
-            </div>
-            <div className="flex justify-between">
-              <p className="text-gray-700">Shipping</p>
-              <p className="text-gray-700">$4.99</p>
-            </div>
-            <hr className="my-4" />
+       
             <div className="flex justify-between">
               <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">

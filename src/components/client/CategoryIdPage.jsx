@@ -2,14 +2,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCreateBasketMutation } from "../../redux/slice/client/basket";
+import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket";
 import { useGetProductIdQuery } from "../../redux/slice/client/category";
 import Loading from "./Loading";
 import Savat from "../../savat.jpg"
 
 const CategoryId = () => {
   const { id } = useParams();
-  const { data: products,isLoading } = useGetProductIdQuery({ id: id });
+  const [deleteBasket] = useDeleteBasketMutation();
+  const [Increment] = useIncrementMutation();
+  const { data: products,isLoading,refetch } = useGetProductIdQuery({ id: id });
   console.log(isLoading);
   const [procate, setProcate] = useState(products);
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
@@ -40,18 +42,44 @@ const CategoryId = () => {
   }, [products]);
   const [filter, setFilter] = useState(products);
 
-  const addData = async (products) => {
+
+  const addData = async (productd) => {
     const formData = new FormData();
     formData.append("amount", 1);
-    formData.append("product", products.id);
+    formData.append("product", productd.id);
     try {
       await createBasket(formData).unwrap();
       toast.success(`maxsulod  qushildi`);
     } catch (error) {
       toast.error(`Failed to add category `);
     }
+    refetch()
   };
 
+  const increment = async (value) => {
+    const formData = new FormData();
+    formData.append("amount", value?.amount + 1);
+    formData.append("id", value.id);
+
+    try {
+      await Increment(formData).unwrap();
+    } catch (error) {
+    }
+    refetch()
+  };
+  const decrement = async (value) => {
+    const formData = new FormData();
+    formData.append("amount", value.amount - 1);
+    formData.append("id", value.id);
+    try {
+      await Increment(formData).unwrap();
+    } catch (error) {  }
+    const id = value?.id
+    if (value?.amount == 0) {
+      deleteBasket({ id });
+    }
+    refetch()
+  };
 if(isLoading){
   return <Loading/>
 }
@@ -87,12 +115,38 @@ if(isLoading){
                       </NavLink>
                     </div>
                   </div>
-                  <button
-                    className="btn btn-sm m-3 border-primary"
-                    onClick={() => addData(product)}
-                  >
-                    Savatga qo'shish
-                  </button>
+                  {product?.basket?.amount ? (
+                      <div className="flex py-4 justify-around items-center border-gray-100">
+                        <span
+                          onClick={() => decrement(product.basket)}
+                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                        >
+                          {" "}
+                          -{" "}
+                        </span>
+                        <input
+                          className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                          type="text"
+                          value={product.basket?.amount}
+                          min="1"
+                        />
+                        <span
+                          onClick={() => increment(product?.basket)}
+                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                        >
+                          {" "}
+                          +{" "}
+                        </span>
+                      </div>
+                    ) : (
+                      // If false, render a button to add the product to the basket
+                      <button
+                        className="btn btn-sm m-3 border-primary"
+                        onClick={() => addData(product)}
+                      >
+                        Savatga qo'shish
+                      </button>
+                    )}
                 </div>
               </div>
             ))

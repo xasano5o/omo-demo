@@ -7,9 +7,9 @@ import { Carousel } from "react-responsive-carousel";
 const Home = () => {
   const { data } = useGetBannersQuery();
   return (
-    <>
+    <div className="">
       <div className="container px-0">
-        <Carousel className="" autoPlay={true} infiniteLoop={true} showArrows={true}>
+        <Carousel className="z" autoPlay={true} infiniteLoop={true} showArrows={true}>
           {data?.map((item) => {
             return (
               <>
@@ -28,7 +28,7 @@ const Home = () => {
         <CategorySilide />
         <Products />
       </div>
-    </>
+    </div>
   );
 };
 

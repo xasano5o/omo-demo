@@ -1,67 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useGetSearchQuery } from "../../redux/slice/client/search";
-import { useGetBasketQuery } from "../../redux/slice/client/basket";
-import axios from "axios";
-const Navbar = () => {
-  const [skip, setSkip] = useState(false);
-  const [search, setSearch] = useState("");
-  const { data: dataBasket } = useGetBasketQuery();
-  const [data, setData] = useState([]);
-
-  // Debounce function
-  const token = localStorage.getItem("user");
-  useEffect(() => {
-    let debounceTimer = setTimeout(() => {
-      if (search?.length > 0) {
-        axios
-          .get(`search/?query=${search}`, {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => setData(response.data));
-      }
-    }, 500);
-    return () => clearTimeout(debounceTimer);
-  }, [search]);
-
-  const handleInputChange = (e) => {
-    setSearch(e.target.value);
-    setSkip(true);
-  };
-  useEffect(() => {
-    if (search?.length === 0) setSkip(false);
-  }, [search]);
-
-  useEffect(() => {
-    if (skip === false) setSearch(null);
-  }, [skip]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSkip(false);
-  };
-
-  const close = () => {
-    setSkip(false);
-    setSearch("");
-  };
-  return (
-    <div className="bot">
-      <nav className="navbar bg-light fixed-top shadow">
-        <div className="container-fluid container grid grid-cols-3 ">
-          <div className="flex gap-3 items-center">
-            <NavLink className="no-underline" to="/">
-              {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
-              <h1 className="no-underline">
-                Omo<b className="text-yellow-600">Food</b>
-              </h1>
-            </NavLink>
-          </div>
-
-          <div>
+<div>
             <div>
               <form onSubmit={handleSubmit}>
                 <label
@@ -121,7 +58,7 @@ const Navbar = () => {
                           className={"no-underline"}
                           to={`/categories/${value?.id}`}
                         >
-                          <p className="flex ml-8 items-center gap-2 cursor-pointer ">
+                          <p className="flex items-center gap-2 cursor-pointer ">
                             <span>
                               {" "}
                               <svg
@@ -210,21 +147,3 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className="">
-            <Link
-              to={"/basket"}
-              className="no-underline  flex flex-col items-center "
-            >
-              <h5>{dataBasket?.length}</h5>
-              <button className="navbar-toggler left-0" type="button">
-                <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
-              </button>
-            </Link>
-          </div>
-        </div>
-      </nav>
-    </div>
-  );
-};
-
-export default Navbar;
