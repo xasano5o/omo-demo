@@ -68,7 +68,7 @@ const BasketCheckout = ({ selectProduct }) => {
   const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
 
   const handleMapClick = (e) => {
-    const coordinates = e.get('coords');
+    const coordinates = e.get("coords");
     setMarkerGeometry(coordinates);
     setInputValue({
       ...inputValue,
@@ -87,11 +87,15 @@ const BasketCheckout = ({ selectProduct }) => {
           });
         },
         (error) => {
-          toast.error('Failed to fetch user location. Defaulting to the default location.');
+          toast.error(
+            "Failed to fetch user location. Defaulting to the default location."
+          );
         }
       );
     } else {
-      toast.warning('Geolocation is not supported by this browser. Defaulting to the default location.');
+      toast.warning(
+        "Geolocation is not supported by this browser. Defaulting to the default location."
+      );
     }
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
@@ -156,6 +160,79 @@ const BasketCheckout = ({ selectProduct }) => {
                     className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
                   />
                 </div>
+                <div>
+                  <label>Manzil tetx</label>
+                  <textarea
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, address: e.target.value })
+                    }
+                    placeholder="Namagan shahar uychi atrofi"
+                    type="text"
+                    className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                  />
+                </div>
+                <div>
+                  <label>Manzil Turi *</label>
+                  <select
+                    onChange={(e) =>
+                      setInputValue({
+                        ...inputValue,
+                        address_status: e.target.value,
+                      })
+                    }
+                    className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                  >
+                    <option>Hech biri</option>
+                    {deliveries?.map((value) => {
+                      return <option value={value.id}>{value.name}</option>;
+                    })}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div>
+                  <label>Ism *</label>
+                  <input
+                    type="text"
+                    value={inputValue.first_name}
+                    onChange={(e) =>
+                      setInputValue({
+                        ...inputValue,
+                        first_name: e.target.value,
+                      })
+                    }
+                    className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                  />
+                </div>
+                <div>
+                  <label>Familiya *</label>
+                  <input
+                    type="text"
+                    value={inputValue.last_name}
+                    onChange={(e) =>
+                      setInputValue({
+                        ...inputValue,
+                        last_name: e.target.value,
+                      })
+                    }
+                    className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                  />
+                </div>
+                <div>
+                  <label>Telfon Raqam *</label>
+                  <input
+                    placeholder="+998"
+                    type="number"
+                    maxLength={13}
+                    value={inputValue.phone}
+                    onChange={(e) =>
+                      setInputValue({ ...inputValue, phone: e.target.value })
+                    }
+                    className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
+                  />
+                </div>
+                {/* salom */}
                 <div>
                   <label>Manzil tetx</label>
                   <textarea

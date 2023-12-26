@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 import { useCreateBasketMutation, useDeleteBasketMutation, useGetBasketQuery, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 
 
@@ -12,27 +13,39 @@ function Products() {
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation();
+ 
+  const token = localStorage.getItem("user");
+ 
+ 
+  function sendRequest() {
+    axios.post(
+      "users/check_token/",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
+        },
+      }
+    );
+  }
+  
 
-
-  // const token = localStorage.getItem("user");
-  // if (token) {
-  //   axios.post(
-  //     "users/check_token/",
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("user")}`,
-  //       },
-  //     }
-  //   );
-  // } else {
-  //   axios.get("users/get_token/").then((res) => {
-  //     const token = res.data.access_token;
-  //     localStorage.setItem("user", token);
-  //   });
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 1500);
-  // }
+  if (token) {
+    // Birinchi marta surovni yuborish
+  
+    // Keyin har 24 soatda bir avtomatik ravishda yuborish
+    setInterval(() => {
+      sendRequest();
+    }, 24 * 60 * 60 * 1000); // 24 soat = 24 * 60 minut * 60 sekund * 1000 millisekund
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   useEffect(() => {
     setFilter(product);
