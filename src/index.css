@@ -100,19 +100,19 @@ body {
   height: 500px;
   overflow-x: auto;
 }
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 768px) {
   .check {
     overflow-x: auto;
     height: 500px;
     width: 400px;
   }
-}
-.bot
-{
-  margin-bottom: 100px;
-}
-@media only screen and (min-width:768px ) {
   .bot {
-    margin-bottom: 70px;
+    margin-bottom: 150px;
   }
 }
+
+@media only screen and (min-width: 768px) {
+      .bot {
+        margin-bottom: 80px;
+      }
+    }

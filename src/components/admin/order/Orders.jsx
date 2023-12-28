@@ -5,8 +5,10 @@ import EmptyBox from "../../EmptyBox/EmptyBox.jsx";
 import Loader from "../../Loader/Loader";
 import DeleteOrder from "./OrderDelete.jsx";
 import OrderUpdate from "./OrderUpdate.jsx";
+import OrderLocation from "./OrderLocation.jsx";
 
 const OrderCrud = () => {
+
   const { data, error, isLoading } = useGetOrderQuery();
   console.log(data, "order");
   const [search, setSearch] = useState("");
@@ -14,7 +16,6 @@ const OrderCrud = () => {
   const [isHovered, setIsHovered] = useState(false);
   return (
     <div className=" ">
-      
       {/* Set the height to 100vh */}
       <section className="bg-gray-50 dark:bg-white-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
@@ -53,7 +54,14 @@ const OrderCrud = () => {
                     <th scope="col" className="p-4">
                       Haridorning Manzili
                     </th>
-                    <th scope="col" className="p-4"></th>
+                    <th scope="col" className="p-4">
+                      Haridorning Ismi
+                    </th>
+                    <th scope="col" className="p-4">
+                      Haridorning Familyasi
+                    </th>
+                    <th scope="col" className="p-4">
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -139,14 +147,33 @@ const OrderCrud = () => {
                               {item?.location.address}
                             </span>
                           </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.user?.first_name}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.user?.last_name}
+                            </span>
+                          </td>
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div className="flex items-center space-x-4">
+                            <div>
+                                <OrderLocation location={item.location} />
+                              </div>
                               <div>
                                 <OrderUpdate object={item} />
                               </div>
+                    
                               <div>
                                 <DeleteOrder ID={item?.id} />
                               </div>
+              
                             </div>
                           </td>
                         </tr>
@@ -158,6 +185,7 @@ const OrderCrud = () => {
                 </tbody>
               </table>
             </div>
+            
           </div>
         </div>
       </section>
