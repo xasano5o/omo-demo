@@ -51,7 +51,6 @@ const OrderUpdate = ({ object }) => {
   // redux
   const [updateProduct, { isLoading: isCreating }] = useUpdateOrderMutation();
   const { data, isLoading, refetch } = useGetOrderQuery({ skip });
-  const { data: subData } = useGetSubCategoryQuery({ skip });
 
   // fuction
   const onClose = () => {
@@ -141,9 +140,8 @@ const OrderUpdate = ({ object }) => {
                 })}
               </select>
 
-  
               <label htmlFor="" className="text-gray-900">
-             To'lov turini tanlang
+                To'lov turini tanlang
               </label>
               <select
                 value={inputValue?.payment_method?.choices}
@@ -164,7 +162,6 @@ const OrderUpdate = ({ object }) => {
                   );
                 })}
               </select>
-
 
               {/* <div>
                 <label
