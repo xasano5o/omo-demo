@@ -1,7 +1,7 @@
-import { useState, CSSProperties } from "react";
+import { useState } from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const override= {
+const override = {
   display: "block",
   margin: "0 auto",
   borderColor: "#dad2d2",

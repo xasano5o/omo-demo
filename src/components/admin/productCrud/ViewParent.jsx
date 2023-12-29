@@ -110,6 +110,7 @@ export default function View({ object }) {
 
             <div>
               <h1 className="text-black">description</h1>
+              {object?.description}
             </div>
           </div>
         </Modal>
