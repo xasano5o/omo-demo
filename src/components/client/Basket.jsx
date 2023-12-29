@@ -8,26 +8,19 @@ import { useGetProductQuery } from "../../redux/slice/client/getProduct";
 import BasketCheckout from "./BasktChecout";
 
 const Basket = () => {
-  // state
+  const { data: dataBasket, isSuccess } = useGetBasketQuery();
+  const [deleteBasket] = useDeleteBasketMutation();
+  const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(true); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [skip, setSkip] = useState(true);
-  const { data: product, isLoading, refetch } = useGetProductQuery(skip);
 
-  let res = window.location.pathname;
-
-  // redux
-  const { data: dataBasket } = useGetBasketQuery();
-  const [deleteBasket] = useDeleteBasketMutation();
-  const [Increment] = useIncrementMutation();
-  // backend send
   const deleteFunc = async (id) => {
     try {
       await deleteBasket({ id });
-    } catch (err) {}
-    setSkip(true);
+    } catch (err) {
+      console.error("Error deleting item:", err);
+    }
   };
 
   const handleSelectAmount = async (e, value) => {
@@ -39,8 +32,9 @@ const Basket = () => {
     formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
-    } catch (error) {}
-    setSkip(true);
+    } catch (error) {
+      console.error("Error incrementing item:", error);
+    }
   };
 
   const increment = async (value) => {
@@ -50,17 +44,23 @@ const Basket = () => {
 
     try {
       await Increment(formData).unwrap();
-    } catch (error) {}
-    setSkip(true);
+    } catch (error) {
+      console.error("Error incrementing item:", error);
+    }
   };
   const decrement = async (value) => {
     const formData = new FormData();
     formData.append("amount", value.amount - 1);
     formData.append("id", value.id);
+
     try {
       await Increment(formData).unwrap();
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error decrementing item:", error);
+    }
   };
+
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -77,13 +77,16 @@ const Basket = () => {
   }, [dataBasket]);
 
   const selectAll = () => {
-    const allUserIds = dataBasket.map((user) => user.id);
-    setIsAllSelected(isAllSelected);
+    const allUserIds = dataBasket?.map((user) => user.id);
+    setIsAllSelected(!isAllSelected);
     setSelectedUsers(isAllSelected ? [] : allUserIds);
   };
+  useEffect(() => {
+    selectAll();
+  }, [isSuccess]);
 
   const handleUserSelect = (user) => {
-    if (selectedUsers.includes(user.id)) {
+    if (selectedUsers?.includes(user?.id)) {
       setSelectedUsers((prevSelectedUsers) =>
         prevSelectedUsers.filter((id) => id !== user.id)
       );
@@ -95,13 +98,12 @@ const Basket = () => {
     setIsAllSelected(selectedUsers.length === dataBasket.length);
   };
   const isUserSelected = (user) => {
-    return selectedUsers.includes(user.id);
+    return selectedUsers?.includes(user.id);
   };
 
   const isAllUsersSelected = () => {
     return selectedUsers.length === dataBasket.length;
   };
-
   return (
     <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
@@ -242,7 +244,6 @@ const Basket = () => {
             ))}
             {/* mobile */}
             <div className="mt-6 h-full rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
-        
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
@@ -257,7 +258,6 @@ const Basket = () => {
           </div>
           {/* desktop */}
           <div className="hidden mt-6 h-full rounded-lg border md:block lg:block xl:block bg-white p-6 shadow-md md:mt-6 md:w-1/3">
-       
             <div className="flex justify-between">
               <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">

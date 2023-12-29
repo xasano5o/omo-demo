@@ -25,7 +25,7 @@ const OrderLocation = ({ location }) => {
     });
   };
 
-
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

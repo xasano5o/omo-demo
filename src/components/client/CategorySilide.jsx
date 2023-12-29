@@ -1,8 +1,9 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useGetCategoryQuery } from "../../redux/slice/client/category";
 import { Link, useNavigate } from "react-router-dom";
+import { useGetCategoryQuery } from "../../redux/slice/client/category";
+import ProductNotfound from "./ProductNotfound";
 
 export const CategorySilide = () => {
   const responsive = {
@@ -25,7 +26,6 @@ export const CategorySilide = () => {
   };
   const { data, isLoading, isError, isSuccess } = useGetCategoryQuery();
   const navigate = useNavigate();
-
 
   return (
     <div className="mt-5 container mx-auto">
@@ -75,7 +75,7 @@ export const CategorySilide = () => {
           })}
         </Carousel>
       ) : (
-        <h1>Malumotlar hozircha yuklanmoqda</h1>
+        <ProductNotfound />
       )}
     </div>
   );
