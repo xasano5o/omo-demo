@@ -38,26 +38,20 @@ export default function View({ object }) {
       {skip && (
         <Modal closeModal={onClose} actionType="view">
           <div className="w-[80vw] p-4">
-            <div className="flex w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
+            <div className="flex flex-wrap w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
               <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
                   {object?.images?.length > 0 ? (
                     object?.images?.map((value) => {
                       return (
                         <div className="containers object-contain">
-                          <img
-                            className="image shadow border w-[300px] h-[150px] object-cover border-black"
-                            src={value?.image}
-                            alt=""
-                          />
-                          <div className="overlay">
+                          <div className="overlay  text-end pb-2  ">
                             <button
                               onClick={() => setIsOpen(!isOpen)}
                               type="button"
                               className="text inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                               <BsTrash className="" aria-hidden="true" />
-                              O'chirish
                             </button>
                             {isOpen && (
                               <Modal
@@ -66,6 +60,7 @@ export default function View({ object }) {
                                 loader={isLoading}
                                 actionType={"delete"}
                               >
+                                <img src={value?.image} className="w-[300px] h-[200px] object-cover" alt="" />
                                 <div className="py-5 px-10">
                                   <h1 className="text-2xl font-bold text-red-600">
                                     Malumotni o'chirishga rozimisiz !!!
@@ -74,6 +69,12 @@ export default function View({ object }) {
                               </Modal>
                             )}
                           </div>
+                          <img
+                            className="image shadow border w-[300px] h-[150px] object-cover border-black"
+                            src={value?.image}
+                            alt=""
+                          />
+
                         </div>
                       );
                     })
@@ -110,7 +111,9 @@ export default function View({ object }) {
 
             <div>
               <h1 className="text-black">description</h1>
-              {object?.description}
+              <p className="text-muted whitespace-pre-wrap text-black break-words">
+                {object?.description}
+              </p>
             </div>
           </div>
         </Modal>
