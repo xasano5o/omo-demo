@@ -91,7 +91,7 @@ export default function View({ object }) {
                   </p>
                   <p>
                     <strong>Chegirma Turi:</strong>{" "}
-                    {object.products_status === "ALL"
+                    {object.products_status == "ALL"
                       ? "Barcha maxsulot chegirma"
                       : "Bazi bir maxsulotga"}
                   </p>

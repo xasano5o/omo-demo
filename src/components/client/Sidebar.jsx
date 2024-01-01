@@ -14,7 +14,7 @@ const Sidebar = () => {
             {data?.map((value, index) => (
               <Link
                 key={index}
-                className={`flex items-center no-underline text-black justify-between ${index === 0 ? 'bg-gray-200' : ''
+                className={`flex items-center no-underline text-black justify-between ${index == 0 ? 'bg-gray-200' : ''
                   }`}
                 to={`${value?.id}`}
                 onClick={(e) => {
@@ -34,7 +34,7 @@ const Sidebar = () => {
                 </div>
               </Link>
             ))}
-            {data?.length === 0 && <h1>Mahsulotlar Kategoriyasi Yoq</h1>}
+            {data?.length == 0 && <h1>Mahsulotlar Kategoriyasi Yoq</h1>}
           </div>
         </div>
       </div>

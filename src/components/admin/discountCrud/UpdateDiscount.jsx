@@ -29,7 +29,7 @@ const UpdateDiscount = ({ object }) => {
   const [direction, setDirection] = useState('ALL');
   const [isDisabled, setIsDisabled] = useState(false);
   useEffect(() => {
-    if (direction === 'ALL') {
+    if (direction == 'ALL') {
       setIsDisabled(true);
     } else {
       setIsDisabled(false);
@@ -51,7 +51,7 @@ const UpdateDiscount = ({ object }) => {
     formData.append('end_date', inputValue.end_date);
     formData.append('products_status', direction);
 
-    if (direction === 'CUSTOM') {
+    if (direction == 'CUSTOM') {
       if (inputValue.products.length > 0) {
         inputValue.products.forEach(product => {
           formData.append('products', product);
@@ -162,7 +162,7 @@ const UpdateDiscount = ({ object }) => {
                   onChange={(e) => handleSelectionChange('category', e)}
                 >
                   {data?.map((value) => (
-                    <option key={value?.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value?.id} disabled={direction == 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -177,7 +177,7 @@ const UpdateDiscount = ({ object }) => {
                   onChange={(e) => handleSelectionChange('subcategory', e)}
                 >
                   {subData?.map((value) => (
-                    <option key={value.id} disabled={direction === 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value.id} disabled={direction == 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -192,7 +192,7 @@ const UpdateDiscount = ({ object }) => {
                   onChange={(e) => handleSelectionChange('products', e)}
                 >
                   {productData?.map((value) => (
-                    <option key={value.id} disabled={direction === 'ALL'} value={value.id}>{value.title}</option>
+                    <option key={value.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
                   ))}
                 </select>
               </div>

@@ -32,11 +32,11 @@ const Navbar = () => {
     setSkip(true);
   };
   useEffect(() => {
-    if (search?.length === 0) setSkip(false);
+    if (search?.length == 0) setSkip(false);
   }, [search]);
 
   useEffect(() => {
-    if (skip === false) setSearch(null);
+    if (skip == false) setSearch(null);
   }, [skip]);
 
   const handleSubmit = (e) => {
