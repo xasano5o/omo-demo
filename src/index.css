@@ -108,11 +108,11 @@ body {
 @media only screen and (max-width: 768px) {
   .check {
     overflow-x: auto;
-    height: 500px;
+    height: 380px;
     width: 400px;
   }
   .bot {
-    margin-bottom: 150px;
+    margin-bottom: 180px;
   }
 }
 

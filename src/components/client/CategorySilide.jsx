@@ -40,14 +40,14 @@ export const CategorySlide = () => {
                   }}
                 >
                   <img
-                    src={item.image}
+                    src={item?.image}
                     className="card-img-top rounded-circle"
                     style={{ height: "128px", width: "128px", objectFit: "cover" }}
-                    alt={item.title}
+                    alt={item?.title}
                   />
                 </Link>
                 <div className="card-body">
-                  <p className="card-text text-[13px] font-medium">{item.title}</p>
+                  <p className="card-text text-[13px] font-medium">{item?.title}</p>
                 </div>
               </div>
             </div>

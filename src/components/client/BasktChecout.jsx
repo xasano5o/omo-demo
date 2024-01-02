@@ -108,7 +108,6 @@ const BasketCheckout = ({ selectProduct }) => {
       >
         Check out
       </button>
-
       {open && (
         <Modal
           loader={isCreating}

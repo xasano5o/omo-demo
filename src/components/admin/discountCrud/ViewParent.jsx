@@ -53,7 +53,7 @@ export default function View({ object }) {
                           <img
                             className="shadow border border-black p-1 "
                             src={value.image || "defaultImagePath.jpg"}
-                            alt=""
+                            alt={value?.title}
                           />
                           <div className="ol">
                             <button

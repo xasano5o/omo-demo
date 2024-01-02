@@ -5,7 +5,7 @@ import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 
 const OrderLocation = ({ location }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-console.log(location,"location");
+  console.log(location, "location");
   const defaultState = {
     center: [+location?.longitude, +location.latitude],
     zoom: 15,
@@ -16,7 +16,7 @@ console.log(location,"location");
   };
 
   return (
-    <div>
+    <div className="">
       <button
         onClick={() => setIsModalOpen(true)}
         type="button"
@@ -26,7 +26,7 @@ console.log(location,"location");
         <RiUserLocationLine size={20} className="text-md" aria-hidden="true" />
       </button>
       {isModalOpen && (
-        <Modal closeModal={onClose}>
+        <Modal className="" closeModal={onClose}>
           <div>
             <a
               href={`https://www.google.com/maps/search/${location.longitude},${location.latitude}`}
@@ -37,7 +37,7 @@ console.log(location,"location");
             </a>
 
           </div>
-        <p className=" text-gray-800"> Foydalanuvchini addresi:  {location?.address}</p>
+          <p className=" text-gray-800 whitespace-pre-wrap break-words"> Foydalanuvchini adresi:  {location?.address}</p>
 
           <YMaps>
             <Map defaultState={defaultState}>
