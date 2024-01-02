@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Carousel } from "react-responsive-carousel";
@@ -6,14 +5,16 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useParams } from "react-router";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { useCreateBasketMutation } from "../../redux/slice/client/basket/index.js";
+import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
 import { CategorySilide } from "./CategorySilide.jsx";
+// import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 
 function Product() {
+  const [deleteBasket] = useDeleteBasketMutation();
+  const [Increment] = useIncrementMutation  ();
   const { id } = useParams();
-  const { data: product, isLoading } = useGetProductIdQuery({ id: id });
+  const { data: product, isLoading ,refetch} = useGetProductIdQuery({ id: id });
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();
 
@@ -35,16 +36,41 @@ function Product() {
   }, [product]);
   const [filter, setFilter] = useState(product);
 
-  const addData = async (product) => {
+  const addData = async (productd) => {
     const formData = new FormData();
     formData.append("amount", 1);
-    formData.append("product", product.id);
+    formData.append("product", productd.id);
     try {
       await createBasket(formData).unwrap();
       toast.success(`maxsulod  qushildi`);
     } catch (error) {
       toast.error(`Failed to add category `);
     }
+    refetch();
+  };
+
+  const increment = async (value) => {
+    const formData = new FormData();
+    formData.append("amount", value?.amount + 1);
+    formData.append("id", value.id);
+
+    try {
+      await Increment(formData).unwrap();
+    } catch (error) {}
+    refetch();
+  };
+  const decrement = async (value) => {
+    const formData = new FormData();
+    formData.append("amount", value.amount - 1);
+    formData.append("id", value.id);
+    try {
+      await Increment(formData).unwrap();
+    } catch (error) {}
+    const id = value?.id;
+    if (value?.amount == 0) {
+      deleteBasket({ id });
+    }
+    refetch();
   };
 
   const Loading = () => {
@@ -177,14 +203,38 @@ function Product() {
                     <p className="text-muted whitespace-pre-wrap break-words">
                       {product?.description}
                     </p>
-                    <div className="cart mt-4 align-items-center">
+                    {product?.basket?.amount ? (
+                      <div className="flex py-4 justify-around items-center border-gray-100">
+                        <span
+                          onClick={() => decrement(product.basket)}
+                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                        >
+                          {" "}
+                          -{" "}
+                        </span>
+                        <input
+                          className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                          type="text"
+                          value={product.basket?.amount}
+                          min="1"
+                        />
+                        <span
+                          onClick={() => increment(product?.basket)}
+                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                        >
+                          {" "}
+                          +{" "}
+                        </span>
+                      </div>
+                    ) : (
+                      // If false, render a button to add the product to the basket
                       <button
                         className="btn btn-sm m-3 border-primary"
                         onClick={() => addData(product)}
                       >
                         Savatga qo'shish
                       </button>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

@@ -49,13 +49,13 @@ const Navbar = () => {
     setSearch("");
   };
   return (
-    <div>
+    <div className="bot">
       <nav className="navbar bg-light fixed-top shadow">
         <div className="container-fluid container grid grid-cols-3 ">
           <div className="flex gap-3 items-center">
             <NavLink className="no-underline" to="/">
               {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
-              <h1 className="no-underline ">
+              <h1 className="no-underline">
                 Omo<b className="text-yellow-600">Food</b>
               </h1>
             </NavLink>
@@ -109,7 +109,7 @@ const Navbar = () => {
               <div className=" transition duration-150 ease-out md:ease-in absolute -z-50  w-[100%] h-[100vh]">
                 {/* <NavLink className="" to={`/product/${product?.id}`}>
                   <button className="btn btn-sm m-3 border-primary">
-                    <spans className="fa fa-arrow-right text-muted" />
+                    <span className="fa fa-arrow-right text-muted" />
                   </button>
                 </NavLink> */}
 
@@ -121,8 +121,9 @@ const Navbar = () => {
                           className={"no-underline"}
                           to={`/categories/${value?.id}`}
                         >
-                          <p className="flex items-center gap-2 cursor-pointer ">
+                          <p className="flex ml-8 items-center gap-2 cursor-pointer ">
                             <span>
+                              {" "}
                               <svg
                                 className="w-4 h-4 text-gray-500 dark:text-gray-400"
                                 aria-hidden="true"
@@ -138,7 +139,7 @@ const Navbar = () => {
                                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                                 />
                               </svg>
-                            </span>
+                            </span>{" "}
                             {value?.title}
                           </p>
                         </NavLink>
