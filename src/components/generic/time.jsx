@@ -37,8 +37,6 @@ const CountdownTimer = () => {
         <span className='flex flex-col items-center'>{timeLeft.hours}&nbsp;:&nbsp; <span>s</span></span>
         <span className='flex flex-col items-center'>{timeLeft.minutes}&nbsp;:&nbsp; <span>m</span></span>
         <span className='flex flex-col items-center'>{timeLeft.seconds} <span>s</span></span>
-
-
       </div>
 
 
