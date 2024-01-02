@@ -16,7 +16,7 @@ const Banners = () => {
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <br />
                         <div className='flex justify-between px-3'>
-                   
+
                             <AddBanners />
                         </div>
                         <br />
@@ -40,7 +40,7 @@ const Banners = () => {
                                                                 <div className='flex  gap-2 items-center'>
                                                                     <img
                                                                         src={item?.image}
-                                                                        alt="item"
+                                                                        alt={item.title}
                                                                         className="h-12 w-12 flex-none  rounded-full border object-cover"
                                                                     />
                                                                     <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded ">
@@ -53,7 +53,7 @@ const Banners = () => {
                                                                     <img
                                                                         className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                         src={NoProduct}
-                                                                        alt="product"
+                                                                        alt={item.title}
                                                                     />
                                                                 </div>
                                                             )}

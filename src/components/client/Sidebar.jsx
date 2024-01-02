@@ -27,14 +27,14 @@ const Sidebar = () => {
                     <img
                       className="rounded-full w-10 object-cover h-10 border-gray-300"
                       src={value?.image}
-                      alt="as"
+                      alt={value?.title}
                     />
                     <span className="ml-2">{value?.title}</span>
                   </button>
                 </div>
               </Link>
             ))}
-            {data?.length == 0 && <h1>Mahsulotlar Kategoriyasi Yoq</h1>}
+            {data?.length === 0 && <h1>Mahsulotlar Kategoriyasi Yoq</h1>}
           </div>
         </div>
       </div>
