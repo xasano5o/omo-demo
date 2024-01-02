@@ -84,7 +84,6 @@ const OrderUpdate = ({ object }) => {
       toast.error(`Failed to add maxsulot ${inputValue.user.first_name}`);
     }
   };
-  console.log(inputValue);
 
   return (
     <div>

@@ -127,7 +127,9 @@ const CategoryId = () => {
     <div className="container mx-auto mt-3">
       <div className="col-md-13 py-md-3">
         <div className="row">
-          {products && products?.length > 0 ? (
+          {
+          
+          products && products?.length > 0 ? (
             products?.map((product) => (
               <div className="col-6 col-md-3 col-lg-3 mb-1" key={product?.id}>
                 <div className="card h-100">

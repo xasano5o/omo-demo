@@ -7,14 +7,14 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
-import { CategorySilide } from "./CategorySilide.jsx";
+import { CategorySlide } from "./CategorySilide.jsx";
 // import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 
 function Product() {
   const [deleteBasket] = useDeleteBasketMutation();
-  const [Increment] = useIncrementMutation  ();
+  const [Increment] = useIncrementMutation();
   const { id } = useParams();
-  const { data: product, isLoading ,refetch} = useGetProductIdQuery({ id: id });
+  const { data: product, isLoading, refetch } = useGetProductIdQuery({ id: id });
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();
 
@@ -56,7 +56,7 @@ function Product() {
 
     try {
       await Increment(formData).unwrap();
-    } catch (error) {}
+    } catch (error) { }
     refetch();
   };
   const decrement = async (value) => {
@@ -65,7 +65,7 @@ function Product() {
     formData.append("id", value.id);
     try {
       await Increment(formData).unwrap();
-    } catch (error) {}
+    } catch (error) { }
     const id = value?.id;
     if (value?.amount == 0) {
       deleteBasket({ id });
@@ -133,7 +133,7 @@ function Product() {
     return (
       //   <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg"/>
       <>
-        <div className="row d-flex justify-content-center w-full">  
+        <div className="row d-flex justify-content-center w-full">
           <div className="col-md-12">
             <NavLink className="text-decoration-none text-dark" to={`/`}>
               <div className="d-flex align-items-center m-3">
@@ -187,7 +187,7 @@ function Product() {
                       </span>
                       <div className="price d-flex flex-row align-items-center">
                         <big className="display-6">
-                          
+
                           <b>{product?.price.toLocaleString("ru-Ru")}</b>so'm
                         </big>
                       </div>
@@ -240,7 +240,7 @@ function Product() {
               </div>
             </div>
           </div>
-          <CategorySilide />
+          <CategorySlide />
         </div>
       </>
     );
