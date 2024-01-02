@@ -8,12 +8,11 @@ import OrderUpdate from "./OrderUpdate.jsx";
 import OrderLocation from "./OrderLocation.jsx";
 
 const OrderCrud = () => {
-
   const { data, error, isLoading } = useGetOrderQuery();
   console.log(data, "order");
   const [search, setSearch] = useState("");
-
   const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <div className=" ">
       {/* Set the height to 100vh */}

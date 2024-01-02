@@ -30,7 +30,7 @@ export const CategorySilide = () => {
   return (
     <div className="mt-5 container mx-auto">
       <h3 className="">Mahsulotlar turlari</h3>
-      {data ? (
+      {data && data?.length > 0 ? (
         <Carousel
           itemclassName="slideitem"
           sliderclassName="SliderclassNameCustom"
