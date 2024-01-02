@@ -16,12 +16,7 @@ const Banners = () => {
                     <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <br />
                         <div className='flex justify-between px-3'>
-                            <input
-                                type="text"
-                                id="table-search-users"
-                                className="block p-2 pl-10 text-sm text-black border border-gray-300 rounded-lg w-80 bg-white focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Izlash..."
-                            />
+                   
                             <AddBanners />
                         </div>
                         <br />

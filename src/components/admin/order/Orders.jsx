@@ -11,6 +11,11 @@ const OrderCrud = () => {
   const { data, error, isLoading } = useGetOrderQuery();
   const [search, setSearch] = useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const filteredData = data
+  ? data?.filter((item) =>
+      item?.user?.first_name && item?.user.first_name?.toLowerCase().includes(search.toLowerCase())
+    )
+  : [];
 
   return (
     <div className=" ">
@@ -68,8 +73,8 @@ const OrderCrud = () => {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <Loader color="#36d7b7" />
                     </div>
-                  ) : data?.length > 0 ? (
-                    data?.map((item) => {
+                  ) : filteredData?.length > 0 ? (
+                    filteredData?.map((item) => {
                       const dateObject = new Date(item?.created_date);
                       const options = { hour12: false };
                       const formattedDate = dateObject.toLocaleString(
