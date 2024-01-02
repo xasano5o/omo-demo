@@ -5,7 +5,7 @@ import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 
 const OrderLocation = ({ location }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+console.log(location,"location");
   const defaultState = {
     center: [+location?.longitude, +location.latitude],
     zoom: 15,
@@ -27,8 +27,6 @@ const OrderLocation = ({ location }) => {
       </button>
       {isModalOpen && (
         <Modal closeModal={onClose}>
-
-
           <div>
             <a
               href={`https://www.google.com/maps/search/${location.longitude},${location.latitude}`}
@@ -39,6 +37,8 @@ const OrderLocation = ({ location }) => {
             </a>
 
           </div>
+        <p className=" text-gray-800"> Foydalanuvchini addresi:  {location?.address}</p>
+
           <YMaps>
             <Map defaultState={defaultState}>
               <Placemark geometry={[+location?.longitude, +location.latitude]} />

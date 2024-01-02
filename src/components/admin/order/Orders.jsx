@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import NoProduct from "../../../assest/icon/Без названия.png";
 import { useGetOrderQuery } from "../../../redux/slice/client/order/index.js";
 import EmptyBox from "../../EmptyBox/EmptyBox.jsx";
 import Loader from "../../Loader/Loader";
 import DeleteOrder from "./OrderDelete.jsx";
-import OrderUpdate from "./OrderUpdate.jsx";
 import OrderLocation from "./OrderLocation.jsx";
+import OrderUpdate from "./OrderUpdate.jsx";
+import OrderWiew from "./OrderWiew.jsx";
 
 const OrderCrud = () => {
-
   const { data, error, isLoading } = useGetOrderQuery();
-  console.log(data, "order");
   const [search, setSearch] = useState("");
-
   const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div className=" ">
       {/* Set the height to 100vh */}
@@ -41,25 +39,26 @@ const OrderCrud = () => {
                     </th>
                     <th scope="col" className="p-4">
                       Haridorning Familyasi
-
                     </th>
                     <th scope="col" className="p-4">
+                      Haridorning Telfon raqami
+                    </th>
+                    <th scope="col" className="p-4">
+                      Xarid narxi
+                    </th>
+                    {/* <th scope="col" className="p-4">
                       To'lov turi
                     </th>
                     <th scope="col" className="p-4">
                       Yetkazilganligi haqida
-                    </th>
-                    <th scope="col" className="p-4">
-                      Maxsulotga Buyurtma berilgan Vaqti
-                    </th>
-                    <th scope="col" className="p-4">
+                    </th> */}
+
+                    {/* <th scope="col" className="p-4">
                       Yetkazilganligi haqida
                     </th>
                     <th scope="col" className="p-4">
                       Buyurtma qilingan sana
-                    </th>
-                    
-
+                    </th> */}
                     <th scope="col" className="p-4">
                     </th>
                   </tr>
@@ -71,20 +70,17 @@ const OrderCrud = () => {
                     </div>
                   ) : data?.length > 0 ? (
                     data?.map((item) => {
-                      const dateObject = new Date(item.created_date);
+                      const dateObject = new Date(item?.created_date);
                       const options = { hour12: false };
                       const formattedDate = dateObject.toLocaleString(
                         "en-US",
                         options
                       );
-
                       return (
                         <tr
                           className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700"
                           key={item.id}
                         >
-
-
                           <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
@@ -103,10 +99,17 @@ const OrderCrud = () => {
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
-                              {item?.total_price} So'm
+                              {item?.user?.phone} 
                             </span>
                           </td>
                           <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.total_price} So'm
+                            </span>
+                          </td>
+                          {/* <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
@@ -119,9 +122,9 @@ const OrderCrud = () => {
                             >
                               {item?.delivery_status}
                             </span>
-                          </td>
+                          </td> */}
 
-                          <td className="px-4 py-3">
+                          {/* <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
@@ -134,11 +137,14 @@ const OrderCrud = () => {
                             >
                               {formattedDate}
                             </span>
-                          </td>
+                          </td> */}
 
-               
+
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div className="flex items-center space-x-4">
+                            <div>
+                                <OrderWiew items={item} />
+                              </div>
                               <div>
                                 <OrderLocation location={item.location} />
                               </div>
@@ -149,7 +155,6 @@ const OrderCrud = () => {
                               <div>
                                 <DeleteOrder ID={item?.id} />
                               </div>
-
                             </div>
                           </td>
                         </tr>

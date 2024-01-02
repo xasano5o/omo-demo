@@ -12,8 +12,9 @@ const Basket = () => {
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(true); // Set the initial state to true
+  const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const deleteFunc = async (id) => {
     try {
@@ -48,6 +49,7 @@ const Basket = () => {
       console.error("Error incrementing item:", error);
     }
   };
+
   const decrement = async (value) => {
     const formData = new FormData();
     formData.append("amount", value.amount - 1);
@@ -59,8 +61,6 @@ const Basket = () => {
       console.error("Error decrementing item:", error);
     }
   };
-
-  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -81,6 +81,7 @@ const Basket = () => {
     setIsAllSelected(!isAllSelected);
     setSelectedUsers(isAllSelected ? [] : allUserIds);
   };
+
   useEffect(() => {
     selectAll();
   }, [isSuccess]);
@@ -97,6 +98,7 @@ const Basket = () => {
     // Update isAllSelected based on whether all users are selected
     setIsAllSelected(selectedUsers.length == dataBasket.length);
   };
+
   const isUserSelected = (user) => {
     return selectedUsers?.includes(user.id);
   };
@@ -104,6 +106,7 @@ const Basket = () => {
   const isAllUsersSelected = () => {
     return selectedUsers.length == dataBasket.length;
   };
+
   return (
     <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
