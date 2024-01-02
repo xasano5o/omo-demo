@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RiUserLocationLine } from "react-icons/ri";
-import { useGetOrderQuery } from "../../../redux/slice/client/order";
 import Modal from "../../generic/Modal";
-import { toast } from "react-toastify";
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 
 const OrderLocation = ({ location }) => {
