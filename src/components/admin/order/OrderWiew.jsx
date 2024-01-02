@@ -9,6 +9,7 @@ export default function OrderWiew({ items }) {
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(!isOpen);
     const [deleteProduct, { isLoading }] = useDeleteProductImgMutation();
+    const [search, setSearch] = useState("");
 
     console.log(items, 'dasf');
     const handleDelete = async (items) => {
@@ -36,7 +37,7 @@ export default function OrderWiew({ items }) {
             </button>
             {skip && (
                 <Modal closeModal={onClose} actionType="view">
-                    <div className="w-[80vw] p-4">
+                    <div className="w-fit h-[50vh] overflow-x-auto md:w-[80vw] p-4">
                         <div className="flex flex-wrap w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
                             <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
                                 <div className="grid grid-cols-2 h-[41.3vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
@@ -53,8 +54,8 @@ export default function OrderWiew({ items }) {
 
                                 </div>
                             </div>
-                            <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
-                                <div className="bg-white rounded-lg shadow-lg border p-4 ">
+                            <div className="w-fit md:w-[50%] sm:w-full sx:w-full p-2 h-full">
+                                <div className="bg-white rounded-lg shadow-lg border p-4 text-gray-800">
                                     <h2 className="text-xl mb-2">Barcha malumotlar</h2>
                                     <p>
                                         <strong>Haridorning Ismi:</strong> {items?.user?.first_name}

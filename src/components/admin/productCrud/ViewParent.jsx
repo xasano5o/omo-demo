@@ -26,7 +26,7 @@ export default function View({ object }) {
   //   console.log( value.id,'sss');
   //   });
   return (
-    <div>
+    <div className="">
       <button
         onClick={() => setOpen(!skip)}
         type="button"
@@ -37,7 +37,7 @@ export default function View({ object }) {
       </button>
       {skip && (
         <Modal closeModal={onClose} actionType="view">
-          <div className="w-[80vw] p-4">
+          <div className="w-fit h-[40vh] overflow-x-auto md:w-[80vw] p-4">
             <div className="flex flex-wrap w-full h-full md:items-stretch md:flex-row sm:flex-col sm:items-center sx:flex-col">
               <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
@@ -45,7 +45,7 @@ export default function View({ object }) {
                     object?.images?.map((value) => {
                       return (
                         <div className="containers object-contain">
-                          <div className="overlay  text-end pb-2  ">
+                          <div className="overlay text-end pb-2  ">
                             <button
                               onClick={() => setIsOpen(!isOpen)}
                               type="button"
@@ -60,7 +60,7 @@ export default function View({ object }) {
                                 loader={isLoading}
                                 actionType={"delete"}
                               >
-                                <img src={value?.image} className="w-[300px] h-[200px] object-cover" alt="" />
+                                <img src={value?.image} className="w-[300px] h-[200px] object-contain" alt="" />
                                 <div className="py-5 px-10">
                                   <h1 className="text-2xl font-bold text-red-600">
                                     Malumotni o'chirishga rozimisiz !!!
@@ -83,7 +83,7 @@ export default function View({ object }) {
                   )}
                 </div>
               </div>
-              <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
+              <div className="w-fit md:w-[50%] sm:w-full sx:w-full p-2 h-full">
                 <div className="bg-white rounded-lg shadow-lg border p-4 text-gray-800   ">
                   <h2 className="text-xl mb-2">Barcha malumotlar</h2>
                   <p>
@@ -105,17 +105,16 @@ export default function View({ object }) {
                     <strong>O'lchovi:</strong>{" "}
                     {object?.amount_measure || "Hali belgilanmadi"}
                   </p>
+                  <p className="whitespace-pre-wrap break-words">
+                    <strong>Description:</strong>
+                    {object?.description}
+                  </p>
                 </div>
               </div>
-            </div>
-
-            <div>
-              <h1 className="text-black">description</h1>
-              <p className="text-muted whitespace-pre-wrap text-black break-words">
-                {object?.description}
-              </p>
+          
             </div>
           </div>
+          
         </Modal>
       )}
     </div>

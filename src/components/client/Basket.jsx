@@ -246,7 +246,7 @@ const Basket = () => {
               </div>
             ))}
             {/* mobile */}
-            <div className="mt-6 h-full rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
+            <div className="mt-6 h-fit rounded-lg border md:hidden xl:hidden lg:hidden bg-white p-6 shadow-md md:mt-6 md:w-1/3">
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
@@ -260,7 +260,7 @@ const Basket = () => {
             </div>
           </div>
           {/* desktop */}
-          <div className="hidden mt-6 h-full rounded-lg border md:block lg:block xl:block bg-white p-6 shadow-md md:mt-6 md:w-1/3">
+          <div className="hidden mt-6 h-fit rounded-lg border md:block lg:block xl:block bg-white p-6 shadow-md md:mt-6 md:w-1/3">
             <div className="flex justify-between">
               <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">
