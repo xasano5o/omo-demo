@@ -153,7 +153,7 @@ function Product() {
                       <div className="">
                         <img
                           src={product?.image}
-                          alt={`Image`}
+                          alt={product?.title}
                           className="object-cover w-full"
                         />
                       </div>

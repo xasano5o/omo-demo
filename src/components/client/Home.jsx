@@ -17,7 +17,7 @@ const Home = () => {
                   <img
                     src={item?.image}
                     className="h-96 object-contain w-full"
-                    alt="..."
+                    alt={item?.title}
                   />
                 </div>
               </>

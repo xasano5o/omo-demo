@@ -56,7 +56,7 @@ const CategoriesCrud = () => {
                                                                 {item?.image && item?.image !== "" ? (
                                                                     <img
                                                                         src={item?.image}
-                                                                        alt="item"
+                                                                        alt={item.title}
                                                                         className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                     />
                                                                 ) : (
@@ -64,7 +64,7 @@ const CategoriesCrud = () => {
                                                                         <img
                                                                             className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                             src={NoProduct}
-                                                                            alt="products"
+                                                                            alt={item.title}
                                                                         />
                                                                     </div>
                                                                 )}

@@ -1,14 +1,19 @@
 import React from 'react'
-import Product from '../../../components/client/Product.jsx'
-import Navbar from '../../../components/client/Navbar.jsx'
+import { Helmet } from 'react-helmet'
 import Footer from '../../../components/client/Footer.jsx'
+import Navbar from '../../../components/client/Navbar.jsx'
+import Product from '../../../components/client/Product.jsx'
 
 const ProductPage = () => {
     return (
+
         <div>
-            <Navbar/>
+            <Helmet>
+                <title>Product id page</title>
+            </Helmet>
+            <Navbar />
             <Product />
-           <Footer/>
+            <Footer />
         </div>
     )
 }

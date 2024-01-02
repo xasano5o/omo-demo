@@ -25,8 +25,8 @@ export default function View({ object }) {
                                 <div className="bg-white rounded-lg gap-2 shadow-lg border p-4 flex items-center flex-col justify-center">
                                     {object?.image && object.image !== "" ? (
                                         <img
-                                            src={object.image}
-                                            alt="avatar"
+                                            src={object?.image}
+                                            alt={object?.title}
                                             className="mx-auto rounded-full w-40 h-40 object-cover"
                                         />
                                     ) : (
