@@ -140,10 +140,15 @@ function Products() {
 
                     <div style={{ marginTop: "auto" }}>
                       <div className="d-flex justify-content-between align-items-center">
-                        <div className="m-3">
-                          <b>{product?.price.toLocaleString("ru-Ru")} so'm</b>
+                        <div className="m-3 flex flex-col">
+                          {
+                            product?.discount?.product_discount_price ? <b className="text-xm">{product?.discount?.product_discount_price?.toLocaleString("ru-Ru")} so'm</b> : ''
+                          }
+                          {
+                            product?.discount?.product_discount_price ? <del> {product?.price.toLocaleString("ru-Ru")} so'm</del> : <b className="text-xm">{product?.price.toLocaleString("ru-Ru")} so'm</b>
+                          }
                         </div>
-                        <NavLink className="" to={`/product/${product?.id}`}>
+                        <NavLink to={`/product/${product?.id}`}>
                           <button className="btn btn-sm m-3 border-primary">
                             <span className="fa fa-arrow-right text-muted" />
                           </button>
