@@ -6,77 +6,44 @@ import { toast } from "react-toastify";
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 
 const OrderLocation = ({ location }) => {
-  const [skip, setSkip] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    location
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const defaultState = {
-    center: inputValue.location,
+    center: [+location?.longitude, +location.latitude],
     zoom: 15,
   };
-  const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
-
-  const handleMapClick = (e) => {
-    const coordinates = e.get("coords");
-    setMarkerGeometry(coordinates);
-    setInputValue({
-      ...inputValue,
-      location: coordinates,
-    });
-  };
-
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setInputValue({
-            ...inputValue,
-            location: [latitude, longitude],
-          });
-        },
-        (error) => {
-          toast.error(
-            "Failed to fetch user location. Defaulting to the default location."
-          );
-        }
-      );
-    } else {
-      toast.warning(
-        "Geolocation is not supported by this browser. Defaulting to the default location."
-      );
-    }
-  }, []); 
-
-  const { data, isLoading, refetch } = useGetOrderQuery({ skip });
 
   const onClose = () => {
-    setSkip(false);
+    setIsModalOpen(false);
   };
 
   return (
     <div>
       <button
-        onClick={() => setSkip(true)}
+        onClick={() => setIsModalOpen(true)}
         type="button"
         className="inline-flex w-[70px] h-[35px] justify-center items-center rounded-full bg-gray-500 p-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-400"
+        aria-label="Open Location Map"
       >
         <RiUserLocationLine size={20} className="text-md" aria-hidden="true" />
       </button>
-      {skip && (
+      {isModalOpen && (
         <Modal closeModal={onClose}>
-          <YMaps query={{ lang: "en_RU" }}>
-            <Map
-              width={"100%"}
-              height={"300px"}
-              defaultState={defaultState}
-              onClick={handleMapClick}
+
+
+          <div>
+            <a
+              href={`https://www.google.com/maps/search/${location.longitude},${location.latitude}`}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <Placemark
-                geometry={markerGeometry}
-                options={{ draggable: true }}
-              />
+              Share
+            </a>
+
+          </div>
+          <YMaps>
+            <Map defaultState={defaultState}>
+              <Placemark geometry={[+location?.longitude, +location.latitude]} />
             </Map>
           </YMaps>
         </Modal>

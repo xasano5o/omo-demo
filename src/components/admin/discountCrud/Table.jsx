@@ -79,7 +79,7 @@ const DiscountTbale = () => {
                                                         </th>
                                                         <td className="px-4 py-3">
                                                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
-                                                                {item?.products_status === 'ALL' ? 'Barcha maxsulot chegirma' : 'Bazi bir maxsulotga'}
+                                                                {item?.products_status == 'ALL' ? 'Barcha maxsulot chegirma' : 'Bazi bir maxsulotga'}
                                                             </span>
                                                         </td>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">

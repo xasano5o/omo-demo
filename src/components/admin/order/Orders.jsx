@@ -37,13 +37,17 @@ const OrderCrud = () => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4">
-                      Mahsulot rasmi
+                      Haridorning Ismi
                     </th>
                     <th scope="col" className="p-4">
-                      Maxsulot Narxi
+                      Haridorning Familyasi
+
                     </th>
                     <th scope="col" className="p-4">
                       To'lov turi
+                    </th>
+                    <th scope="col" className="p-4">
+                      Yetkazilganligi haqida
                     </th>
                     <th scope="col" className="p-4">
                       Maxsulotga Buyurtma berilgan Vaqti
@@ -52,14 +56,10 @@ const OrderCrud = () => {
                       Yetkazilganligi haqida
                     </th>
                     <th scope="col" className="p-4">
-                      Haridorning Manzili
+                      Buyurtma qilingan sana
                     </th>
-                    <th scope="col" className="p-4">
-                      Haridorning Ismi
-                    </th>
-                    <th scope="col" className="p-4">
-                      Haridorning Familyasi
-                    </th>
+                    
+
                     <th scope="col" className="p-4">
                     </th>
                   </tr>
@@ -83,70 +83,8 @@ const OrderCrud = () => {
                           className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700"
                           key={item.id}
                         >
-                          <th
-                            scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                          >
-                            <div className="flex items-center mr-3 ">
-                              {item?.image && item?.image !== "" ? (
-                                <div className="flex  gap-2 items-center">
-                                  <img
-                                    src={item?.image}
-                                    alt="item"
-                                    className="h-12 w-12 flex-none  rounded-full border object-cover"
-                                  />
-                                  <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded ">
-                                    {item?.title}
-                                  </span>
-                                </div>
-                              ) : (
-                                <div className="w-12 h-12 rounded-full border bg-gray-200 flex justify-center items-center">
-                                  <img
-                                    className="h-12 w-12 flex-none rounded-full border object-cover"
-                                    src={NoProduct}
-                                    alt="product"
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          </th>
 
-                          <td className="px-4 py-3">
-                            <span
-                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                            >
-                              {item?.total_price} So'm
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                            >
-                              {item?.payment_method}
-                            </span>
-                          </td>
 
-                          <td className="px-4 py-3">
-                            <span
-                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                            >
-                              {formattedDate}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                            >
-                              {item?.delivery_status}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
-                            >
-                              {item?.location.address}
-                            </span>
-                          </td>
                           <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
@@ -161,19 +99,57 @@ const OrderCrud = () => {
                               {item?.user?.last_name}
                             </span>
                           </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.total_price} So'm
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.payment_method}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.delivery_status}
+                            </span>
+                          </td>
+
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {item?.location.address}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
+                              {formattedDate}
+                            </span>
+                          </td>
+
+               
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div className="flex items-center space-x-4">
-                            <div>
+                              <div>
                                 <OrderLocation location={item.location} />
                               </div>
                               <div>
                                 <OrderUpdate object={item} />
                               </div>
-                    
+
                               <div>
                                 <DeleteOrder ID={item?.id} />
                               </div>
-              
+
                             </div>
                           </td>
                         </tr>
@@ -185,7 +161,7 @@ const OrderCrud = () => {
                 </tbody>
               </table>
             </div>
-            
+
           </div>
         </div>
       </section>

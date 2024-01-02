@@ -17,7 +17,12 @@ code {
 }
 
 /* swiper  */
-
+.lo:hover .ol {
+  display: block;
+}
+.ol {
+  display: none;
+}
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
 * {
@@ -112,7 +117,68 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-      .bot {
-        margin-bottom: 80px;
-      }
-    }
+  .bot {
+    margin-bottom: 80px;
+  }
+}
+
+
+/* time */
+.expired-notice {
+  text-align: center;
+  /* padding: 1rem; */
+  border: 1px solid #ebebeb;
+  border-radius: 0.25rem;
+  /* margin: 0.1rem; */
+}
+
+.expired-notice > span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: red;
+}
+
+.expired-notice > p {
+  font-size: 1.5rem;
+}
+
+.show-counter {
+  /* padding: 0.5rem; */
+}
+
+.show-counter .countdown-link {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  /* padding: 0.5rem; */
+  border: 1px solid #ebebeb;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #000;
+}
+
+.show-counter .countdown {
+  line-height: 1.25rem;
+  /* padding: 0 0.75rem 0 0.75rem; */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.show-counter .countdown.danger {
+  color: #ff0000;
+}
+
+.show-counter .countdown > p {
+  margin: 0;
+}
+
+.show-counter .countdown > span {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
