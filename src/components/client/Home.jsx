@@ -1,8 +1,8 @@
 import React from "react";
-import { useGetBannersQuery } from "../../redux/slice/client/banner/index.js";
-import { CategorySilide } from "./CategorySilide.jsx";
-import Products from "./Products";
 import { Carousel } from "react-responsive-carousel";
+import { useGetBannersQuery } from "../../redux/slice/client/banner/index.js";
+import Products from "./Products";
+import { CategorySlide } from "./CategorySilide.jsx";
 
 const Home = () => {
   const { data } = useGetBannersQuery();
@@ -25,7 +25,7 @@ const Home = () => {
           })}
         </Carousel>
 
-        <CategorySilide />
+        <CategorySlide />
         <Products />
       </div>
     </div>
