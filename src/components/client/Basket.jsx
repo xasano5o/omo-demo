@@ -96,7 +96,7 @@ const Basket = () => {
     }
 
     // Update isAllSelected based on whether all users are selected
-    setIsAllSelected(selectedUsers.length === dataBasket.length);
+    setIsAllSelected(selectedUsers.length == dataBasket.length);
   };
 
   const isUserSelected = (user) => {
@@ -104,7 +104,7 @@ const Basket = () => {
   };
 
   const isAllUsersSelected = () => {
-    return selectedUsers.length === dataBasket.length;
+    return selectedUsers.length == dataBasket.length;
   };
 
   return (

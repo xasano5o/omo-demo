@@ -10,7 +10,7 @@ export default function Modal({
   isDisabled,
 }) {
   const renderButton = (actionType, loader, addFunc) => {
-    if (actionType === "view") {
+    if (actionType == "view") {
       return null;
     }
 
