@@ -1,55 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { RiUserLocationLine } from "react-icons/ri";
-import { useGetOrderQuery } from "../../../redux/slice/client/order";
 import Modal from "../../generic/Modal";
 import { toast } from "react-toastify";
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
-
+import { VscLiveShare } from "react-icons/vsc";
 const OrderLocation = ({ location }) => {
+  console.log(location,'location');
   const [skip, setSkip] = useState(false);
-  const [inputValue, setInputValue] = useState({
-    location
-  });
-  const defaultState = {
-    center: inputValue.location,
-    zoom: 15,
-  };
-  const [markerGeometry, setMarkerGeometry] = useState(defaultState.center);
+  const [userLocation, setUserLocation] = useState(null);
 
-  const handleMapClick = (e) => {
-    const coordinates = e.get("coords");
-    setMarkerGeometry(coordinates);
-    setInputValue({
-      ...inputValue,
-      location: coordinates,
-    });
-  };
-
-  
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setInputValue({
-            ...inputValue,
-            location: [latitude, longitude],
-          });
-        },
-        (error) => {
-          toast.error(
-            "Failed to fetch user location. Defaulting to the default location."
-          );
-        }
-      );
-    } else {
-      toast.warning(
-        "Geolocation is not supported by this browser. Defaulting to the default location."
-      );
+    if (skip) {
+      if (location?.latitude && location?.longitude) {
+        setUserLocation([+location.latitude, +location.longitude]);
+      } else {
+        toast.error("User location not available.");
+      }
     }
-  }, []); 
+  }, [skip, location]);
 
-  const { data, isLoading, refetch } = useGetOrderQuery({ skip });
+  const defaultState = {
+    center: userLocation || [40.7558, 71.6176], // Default to Moscow if user location is not available
+    zoom: 5,
+  };
 
   const onClose = () => {
     setSkip(false);
@@ -57,6 +30,7 @@ const OrderLocation = ({ location }) => {
 
   return (
     <div>
+
       <button
         onClick={() => setSkip(true)}
         type="button"
@@ -64,21 +38,27 @@ const OrderLocation = ({ location }) => {
       >
         <RiUserLocationLine size={20} className="text-md" aria-hidden="true" />
       </button>
+      <div>
+
+      </div>
       {skip && (
         <Modal closeModal={onClose}>
-          <YMaps query={{ lang: "en_RU" }}>
-            <Map
-              width={"100%"}
-              height={"300px"}
-              defaultState={defaultState}
-              onClick={handleMapClick}
-            >
-              <Placemark
-                geometry={markerGeometry}
-                options={{ draggable: true }}
-              />
-            </Map>
-          </YMaps>
+          <div>
+            <b className="flex items-center gap-2">Manzil ulashish:           <a className="flex items-center text-xg text-gray-700 text-decoration-none" href={`https://www.google.com/maps/search/?api=1&query=${+location.latitude},${+location.longitude}`} target="_blank" rel="noopener noreferrer">
+              <VscLiveShare />   Share
+            </a>
+            </b>
+            <b className="flex items-center gap-2">Kiritilgan joylashuv:{location?.address}         
+            </b>
+          </div>
+
+          {userLocation && (
+            <YMaps>
+              <Map defaultState={defaultState}>
+                <Placemark geometry={userLocation} />
+              </Map>
+            </YMaps>
+          )}
         </Modal>
       )}
     </div>

@@ -14,9 +14,8 @@ const BasketCheckout = ({ selectProduct }) => {
   const onClose = () => {
     setOpen(false);
   };
-
   const [inputValue, setInputValue] = useState({
-    location: [55.684758, 37.738521], // Default location
+    location: [40.9994774, 71.6635379], // Default location
     first_name: "",
     last_name: "",
     phone: "",
