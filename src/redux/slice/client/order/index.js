@@ -8,7 +8,7 @@ export const OrderCrud = createApi({
   endpoints: (build) => ({
     getOrder: build.query({
       query: (body) =>
-        "orders/?location=true&each_products=true&delivery=true&user=true",
+        "orders/?location=true&each_products=true&delivery=true&user=true&images=true",
       method: "OPTIONS",
       providesTags: ["Order"],
     }),

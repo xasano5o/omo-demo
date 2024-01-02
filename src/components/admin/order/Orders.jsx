@@ -12,7 +12,7 @@ const OrderCrud = () => {
   console.log(data, "order");
   const [search, setSearch] = useState("");
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <div className=" ">
       {/* Set the height to 100vh */}
@@ -40,7 +40,12 @@ const OrderCrud = () => {
                     </th>
                     <th scope="col" className="p-4">
                       Haridorning Familyasi
-
+                    </th>
+                    <th scope="col" className="p-4">
+                      Haridorning Telfon raqami
+                    </th>
+                    <th scope="col" className="p-4">
+                      Xarid narxi
                     </th>
                     <th scope="col" className="p-4">
                       To'lov turi
@@ -51,14 +56,12 @@ const OrderCrud = () => {
                     <th scope="col" className="p-4">
                       Maxsulotga Buyurtma berilgan Vaqti
                     </th>
-                    <th scope="col" className="p-4">
+                    {/* <th scope="col" className="p-4">
                       Yetkazilganligi haqida
                     </th>
                     <th scope="col" className="p-4">
                       Buyurtma qilingan sana
-                    </th>
-                    
-
+                    </th> */}
                     <th scope="col" className="p-4">
                     </th>
                   </tr>
@@ -109,6 +112,13 @@ const OrderCrud = () => {
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
+                              {item?.total_price} So'm
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
+                            >
                               {item?.payment_method}
                             </span>
                           </td>
@@ -120,7 +130,7 @@ const OrderCrud = () => {
                             </span>
                           </td>
 
-                          <td className="px-4 py-3">
+                          {/* <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}
                             >
@@ -133,9 +143,9 @@ const OrderCrud = () => {
                             >
                               {formattedDate}
                             </span>
-                          </td>
+                          </td> */}
 
-               
+
                           <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             <div className="flex items-center space-x-4">
                               <div>

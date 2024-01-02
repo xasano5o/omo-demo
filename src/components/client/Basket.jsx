@@ -12,7 +12,7 @@ const Basket = () => {
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(true); // Set the initial state to true
+  const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
 
