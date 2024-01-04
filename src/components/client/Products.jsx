@@ -8,6 +8,7 @@ import {
   useIncrementMutation,
 } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
+import { FaCartPlus } from "react-icons/fa";
 
 const Time = ({ timeLeft }) => (
   <div className='flex items-center'>
@@ -170,10 +171,10 @@ function Products() {
                     </span>
                   </div>
                 ) : (
-                  <button className="btn btn-sm m-3 border-primary" onClick={() => addData(product)}>
-                    Savatga qo'shish
-                  </button>
-                )}
+                  <div className="text-center items-center justify-center flex mb-2">
+                    <FaCartPlus className=" cursor-pointer text-2xl" onClick={() => addData(product)} />
+
+                  </div>)}
               </div>
             </div>
           ))}

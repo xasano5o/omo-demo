@@ -216,7 +216,7 @@ const Navbar = () => {
               className="no-underline  flex flex-col items-center "
             >
               <h5>{dataBasket?.length}</h5>
-              <button className="navbar-toggler left-0" type="button">
+              <button className="navbar-toggler left-0" type="bu  tton">
                 <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>
             </Link>

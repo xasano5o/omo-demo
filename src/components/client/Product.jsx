@@ -9,6 +9,8 @@ import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation 
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
 import { CategorySlide } from "./CategorySilide.jsx";
 import axios from "axios";
+import { FaCartPlus } from "react-icons/fa";
+import BasketCheckout from "./BasktChecout.jsx";
 // import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 
 function Product() {
@@ -151,11 +153,11 @@ function Product() {
                       animationHandler={true}
                       infiniteLoop={true}
                     >
-                      <div className="">
+                      <div className="h-[400px]">
                         <img
                           src={product?.image}
                           alt={product?.title}
-                          className="object-cover w-full"
+                          className="object-contain w-full"
                         />
                       </div>
                       {product.images.map((item, index) => (
@@ -174,8 +176,8 @@ function Product() {
                 </div>
 
                 <div className="col-md-6">
-                  <div className="w-full border p-4 shadow-md">
-                    <div className="mt-4 mb-3">
+                  <div className="w-full border p-4 shadow-md h-[520px]">
+                    <div className="mt-4 mb-3 h-fit">
                       <h5 className="text-uppercase">{product?.title}</h5>
                       {console.log(
                         (2500).toLocaleString("ru-Ru", {
@@ -202,40 +204,42 @@ function Product() {
                       </div>
                     </div>
                     <p className="text-muted whitespace-pre-wrap break-words">
-                      {product?.description}
+                      {product?.description.slice("0","370")}
                     </p>
                     {product?.basket?.amount ? (
-                      <div className="flex py-4 justify-around items-center border-gray-100">
-                        <span
-                          onClick={() => decrement(product.basket)}
-                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        >
-                          {" "}
-                          -{" "}
-                        </span>
-                        <input
-                          className="h-8 w-8 border bg-white text-center text-xs outline-none"
-                          type="text"
-                          value={product.basket?.amount}
-                          min="1"
-                        />
-                        <span
-                          onClick={() => increment(product?.basket)}
-                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        >
-                          {" "}
-                          +{" "}
-                        </span>
+                      // If the product is already in the basket
+                      <div className="">
+                        <div className="flex py-4 justify-around items-center border-gray-100">
+                          <span
+                            onClick={() => decrement(product.basket)}
+                            className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          >
+                            {" "}
+                            -{" "}
+                          </span>
+                          <input
+                            className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                            type="text"
+                            value={product.basket?.amount}
+                            min="1"
+                          />
+                          <span
+                            onClick={() => increment(product?.basket)}
+                            className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          >
+                            {" "}
+                            +{" "}
+                          </span>
+                        </div>
+                        <BasketCheckout />
                       </div>
                     ) : (
-                      // If false, render a button to add the product to the basket
-                      <button
-                        className="btn btn-sm m-3 border-primary"
-                        onClick={() => addData(product)}
-                      >
-                        Savatga qo'shish
-                      </button>
+                      // If the product is not in the basket
+                      <div className="text-center items-center justify-center flex mb-2">
+                        <FaCartPlus className="cursor-pointer text-2xl" onClick={() => addData(product)} />
+                      </div>
                     )}
+
                   </div>
                 </div>
               </div>
