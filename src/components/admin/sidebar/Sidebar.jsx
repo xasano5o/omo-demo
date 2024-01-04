@@ -13,16 +13,15 @@ const Home = () => {
   const navigate = useNavigate()
 
   const menus = [
-
-    { name: "Dashboard", link: "/dashbord", icon: GoHome },
-    { name: "Order", link: "/order", icon: PiUsersFourLight },
-    { name: "Banners", link: "/banners", icon: MdOutlineAddPhotoAlternate },
-    { name: "Product", link: "/products", icon: MdOutlineDashboard },
-    { name: "Discount", link: "/discount", icon: TbReportAnalytics },
-    { name: "Categorie", link: "/categories", icon: TbReportAnalytics },
-    { name: "Subcategorie", link: "/subcategories", icon: TbReportAnalytics, margin: true },
-    { name: "Deliveries", link: "/deliveries", icon:PiTaxi },
-    { name: "Log out", link: "", icon: FaRegUser, margin: true },
+    { name: "Boshqaruv paneli", link: "/dashbord", icon: GoHome },
+    { name: "Buyurtmalar", link: "/order", icon: PiUsersFourLight },
+    { name: "Asosiy sahifa rasmi", link: "/banners", icon: MdOutlineAddPhotoAlternate },
+    { name: "Mahsulotlar", link: "/products", icon: MdOutlineDashboard },
+    { name: "Chegirma", link: "/discount", icon: TbReportAnalytics },
+    { name: "Katta Turkum", link: "/categories", icon: TbReportAnalytics },
+    { name: "Kichik Turkum", link: "/subcategories", icon: TbReportAnalytics, margin: true },
+    { name: "Yetkazib berish", link: "/deliveries", icon:PiTaxi },
+    { name: "Chiqish", link: "", icon: FaRegUser, margin: true },
 
   ];
   const [open, setOpen] = useState(true);
@@ -30,7 +29,7 @@ const Home = () => {
     <section className="flex gap-6">
       <div
         className={`bg-white min-h-screen ${open ? "w-72" : "w-16"
-          } duration-500 text-gray-100 px-4`}
+          } duration-500 text-gray-100 px-4 h-96 overflow-x-auto`}
       >
 
         <div className="py-3 flex justify-end text-center items-center gap-6">

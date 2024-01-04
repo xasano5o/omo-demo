@@ -11,7 +11,6 @@ export default function OrderWiew({ items }) {
     const [deleteProduct, { isLoading }] = useDeleteProductImgMutation();
     const [search, setSearch] = useState("");
 
-    console.log(items, 'dasf');
     const handleDelete = async (items) => {
         try {
             await deleteProduct({ items });
@@ -42,14 +41,11 @@ export default function OrderWiew({ items }) {
                             <div className="md:w-[50%] sm:w-full sx:w-full p-2 h-full">
                                 <div className="grid grid-cols-2 h-[41.3vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
                                     {items?.each_products?.length > 0 ? (
-                                        items?.each_products?.map((value) => (
-                                            value?.product?.images.map((val) => (
-                                                <img key={val.id} src={val.image} alt="Product Image" className="w-full h-full object-contain" />
-                                            ))
-                                        ))
+                                        items.each_products.map((value) =>
+                                            <img src={value?.product?.image} alt={value?.product?.image} />
+                                        )
                                     ) : (
-                                        <p className="text-gray-800 ">Maxsulot Rasmlari yuq</p>
-
+                                        <p className="text-gray-800">Maxsulot Rasmlari yuq</p>
                                     )}
 
                                 </div>
@@ -58,7 +54,7 @@ export default function OrderWiew({ items }) {
                                 <div className="bg-white rounded-lg shadow-lg border p-4 text-gray-800">
                                     <h2 className="text-xl mb-2">Barcha malumotlar</h2>
                                     <p>
-                                        <strong>Haridorning Ismi:</strong> {items?.user?.first_name}
+                                        <strong>XARIDORNING Ismi:</strong> {items?.user?.first_name}
                                     </p>
                                     <p>
                                         <strong>Haridornign Familyasi:</strong>{items?.user?.last_name}
@@ -67,7 +63,7 @@ export default function OrderWiew({ items }) {
                                         <strong>Umumiy Xaridlar Narxi:</strong> {items?.total_price} so'm
                                     </p>
                                     <p>
-                                        <strong>Haridorning telfon raqami:</strong> {items?.user?.phone}
+                                        <strong>XARIDORNING telfon raqami:</strong> {items?.user?.phone}
                                     </p>
                                     <p>
                                         <strong>Tolov turi:</strong> {items?.payment_method}

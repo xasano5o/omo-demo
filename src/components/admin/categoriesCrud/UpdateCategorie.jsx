@@ -6,22 +6,22 @@ import { toast } from 'react-toastify';
 import { useUpdateCategorieMutation } from '../../../redux/slice/client/category';
 import { BiEdit } from 'react-icons/bi';
 
-const UpdateCategories = ({item}) => {
+const UpdateCategories = ({ item }) => {
   const [open, setOpen] = useState(false);
   const onClose = () => {
     setOpen(false);
   };
 
 
-  const [ updateCategorie,{isLoading}] =useUpdateCategorieMutation()
+  const [updateCategorie, { isLoading }] = useUpdateCategorieMutation()
   const [inputValue, setInputValue] = useState(item);
 
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    if(inputValue.img){formData.append('image', inputValue.img)}
+    if (inputValue.img) { formData.append('image', inputValue?.img) }
     try {
-      await updateCategorie({id:item.id,form_data:formData}).unwrap();
+      await updateCategorie({ id: item.id, form_data: formData }).unwrap();
       toast.success(`Category ${inputValue.title} o'zgartirildi`);
       setInputValue({
         title: '',
@@ -29,7 +29,7 @@ const UpdateCategories = ({item}) => {
       });
       setOpen(false);
     } catch (error) {
-      toast.error(`Failed to add category ${inputValue.title}`);
+      toast.error(`Failed to add category ${inputValue?.title}`);
     }
   };
 
@@ -48,9 +48,9 @@ const UpdateCategories = ({item}) => {
             <div>
               <label className='text-gray-900'>Category Name:</label>
               <input
-              value={inputValue?.title}
                 type="text"
                 onChange={(e) => setInputValue({ ...inputValue, title: e.target.value })}
+                value={inputValue?.title}
                 className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
               />
             </div>

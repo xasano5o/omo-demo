@@ -179,12 +179,7 @@ function Product() {
                   <div className="w-full border p-4 shadow-md h-[520px]">
                     <div className="mt-4 mb-3 h-fit">
                       <h5 className="text-uppercase">{product?.title}</h5>
-                      {console.log(
-                        (2500).toLocaleString("ru-Ru", {
-                          style: "currency",
-                          currency: "USD",
-                        })
-                      )}
+                    
                       <span className="text-capitalize text-orange-600">
                         {product?.category?.title}
                       </span>

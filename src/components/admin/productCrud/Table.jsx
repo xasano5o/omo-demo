@@ -44,11 +44,9 @@ const ProductCrud = () => {
                 <thead className="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4">
-                      Maxsulot rassssm
+                      Maxsulot rasm
                     </th>
-                    <th scope="col" className="p-4">
-                      Maxsulot Kategoriyasi
-                    </th>
+       
                     <th scope="col" className="p-4">
                       Maxsulot Narxi
                     </th>
@@ -105,11 +103,11 @@ const ProductCrud = () => {
                               )}
                             </div>
                           </th>
-                          <td className="px-4 py-3">
+                          {/* <td className="px-4 py-3">
                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
                               {item?.category?.title}
                             </span>
-                          </td>
+                          </td> */}
                           <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}

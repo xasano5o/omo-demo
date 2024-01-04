@@ -56,7 +56,6 @@ const CategoryId = () => {
     isLoading,
     refetch,
   } = useGetProductIdQuery({ id: id });
-  console.log(isLoading);
   const [procate, setProcate] = useState(products);
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();

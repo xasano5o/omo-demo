@@ -34,7 +34,6 @@ const Login = () => {
         toast.error(`Username yoki parolda xatolik bor`);
       });
   };
-  console.log(isLoading);
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="col-md-6">

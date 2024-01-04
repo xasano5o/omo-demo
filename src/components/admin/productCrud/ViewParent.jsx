@@ -11,7 +11,6 @@ export default function View({ object }) {
   const [deleteProduct, { isLoading }] = useDeleteProductImgMutation();
 
   const handleDelete = async (object) => {
-    console.log(object);
     try {
       await deleteProduct({ object });
       toast.success("Maxsulot o'chirildi!");
