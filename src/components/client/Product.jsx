@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
 import { CategorySlide } from "./CategorySilide.jsx";
+import axios from "axios";
 // import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 
 function Product() {
@@ -18,18 +19,18 @@ function Product() {
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();
 
-  // const token = localStorage.getItem("user");
-  // if (token) {
+  const token = localStorage.getItem("user");
+  if (token) {
 
-  // } else {
-  //   axios.get("users/get_token/").then((res) => {
-  //     const token = res.data.access_token;
-  //     localStorage.setItem("user", token);
-  //   });
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 1500);
-  // }
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   useEffect(() => {
     setFilter(product);
