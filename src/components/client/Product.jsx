@@ -18,8 +18,7 @@ function Product() {
   const [Increment] = useIncrementMutation();
   const { id } = useParams();
   const { data: product, isLoading, refetch } = useGetProductIdQuery({ id: id });
-  const [createBasket, { isLoading: createIsloading, isSuccess }] =
-    useCreateBasketMutation();
+  const [createBasket, { isLoading: createIsloading, isSuccess }] = useCreateBasketMutation();
 
   const token = localStorage.getItem("user");
   if (token) {

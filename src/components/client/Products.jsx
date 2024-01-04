@@ -12,10 +12,10 @@ import { FaCartPlus } from "react-icons/fa";
 
 const Time = ({ timeLeft }) => (
   <div className='flex items-center'>
-    <span className='flex flex-col items-center'>{timeLeft?.days}&nbsp;:&nbsp;<span>k</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.hours}&nbsp;:&nbsp;<span>s</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.minutes}&nbsp;:&nbsp;<span>m</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.seconds}&nbsp;<span>s</span></span>
+    <span className='flex flex-col items-center'>{timeLeft?.days} : </span>
+    <span className='flex flex-col items-center'>{timeLeft?.hours} : </span>
+    <span className='flex flex-col items-center'>{timeLeft?.minutes} : </span>
+    <span className='flex flex-col items-center'>{timeLeft?.seconds}  </span>
   </div>
 );
 
@@ -124,7 +124,7 @@ function Products() {
 
                 <div className="m-3 mb-0 flex justify-between items-center">
                   <small className="card-title">{product?.title}</small>
-                  {product?.discount?.time_left && <Time timeLeft={productTimeLeft[product.id]} />}
+                  {product?.discount?.time_left && product?.discount?.time_left >0 && <Time timeLeft={productTimeLeft[product.id]} />}
                 </div>
 
                 <div style={{ marginTop: "auto" }}>
