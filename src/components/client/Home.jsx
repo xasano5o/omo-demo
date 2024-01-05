@@ -3,11 +3,12 @@ import { Carousel } from "react-responsive-carousel";
 import { useGetBannersQuery } from "../../redux/slice/client/banner/index.js";
 import Products from "./Products";
 import { CategorySlide } from "./CategorySilide.jsx";
+import Discount from "./Discout.jsx";
 
 const Home = () => {
   const { data } = useGetBannersQuery();
   return (
-    <div className="">
+    <div className="md:mt-24">
       <div className="container px-0">
         <Carousel className="z" autoPlay={true} infiniteLoop={true} showArrows={true}>
           {data?.map((item) => {
@@ -17,7 +18,7 @@ const Home = () => {
                   <img
                     src={item?.image}
                     className="h-96 object-contain w-full"
-                    alt={item?.title}
+                    alt="banner_image"
                   />
                 </div>
               </>
@@ -26,6 +27,7 @@ const Home = () => {
         </Carousel>
 
         <CategorySlide />
+        <Discount/>
         <Products />
       </div>
     </div>

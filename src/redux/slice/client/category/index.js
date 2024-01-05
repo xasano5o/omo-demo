@@ -28,9 +28,9 @@ export const CategoryCrud = createApi({
         }),
         updateCategorie: build.mutation({
             query: (body) => ({
-                url: `categories/${body.id}/`,
+                url: `categories/${body.get("id")}/`,
                 method: "PATCH",
-                body: body.form_data,
+                body,
             }),
             invalidatesTags: ["getCategoryt"],
         }),

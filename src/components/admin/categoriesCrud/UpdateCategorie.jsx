@@ -19,10 +19,12 @@ const UpdateCategories = ({ item }) => {
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
-    if (inputValue.img) { formData.append('image', inputValue?.img) }
+    formData.append('image', inputValue.img);
+    formData.append('id', inputValue.id);
+
     try {
-      await updateCategorie({ id: item.id, form_data: formData }).unwrap();
-      toast.success(`Category ${inputValue.title} o'zgartirildi`);
+      await updateCategorie(formData).unwrap();
+      toast.success(`Maxsulot ${inputValue.title} o'zgartirildi `);
       setInputValue({
         title: '',
         img: '',
@@ -55,15 +57,15 @@ const UpdateCategories = ({ item }) => {
               />
             </div>
             <div>
-              <ImageUpload
-                title={'Image'}
-                iconName={<MdOutlineInsertPhoto className="text-5xl" />}
-                iconTitle={'Upload Image'}
-                fileType={'PNG, JPG, JPEG up to 5MB'}
-                LabelFor={'img'}
-                setInputValue={setInputValue}
-                inputValue={inputValue}
-              />
+            <ImageUpload
+                    title={'Image'}
+                    iconName={<MdOutlineInsertPhoto className="text-5xl" />}
+                    iconTitle={'Upload Image'}
+                    fileType={'PNG, JPG, JPEG up to 5MB'}
+                    LabelFor={'img'}
+                    setInputValue={setInputValue}
+                    inputValue={inputValue}
+                  />
             </div>
           </div>
         </Modal>

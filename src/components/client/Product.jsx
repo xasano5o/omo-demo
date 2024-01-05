@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useParams } from "react-router";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
@@ -179,7 +179,7 @@ function Product() {
                   <div className="w-full border p-4 shadow-md h-[520px]">
                     <div className="mt-4 mb-3 h-fit">
                       <h5 className="text-uppercase">{product?.title}</h5>
-                    
+
                       <span className="text-capitalize text-orange-600">
                         {product?.category?.title}
                       </span>
@@ -199,7 +199,7 @@ function Product() {
                       </div>
                     </div>
                     <p className="text-muted whitespace-pre-wrap break-words">
-                      {product?.description.slice("0","370")}
+                      {product?.description.slice("0", "370")}
                     </p>
                     {product?.basket?.amount ? (
                       // If the product is already in the basket
@@ -226,7 +226,14 @@ function Product() {
                             +{" "}
                           </span>
                         </div>
-                        <BasketCheckout />
+                        <Link to={"/basket"}>
+                          <button
+                            type="button"
+                            className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+                          >
+                            Tasdiqlash
+                          </button>
+                        </Link>
                       </div>
                     ) : (
                       // If the product is not in the basket
