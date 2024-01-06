@@ -8,14 +8,14 @@ import {
   useIncrementMutation,
 } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
-import { FaCartPlus } from "react-icons/fa";
+import axios from "axios";
 
 const Time = ({ timeLeft }) => (
   <div className='flex items-center'>
-    <span className='flex flex-col items-center'>{timeLeft?.days} : </span>
-    <span className='flex flex-col items-center'>{timeLeft?.hours} : </span>
-    <span className='flex flex-col items-center'>{timeLeft?.minutes} : </span>
-    <span className='flex flex-col items-center'>{timeLeft?.seconds}  </span>
+    <span className='flex flex-col items-center'>{timeLeft?.days}&nbsp;:&nbsp;<span>k</span></span>
+    <span className='flex flex-col items-center'>{timeLeft?.hours}&nbsp;:&nbsp;<span>s</span></span>
+    <span className='flex flex-col items-center'>{timeLeft?.minutes}&nbsp;:&nbsp;<span>m</span></span>
+    <span className='flex flex-col items-center'>{timeLeft?.seconds}&nbsp;<span>s</span></span>
   </div>
 );
 
@@ -27,6 +27,19 @@ function Products() {
 
   const [productTimeLeft, setProductTimeLeft] = useState({});
   const intervalRef = useRef(null);
+
+  const token = localStorage.getItem("user");
+  if (token) {
+
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -43,6 +56,8 @@ function Products() {
             ...prev,
             [product.id]: { days, hours, minutes, seconds: secs },
           }));
+        } else {
+
         }
       });
     };
@@ -122,7 +137,7 @@ function Products() {
 
                 <div className="m-3 mb-0 flex justify-between items-center">
                   <small className="card-title">{product?.title}</small>
-                  {product?.discount?.time_left && product?.discount?.time_left >0 && <Time timeLeft={productTimeLeft[product.id]} />}
+                  {product?.discount?.time_left && <Time timeLeft={productTimeLeft[product.id]} />}
                 </div>
 
                 <div style={{ marginTop: "auto" }}>
@@ -169,10 +184,10 @@ function Products() {
                     </span>
                   </div>
                 ) : (
-                  <div className="text-center items-center justify-center flex mb-2">
-                    <FaCartPlus className=" cursor-pointer text-2xl" onClick={() => addData(product)} />
-
-                  </div>)}
+                  <button className="btn btn-sm m-3 border-primary" onClick={() => addData(product)}>
+                    Savatga qo'shish
+                  </button>
+                )}
               </div>
             </div>
           ))}

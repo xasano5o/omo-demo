@@ -9,8 +9,8 @@ export const CategorySlide = () => {
   const responsive = {
     superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 7 },
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 7 },
-    tablet: { breakpoint: { max: 1024, min: 464 }, items: 3 },
-    mobile: { breakpoint: { max: 464, min: 0 }, items: 2 },
+    tablet: { breakpoint: { max: 1024, min: 464 }, items: 4 },
+    mobile: { breakpoint: { max: 464, min: 0 }, items: 3 },
   };
   const { data, isLoading } = useGetCategoryQuery();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const CategorySlide = () => {
         >
           {data?.map((item) => (
             <div key={item.id}>
-              <div className="mt-12" style={{ width: "150px", height: "200px" }}>
+              <div className="mt-12" style={{ width: "130px", height: "196px" }}>
                 <Link
                   to={`/categories/${item.id}`}
                   onClick={(e) => {
