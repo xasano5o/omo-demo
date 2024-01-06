@@ -146,9 +146,9 @@ const Navbar = () => {
                       </div>
                     );
                   })}
-                  {data?.result?.products?.map((value) => {
+                  {data?.result?.products?.map((value,index) => {
                     return (
-                      <div>
+                      <div key={index+1}>
                         <NavLink
                           className="no-underline"
                           to={`/product/${value?.id}`}

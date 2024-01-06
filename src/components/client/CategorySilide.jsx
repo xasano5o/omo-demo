@@ -30,7 +30,7 @@ export const CategorySlide = () => {
           draggable={true}
         >
           {data?.map((item) => (
-            <div key={item.id}>
+            <div key={item?.id}>
               <div className="mt-12" style={{ width: "130px", height: "196px" }}>
                 <Link
                   to={`/categories/${item.id}`}

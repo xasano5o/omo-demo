@@ -31,9 +31,9 @@ const Banners = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        data?.map((item) => {
+                                        data?.map((item,index) => {
                                             return (
-                                                <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
+                                                <tr key={index+1} className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                     <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         <div className="flex items-center mr-3 ">
                                                             {item?.image && item?.image !== "" ? (

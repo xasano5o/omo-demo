@@ -34,7 +34,6 @@ const Basket = () => {
     try {
       await Increment(formData).unwrap();
     } catch (error) {
-      console.error("Error incrementing item:", error);
     }
   };
 
