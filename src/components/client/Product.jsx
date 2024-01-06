@@ -9,6 +9,7 @@ import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation 
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
 import { CategorySlide } from "./CategorySilide.jsx";
 import axios from "axios";
+import { FaCartPlus } from "react-icons/fa";
 // import { useGetProductQuery } from "../../redux/slice/client/getProduct/index.js";
 
 function Product() {
@@ -177,12 +178,7 @@ function Product() {
                   <div className="w-full border p-4 shadow-md">
                     <div className="mt-4 mb-3">
                       <h5 className="text-uppercase">{product?.title}</h5>
-                      {console.log(
-                        (2500).toLocaleString("ru-Ru", {
-                          style: "currency",
-                          currency: "USD",
-                        })
-                      )}
+                 
                       <span className="text-capitalize text-orange-600">
                         {product?.category?.title}
                       </span>
@@ -228,13 +224,13 @@ function Product() {
                         </span>
                       </div>
                     ) : (
-                      // If false, render a button to add the product to the basket
+                      <div className=" text-center items-center justify-center flex mb-2">
                       <button
-                        className="btn btn-sm m-3 border-primary"
-                        onClick={() => addData(product)}
-                      >
-                        Savatga qo'shish
+                        disabled={createIsloading && true}
+                        onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold border px-4 py-2 border-blue-700 rounded">
+                        <FaCartPlus className=" cursor-pointer text-2xl" /> Savatga Qo'shish
                       </button>
+                    </div>
                     )}
                   </div>
                 </div>
