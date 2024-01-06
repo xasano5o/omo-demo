@@ -13,7 +13,7 @@ const Home = () => {
   const navigate = useNavigate()
 
   const menus = [
-    { name: "Boshqaruv paneli", link: "/dashbord", icon: GoHome },
+    { name: "Boshqaruv paneli", link: "/home", icon: GoHome },
     { name: "Buyurtmalar", link: "/order", icon: PiUsersFourLight },
     { name: "Asosiy sahifa rasmi", link: "/banners", icon: MdOutlineAddPhotoAlternate },
     { name: "Mahsulotlar", link: "/products", icon: MdOutlineDashboard },
