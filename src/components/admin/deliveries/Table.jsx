@@ -44,9 +44,9 @@ const Deliveries = () => {
                                                 <Loader color="#36d7b7" />
                                             </div>
                                         ) : filteredData.length > 0 ? (
-                                            filteredData.map((item) => {
+                                            filteredData.map((item,index) => {
                                                 return (
-                                                    <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
+                                                    <tr key={index+1} className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <td className="px-4 py-3">
                                                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
                                                                 {item?.name}

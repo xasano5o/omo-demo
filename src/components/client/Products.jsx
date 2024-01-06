@@ -13,10 +13,10 @@ import { FaCartPlus } from "react-icons/fa";
 
 const Time = ({ timeLeft }) => (
   <div className='flex items-center'>
-    <span className='flex flex-col items-center'>{timeLeft?.days}&nbsp;:&nbsp;<span>k</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.hours}&nbsp;:&nbsp;<span>s</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.minutes}&nbsp;:&nbsp;<span>m</span></span>
-    <span className='flex flex-col items-center'>{timeLeft?.seconds}&nbsp;<span>s</span></span>
+    <span className='flex flex-col items-center'>{timeLeft?.days}&nbsp;:&nbsp;</span>
+    <span className='flex flex-col items-center'>{timeLeft?.hours}&nbsp;:&nbsp;</span>
+    <span className='flex flex-col items-center'>{timeLeft?.minutes}&nbsp;:&nbsp;</span>
+    <span className='flex flex-col items-center'>{timeLeft?.seconds}&nbsp;</span>
   </div>
 );
 
@@ -115,7 +115,7 @@ function Products() {
   const Loading = () => (
     <div className="col-md-13 py-md-3">
       <div className="row">
-        {[...Array(8)].map((_, index) => (
+        {[...Array(8)]?.map((_, index) => (
           <div key={index} className="col-6 col-md-6 col-lg-3 mb-3">
             <Skeleton height={400} width={"100%"} />
           </div>
@@ -126,11 +126,11 @@ function Products() {
 
   const ShowProducts = () => (
     <>
-      <h3>Mahsulotlarimiz</h3>
+      <h3>Maxsulotlarimiz</h3>
       <div className="col-md-13 py-md-3">
         <div className="row">
-          {products?.map((product) => (
-            <div className="col-6 col-md-3 col-lg-3 mb-1" key={product?.id}>
+          {products?.map((product,index) => (
+            <div key={index+1}  className="col-6 col-md-3 col-lg-3 mb-1" key={product?.id}>
               <div className="card h-100">
                 <NavLink to={`/product/${product?.id}`}>
                   <img src={product?.image} className="aspect-square object-cover w-full h-[300px]" alt={product?.title} />
@@ -138,7 +138,7 @@ function Products() {
 
                 <div className="m-3 mb-0 flex justify-between items-center">
                   <small className="card-title">{product?.title}</small>
-                  {product?.discount?.time_left && <Time timeLeft={productTimeLeft[product.id]} />}
+                  {product?.discount?.time_left && product?.discount?.time_left > 0 && <Time timeLeft={productTimeLeft[product.id]} />}
                 </div>
 
                 <div style={{ marginTop: "auto" }}>
@@ -188,7 +188,6 @@ function Products() {
                   </div>
                 ) : (
                   <div className=" text-center items-center justify-center flex mb-2">
-
                     <button
                       disabled={ disabled &&true}
                       onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded">

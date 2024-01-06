@@ -23,9 +23,6 @@ export default function View({ object }) {
   };
   const [skip, setOpen] = useState(false);
   const onClose = () => setOpen(!skip);
-  // object?.images?.map((value) => {
-  //   console.log( value?.id,'sss');
-  //   });
 
   return (
     <div className="">
