@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { ImFire } from "react-icons/im";
 import {
   useDeleteBasketMutation,
   useGetBasketQuery,
   useIncrementMutation,
 } from "../../redux/slice/client/basket";
-import { useGetProductQuery } from "../../redux/slice/client/getProduct";
 import BasketCheckout from "./BasktChecout";
 
 const Basket = () => {
@@ -12,7 +12,7 @@ const Basket = () => {
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isAllSelected, setIsAllSelected] = useState(false); // Set the initial state to true
+  const [isAllSelected, setIsAllSelected] = useState(false);
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, setTotalAmount] = useState(0);
 
@@ -64,8 +64,8 @@ const Basket = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (Array?.isArray(dataBasket)) {
-        const total = dataBasket?.item.reduce(
+      if (Array?.isArray(dataBasket?.items)) {
+        const total = dataBasket?.items?.reduce(
           (a, b) => a + (b?.total_price?.price || 0) * b.amount,
           0
         );
@@ -77,7 +77,7 @@ const Basket = () => {
   }, [dataBasket]);
 
   const selectAll = () => {
-    const allUserIds = dataBasket?.item?.map((user) => user.id);
+    const allUserIds = dataBasket?.items?.map((user) => user?.id);
     setIsAllSelected(!isAllSelected);
     setSelectedUsers(isAllSelected ? [] : allUserIds);
   };
@@ -96,7 +96,7 @@ const Basket = () => {
     }
 
     // Update isAllSelected based on whether all users are selected
-    setIsAllSelected(selectedUsers.length == dataBasket.length);
+    setIsAllSelected(selectedUsers.length === dataBasket?.items?.length);
   };
 
   const isUserSelected = (user) => {
@@ -104,14 +104,14 @@ const Basket = () => {
   };
 
   const isAllUsersSelected = () => {
-    return selectedUsers.length == dataBasket.length;
+    return selectedUsers.length === dataBasket?.items?.length;
   };
 
   return (
     <div className="bg-gray-100 pt-12 h-screen">
       <div className="container mx-auto">
         <h1 className="text-xl">
-          Savatga olingan maxsulotlar soni: {dataBasket?.length}{" "}
+          Savatga olingan maxsulotlar soni: {dataBasket?.items?.length}
         </h1>
         <div className="mx-auto max-w-7xl flex items-center gap-2">
           <input
@@ -125,7 +125,7 @@ const Basket = () => {
         </div>
         <div className="mx-auto max-w-7xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
           <div className="rounded-lg md:w-2/3 p-4 flex flex-col gap-2 h-[70vh] overflow-x-auto">
-            {dataBasket?.map((value) => (
+            {dataBasket?.items?.map((value) => (
               <div
                 key={value?.id}
                 className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
@@ -169,8 +169,15 @@ const Basket = () => {
                       {value.product?.description?.length > 100
                         ? `${value?.product?.description.substring(0, 70)}...`
                         : value?.product?.description}
-                    </p>
+                    </p>  
                   </div>
+                  {value?.product?.discount?.value ? (
+                    <div className="flex justify-center">
+                      <ImFire />
+                      <p className="text-base text-gray-700">{value.product.discount.value}%</p>
+                    </div>
+                  ) : null}
+
                   <div className="flex justify-between flex-wrap md:flex-nowrap lg:flex-nowrap xl:flex-nowrap im sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                     <div className="hidden lg:block xl:block md:block">
                       <div className="flex justify-end">
@@ -225,21 +232,29 @@ const Basket = () => {
                       </select>
                     </div>
                     <div className="flex items-center flex-col justify-between">
-                      <p className="text-sm">
-                        {value?.product?.discount?.product_discount_price?.toLocaleString(
-                          "uz-UZ"
-                        )}{" "}
-                        so'm{" "}
-                      </p>
-                      <p className="text-sm">
-                        {value?.total_price?.discount_price?.toLocaleString(
-                          "uz-UZ"
-                        )}{" "}
-                        so'm{" "}
-                      </p>
-                      <del>
+                      {value?.product?.discount?.product_discount_price?.toLocaleString ? (
+                        <p className="text-sm">
+                          {value?.product?.discount?.product_discount_price?.toLocaleString(
+                            "uz-UZ"
+                          )}
+                          so'm
+                        </p>
+                      ) : null}
+                      {value?.total_price?.discount_price?.toLocaleString ? (
+                        <p className="text-sm">
+                          {value?.total_price?.discount_price?.toLocaleString(
+                            "uz-UZ"
+                          )}
+                          so'm
+                        </p>
+                      ) : null}
+                      {value?.total_price?.discount_price && value?.product?.discount?.product_discount_price ? (
+                        <del>
+                          {value?.product?.price?.toLocaleString("uz-UZ")} so'm
+                        </del>
+                      ) : <p>
                         {value?.product?.price?.toLocaleString("uz-UZ")} so'm
-                      </del>
+                      </p>}
                     </div>
                   </div>
                 </div>

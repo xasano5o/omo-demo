@@ -13,7 +13,6 @@ const CategoriesCrud = () => {
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
 
-
     return (
         <div className=" ">
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
@@ -78,7 +77,7 @@ const CategoriesCrud = () => {
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <div className="flex items-center space-x-4">
-                                                                    <UpdateCategories item={item.id} />
+                                                                    <UpdateCategories item={item} />
                                                                 </div>
                                                                 <DeleteCategorie id={item.id} />
                                                             </div>

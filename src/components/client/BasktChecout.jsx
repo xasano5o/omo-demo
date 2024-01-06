@@ -151,13 +151,13 @@ const BasketCheckout = ({ selectProduct }) => {
                   <label>Telfon Raqam *</label>
                   <input
                     placeholder="+998"
-                    type="number"
+                    type="tel"  // Change type to "tel" for phone numbers
                     value={inputValue.phone}
-                    onChange={(e) =>
-                      setInputValue({ ...inputValue, phone: e.target.value })
-                    }
+                    onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}
+                    maxLength={13}
                     className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
                   />
+
                 </div>
                 <div>
                   <label>Manzil tetx</label>
@@ -189,7 +189,7 @@ const BasketCheckout = ({ selectProduct }) => {
                 </div>
               </div>
 
-        
+
 
               <YMaps query={{ lang: "en_RU" }}>
                 <Map

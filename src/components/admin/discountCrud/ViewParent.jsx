@@ -17,7 +17,6 @@ export default function View({ object }) {
       minute: "2-digit",
       second: "2-digit",
     };
-    console.log(object);
     const dateObject = new Date(dateString);
     return dateObject.toLocaleString("en-US", options);
   };

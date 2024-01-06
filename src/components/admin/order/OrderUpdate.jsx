@@ -60,13 +60,8 @@ const OrderUpdate = ({ object }) => {
   // post data
   const addData = async () => {
     const formData = new FormData();
-    formData.append("user", inputValue.user);
-    formData.append("total_price", inputValue.total_price);
     formData.append("delivery_status", inputValue.delivery_status);
-    formData.append("payment_method", inputValue.payment_method);
-    formData.append("total_price", inputValue.total_price);
-    formData.append("payment_method", "NAQD");
-    formData.append("id", inputValue.id);
+    formData.append("id", object.location.id);
     try {
       await updateProduct(formData).unwrap();
       toast.success(`Maxsulot ${inputValue.user.first_name} o'zgartirildi `);
@@ -139,7 +134,7 @@ const OrderUpdate = ({ object }) => {
                 })}
               </select>
 
-              <label htmlFor="" className="text-gray-900">
+              {/* <label htmlFor="" className="text-gray-900">
                 To'lov turini tanlang
               </label>
               <select
@@ -160,7 +155,7 @@ const OrderUpdate = ({ object }) => {
                     </>
                   );
                 })}
-              </select>
+              </select> */}
 
               {/* <div>
                 <label

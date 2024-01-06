@@ -205,11 +205,7 @@ const AddProduct = ({ object }) => {
                     }}  value="">Hech biri</option>
 
                   {subData?.map((value) => (
-                    <option 
-                    className='p-1'
-                    style={{
-                      borderBottom: '1px solid black',
-                    }} key={value.id} disabled={direction == 'ALL'} value={value.slug}>{value.title}</option>
+                    <option key={value.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
                   ))}
                 </select>
               </div>

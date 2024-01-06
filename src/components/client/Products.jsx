@@ -43,8 +43,6 @@ function Products() {
             ...prev,
             [product.id]: { days, hours, minutes, seconds: secs },
           }));
-        } else {
-          console.log('Invalid time_left value for the product:', product);
         }
       });
     };

@@ -40,13 +40,13 @@ const OrderCrud = () => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4">
-                      Haridorning Ismi
+                      XARIDORNING Ismi
                     </th>
                     <th scope="col" className="p-4">
-                      Haridorning Familyasi
+                      XARIDORNING Familyasi
                     </th>
                     <th scope="col" className="p-4">
-                      Haridorning Telfon raqami
+                      XARIDORNING Telfon raqami
                     </th>
                     <th scope="col" className="p-4">
                       Xarid narxi

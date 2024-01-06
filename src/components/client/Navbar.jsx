@@ -113,7 +113,7 @@ const Navbar = () => {
                   </button>
                 </NavLink> */}
 
-                <div className="bg-white absolute px-6 rounded shadow-lg flex flex-col w-[350px] h-[200px] overflow-x-auto sx:overflow-y-auto sx:h-[30vh]">
+                <div className="bg-white absolute  px-6 rounded shadow-lg flex flex-col w-[350px] h-[200px] overflow-x-auto sx:overflow-y-auto sx:h-[30vh]">
                   {data?.result?.categories?.map((value) => {
                     return (
                       <div>
@@ -121,11 +121,11 @@ const Navbar = () => {
                           className={"no-underline"}
                           to={`/categories/${value?.id}`}
                         >
-                          <p className="flex ml-8 items-center gap-2 cursor-pointer ">
+                          <p className="flex ml-12  md:ml-0 items-center gap-2 cursor-pointer ">
                             <span>
                               {" "}
                               <svg
-                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                className="w-4 h-4"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -153,11 +153,11 @@ const Navbar = () => {
                           className="no-underline"
                           to={`/product/${value?.id}`}
                         >
-                          <p className="flex items-center gap-2 cursor-pointer">
+                          <p className="flex items-center ml-12  md:ml-0 gap-2 cursor-pointer">
                             <span>
                               {" "}
                               <svg
-                                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                className="w-4 h-4"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -215,7 +215,7 @@ const Navbar = () => {
               to={"/basket"}
               className="no-underline  flex flex-col items-center "
             >
-              <h5>{dataBasket?.length}</h5>
+              <h5>{dataBasket?.items?.length}</h5>
               <button className="navbar-toggler left-0" type="bu  tton">
                 <i className="fa fa-shopping-cart text-black  hover:text-black"></i>
               </button>
