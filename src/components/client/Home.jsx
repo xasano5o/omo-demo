@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="md:mt-24">
       <div className="container px-0">
-        <Carousel className="z" autoPlay={true} infiniteLoop={true} showArrows={true}>
+        <Carousel className="z" autoPlay={true} infiniteLoop={true} showThumbs={false} showStatus={false} showArrows={true}>
           {data?.map((item) => {
             return (
               <>

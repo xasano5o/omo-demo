@@ -53,9 +53,9 @@ const Navbar = () => {
       <nav className="navbar bg-light fixed-top shadow">
         <div className="container-fluid container grid grid-cols-3 ">
           <div className="flex gap-3 items-center">
-            <NavLink className="no-underline" to="/">
+            <NavLink className="no-underline text-blue-500" to="/">
               {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
-              <h1 className="no-underline">
+              <h1 className="no-underline text-blue-500">
                 Omo<b className="text-yellow-600">Food</b>
               </h1>
             </NavLink>

@@ -202,7 +202,7 @@ const Basket = () => {
                       <div className="flex items-center border-gray-100">
                         <span
                           onClick={() => decrement(value)}
-                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-l bg-blue-500  text-white py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           -{" "}
@@ -215,7 +215,7 @@ const Basket = () => {
                         />
                         <span
                           onClick={() => increment(value)}
-                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-r bg-blue-500  text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           +{" "}

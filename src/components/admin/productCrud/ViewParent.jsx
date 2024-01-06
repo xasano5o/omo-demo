@@ -45,6 +45,12 @@ export default function View({ object }) {
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
                   {object?.images?.length > 0 ? (
                     object?.images?.map((value) => {
+                      const dateObject = new Date(value.created_date);
+                      const options = { hour12: false };
+                      const formattedDate = dateObject.toLocaleString(
+                        "en-US",
+                        options
+                      );
                       return (
                         <div className="containers object-contain">
                           <div className="overlay text-end pb-2  ">
@@ -83,7 +89,7 @@ export default function View({ object }) {
                     <strong>Narxi:</strong> {object?.price}
                   </p>
                   <p>
-                    <strong>Qo'shilgan Vaqti:</strong> {object?.created_date}
+                    <strong>Qo'shilgan Vaqti:</strong> {this?.formattedDate}
                   </p>
                   <p>
                     <strong>Miqdori:</strong> {object?.amount}
