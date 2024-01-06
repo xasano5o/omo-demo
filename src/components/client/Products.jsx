@@ -8,6 +8,7 @@ import {
   useIncrementMutation,
 } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
+import axios from "axios";
 import { FaCartPlus } from "react-icons/fa";
 
 const Time = ({ timeLeft }) => (
@@ -28,6 +29,19 @@ function Products() {
   const [productTimeLeft, setProductTimeLeft] = useState({});
   const intervalRef = useRef(null);
 
+  const token = localStorage.getItem("user");
+  if (token) {
+
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
+
   useEffect(() => {
     const calculateTimeLeft = () => {
       products?.forEach((product) => {
@@ -43,6 +57,8 @@ function Products() {
             ...prev,
             [product.id]: { days, hours, minutes, seconds: secs },
           }));
+        } else {
+
         }
       });
     };
@@ -57,7 +73,7 @@ function Products() {
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [products]);
 
   const addData = async (productData) => {
     const formData = new FormData();
@@ -148,21 +164,23 @@ function Products() {
                 {product?.basket?.amount ? (
                   <div className="flex py-4 justify-around items-center border-gray-100">
                     <span
+                    disabled={disl&&true}
                       onClick={() => decrement(product?.basket)}
-                      className="cursor-pointer rounded-l bg-blue-500  text-white py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                      className="cursor-pointer rounded-l bg-blue-700 text-white py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                     >
                       {" "}
                       -{" "}
                     </span>
                     <input
-                      className="h-8 w-8 border text-center text-xs outline-none"
+                      className="h-8 w-8 border text-center  text-xs outline-none"
                       type="text"
                       value={product?.basket?.amount}
                       min="1"
                     />
                     <span
+                    disabled={disl&&true}
                       onClick={() => updateBasket(product?.basket, product?.basket?.amount + 1)}
-                      className="cursor-pointer rounded-r bg-blue-500  text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                      className="cursor-pointer rounded-r bg-blue-700 text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                     >
                       {" "}
                       +{" "}

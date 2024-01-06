@@ -51,7 +51,7 @@ const CategoryId = () => {
   };
   const { id } = useParams();
   const [deleteBasket] = useDeleteBasketMutation();
-  const [Increment] = useIncrementMutation();
+  const [Increment,{isLoading:disl}] = useIncrementMutation();
   const {
     data: products,
     isLoading,
@@ -159,8 +159,10 @@ const CategoryId = () => {
                     {product?.basket?.amount ? (
                       <div className="flex py-4 justify-around items-center border-gray-100">
                         <span
+                    disabled={disl&&true}
+
                           onClick={() => decrement(product.basket)}
-                          className="cursor-pointer rounded-l py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-l py-1 bg-blue-700 text-white px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           -{" "}
@@ -172,8 +174,10 @@ const CategoryId = () => {
                           min="1"
                         />
                         <span
+                    disabled={disl&&true}
+
                           onClick={() => increment(product?.basket)}
-                          className="cursor-pointer rounded-r py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-r py-1 bg-blue-700 text-white px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           +{" "}
@@ -183,8 +187,8 @@ const CategoryId = () => {
                       <div className=" text-center items-center justify-center flex mb-2">
                         <button
                           disabled={createIsloading && true}
-                          onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold border border-blue-700 rounded">
-                          <FaCartPlus className=" cursor-pointer text-2xl" />     Savatga Qo'shish
+                          onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold border px-4 py-2 border-blue-700 rounded">
+                          <FaCartPlus className=" cursor-pointer text-2xl" /> Savatga Qo'shish
                         </button>
                       </div>
                     )}
