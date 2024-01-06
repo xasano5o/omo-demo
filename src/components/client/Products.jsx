@@ -130,7 +130,7 @@ function Products() {
       <div className="col-md-13 py-md-3">
         <div className="row">
           {products?.map((product,index) => (
-            <div key={index+1}  className="col-6 col-md-3 col-lg-3 mb-1" key={product?.id}>
+            <div key={index+1}  className="col-6 col-md-3 col-lg-3 mb-1">
               <div className="card h-100">
                 <NavLink to={`/product/${product?.id}`}>
                   <img src={product?.image} className="aspect-square object-cover w-full h-[300px]" alt={product?.title} />
