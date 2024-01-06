@@ -22,8 +22,8 @@ const Time = ({ timeLeft }) => (
 function Products() {
   const { data: products, isLoading, refetch } = useGetProductQuery();
   const [deleteBasket] = useDeleteBasketMutation();
-  const [increment] = useIncrementMutation();
-  const [createBasket] = useCreateBasketMutation();
+  const [increment,{isLoading:disl}] = useIncrementMutation();
+  const [createBasket,{isLoading:disabled}] = useCreateBasketMutation();
 
   const [productTimeLeft, setProductTimeLeft] = useState({});
   const intervalRef = useRef(null);
@@ -170,8 +170,11 @@ function Products() {
                   </div>
                 ) : (
                   <div className=" text-center items-center justify-center flex mb-2">
-                    <button onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                    <FaCartPlus className=" cursor-pointer text-2xl" />     Savatga Qo'shish 
+
+                    <button
+                      disabled={ disabled &&true}
+                      onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                      <FaCartPlus className=" cursor-pointer text-2xl" />Savatga Qo'shish
                     </button>
                   </div>
                 )}
