@@ -237,9 +237,11 @@ function Product() {
                       </div>
                     ) : (
                       // If the product is not in the basket
-                      <div className="text-center items-center justify-center flex mb-2">
-                        <FaCartPlus className="cursor-pointer text-2xl" onClick={() => addData(product)} />
-                      </div>
+                      <div className=" text-center items-center justify-center flex mb-2">
+                      <button onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                      <FaCartPlus className=" cursor-pointer text-2xl" />     Savatga Qo'shish 
+                      </button>
+                    </div>
                     )}
 
                   </div>

@@ -57,7 +57,7 @@ function Products() {
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalRef.current);
-  }, [products]);
+  }, []);
 
   const addData = async (productData) => {
     const formData = new FormData();
@@ -149,30 +149,32 @@ function Products() {
                   <div className="flex py-4 justify-around items-center border-gray-100">
                     <span
                       onClick={() => decrement(product?.basket)}
-                      className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                      className="cursor-pointer rounded-l bg-blue-500  text-white py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                     >
                       {" "}
                       -{" "}
                     </span>
                     <input
-                      className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                      className="h-8 w-8 border text-center text-xs outline-none"
                       type="text"
                       value={product?.basket?.amount}
                       min="1"
                     />
                     <span
                       onClick={() => updateBasket(product?.basket, product?.basket?.amount + 1)}
-                      className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                      className="cursor-pointer rounded-r bg-blue-500  text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                     >
                       {" "}
                       +{" "}
                     </span>
                   </div>
                 ) : (
-                  <div className="text-center items-center justify-center flex mb-2">
-                    <FaCartPlus className=" cursor-pointer text-2xl" onClick={() => addData(product)} />
-
-                  </div>)}
+                  <div className=" text-center items-center justify-center flex mb-2">
+                    <button onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    <FaCartPlus className=" cursor-pointer text-2xl" />     Savatga Qo'shish 
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}
