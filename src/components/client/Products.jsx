@@ -42,38 +42,38 @@ function Products() {
     }, 1500);
   }
 
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      products?.forEach((product) => {
-        const backendSeconds = parseFloat(product?.discount?.time_left);
-        if (!isNaN(backendSeconds)) {
-          const diffTime = backendSeconds * 1000;
-          const days = Math.floor(diffTime / (24 * 60 * 60 * 1000));
-          const hours = Math.floor((diffTime % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-          const minutes = Math.floor((diffTime % (60 * 60 * 1000)) / (60 * 1000));
-          const secs = Math.floor((diffTime % (60 * 1000)) / 1000);
+  // useEffect(() => {
+  //   const calculateTimeLeft = () => {
+  //     products?.forEach((product) => {
+  //       const backendSeconds = parseFloat(product?.discount?.time_left);
+  //       if (!isNaN(backendSeconds)) {
+  //         const diffTime = backendSeconds * 1000;
+  //         const days = Math.floor(diffTime / (24 * 60 * 60 * 1000));
+  //         const hours = Math.floor((diffTime % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+  //         const minutes = Math.floor((diffTime % (60 * 60 * 1000)) / (60 * 1000));
+  //         const secs = Math.floor((diffTime % (60 * 1000)) / 1000);
 
-          setProductTimeLeft((prev) => ({
-            ...prev,
-            [product.id]: { days, hours, minutes, seconds: secs },
-          }));
-        } else {
+  //         setProductTimeLeft((prev) => ({
+  //           ...prev,
+  //           [product.id]: { days, hours, minutes, seconds: secs },
+  //         }));
+  //       } else {
 
-        }
-      });
-    };
+  //       }
+  //     });
+  //   };
 
-    // Clear the existing interval before setting a new one
-    clearInterval(intervalRef.current);
+  //   // Clear the existing interval before setting a new one
+  //   clearInterval(intervalRef.current);
 
-    // Set the new interval
-    intervalRef.current = setInterval(() => {
-      calculateTimeLeft();
-    }, 1000);
+  //   // Set the new interval
+  //   intervalRef.current = setInterval(() => {
+  //     calculateTimeLeft();
+  //   }, 1000);
 
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalRef.current);
-  }, [products]);
+  //   // Clear the interval on component unmount
+  //   return () => clearInterval(intervalRef.current);
+  // }, [products]);
 
   const addData = async (productData) => {
     const formData = new FormData();
