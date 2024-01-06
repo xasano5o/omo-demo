@@ -14,7 +14,7 @@ const Basket = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [selectTotal, setSelectTotal] = useState(1);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmount, settotalAmount] = useState(0);
 
   const deleteFunc = async (id) => {
     try {
@@ -64,17 +64,20 @@ const Basket = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (Array?.isArray(dataBasket?.items)) {
+      if (Array.isArray(dataBasket?.items)) {
         const total = dataBasket?.items?.reduce(
-          (a, b) => a + (b?.total_price?.price || 0) * b.amount,
+          (a, b) => a + (b?.total_price?.discount_price || 0) * b.amount,
           0
         );
-        setTotalAmount(total);
+        settotalAmount(total);
       }
     }, 0);
 
     return () => clearTimeout(timer);
   }, [dataBasket]);
+
+
+
 
   const selectAll = () => {
     const allUserIds = dataBasket?.items?.map((user) => user?.id);
@@ -169,7 +172,7 @@ const Basket = () => {
                       {value.product?.description?.length > 100
                         ? `${value?.product?.description.substring(0, 70)}...`
                         : value?.product?.description}
-                    </p>  
+                    </p>
                   </div>
                   {value?.product?.discount?.value ? (
                     <div className="flex justify-center">

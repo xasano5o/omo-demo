@@ -15,11 +15,11 @@ import BaskerPage from './pages/client/basket/index.jsx';
 import CategoryIdPage from './pages/client/categorieid/index.jsx';
 import HomePage from './pages/client/home/index.jsx';
 import ProductPage from './pages/client/product/index.jsx';
+import Dasjboard from './components/admin/Dasjboard/Dasjboard.jsx';
 
 function App() {
   const location = useLocation();
   const isClientPage = !location.pathname.startsWith('/admin');
-  //TODO ushbu is_admin backend orqali tekshieuv kerak
 
   const is_admin = localStorage.getItem("token");
 
@@ -36,7 +36,7 @@ function App() {
         {
           is_admin ? (
             <Route element={<Layout />}>
-              <Route path="/admin/home" element={<OrderCrud />} />
+              <Route path="/admin/home" element={<Dasjboard />} />
               <Route path="/admin/order" element={<OrderCrud />} />
               <Route path="/admin/subcategories" element={<SubcategorieCom />} />
               <Route path="/admin/banners" element={<Banners />} />

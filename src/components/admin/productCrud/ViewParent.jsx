@@ -16,16 +16,16 @@ export default function View({ object }) {
       await deleteProduct({ object });
       toast.success("Maxsulot o'chirildi!");
       setIsOpen(false);
-      setDeletingImage(null)
+      setDeletingImage(null);
     } catch (err) {
       toast.error("Maxsulot o'chirishda xatolik:", err);
     }
   };
+
   const [skip, setOpen] = useState(false);
   const onClose = () => setOpen(!skip);
-  // object?.images?.map((value) => {
-  //   console.log( value?.id,'sss');
-  //   });
+
+  let formattedDate; // Declare formattedDate outside of the .map function
 
   return (
     <div className="">
@@ -45,17 +45,18 @@ export default function View({ object }) {
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
                   {object?.images?.length > 0 ? (
                     object?.images?.map((value) => {
-                      const dateObject = new Date(value.created_date);
-                      const options = { hour12: false };
-                      const formattedDate = dateObject.toLocaleString(
-                        "en-US",
-                        options
-                      );
+
                       return (
-                        <div className="containers object-contain">
-                          <div className="overlay text-end pb-2  ">
+                        <div
+                          className="containers object-contain"
+                          key={value?.id}
+                        >
+                          <div className="overlay text-end pb-2">
                             <button
-                              onClick={() => { setIsOpen(!isOpen); setDeletingImage(value) }}
+                              onClick={() => {
+                                setIsOpen(!isOpen);
+                                setDeletingImage(value);
+                              }}
                               type="button"
                               className="text inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
@@ -67,7 +68,6 @@ export default function View({ object }) {
                             src={value?.image}
                             alt="product_image"
                           />
-
                         </div>
                       );
                     })
@@ -83,14 +83,17 @@ export default function View({ object }) {
                     <strong>Maxsulot nomi:</strong> {object?.title}
                   </p>
                   <p>
-                    <strong>Kategoriyasi:</strong>{object?.category?.title}
+                    <strong>Kategoriyasi:</strong>
+                    {object?.category?.title}
                   </p>
                   <p>
                     <strong>Narxi:</strong> {object?.price}
                   </p>
-                  <p>
-                    <strong>Qo'shilgan Vaqti:</strong> {this?.formattedDate}
-                  </p>
+                  {object?.created_date && (
+                    <p>
+                      <strong>Qo'shilgan Vaqti:</strong>
+                    </p>
+                  )}
                   <p>
                     <strong>Miqdori:</strong> {object?.amount}
                   </p>
@@ -104,10 +107,8 @@ export default function View({ object }) {
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
-
         </Modal>
       )}
       {isOpen && (
@@ -117,7 +118,11 @@ export default function View({ object }) {
           loader={isLoading}
           actionType={"delete"}
         >
-          <img src={deletingImage?.image} className="w-[300px] h-[200px] object-contain" alt="" />
+          <img
+            src={deletingImage?.image}
+            className="w-[300px] h-[200px] object-contain"
+            alt=""
+          />
           <div className="py-5 px-10">
             <h1 className="text-2xl font-bold text-red-600">
               Malumotni o'chirishga rozimisiz !!!
