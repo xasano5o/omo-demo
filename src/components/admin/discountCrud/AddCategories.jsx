@@ -132,7 +132,13 @@ const AddProduct = ({ object }) => {
                 <label for="boshsana" className="block mb-2 text-sm font-medium text-gray-900 ">Boshlanish sana</label>
                 <input
                   onChange={(e) => setInputValue({ ...inputValue, start_date: e.target.value })}
-                  type="datetime-local" id="boshsana" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+                  type="datetime-local"
+                  id="boshsana"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Flowbite"
+                  required
+
+                />
               </div>
               <div>
                 <label for="tugashsana" className="block mb-2 text-sm font-medium text-gray-900 ">Tugash sana</label>
@@ -146,7 +152,7 @@ const AddProduct = ({ object }) => {
               <div>
                 <label htmlFor="direction" className="block mb-2 text-sm font-medium text-gray-900">Mahsulot Yunalishi</label>
                 <select id="direction" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={handleDirectionChange}>
-                  <option value="ALL">Hech biri</option>
+                  <option value="">Hech biri</option>
                   <option value="ALL">Hammasi</option>
                   <option value="CUSTOM">Tanlanganlar</option>
                 </select>
@@ -170,8 +176,17 @@ const AddProduct = ({ object }) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   onChange={(e) => handleSelectionChange('category', e)}
                 >
+                  <option className='p-1' style={{
+                    borderBottom: '1px solid black',
+                  }} value="">Hech biri</option>
+
                   {data?.map((value) => (
-                    <option key={value?.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
+                    <option 
+                    
+                    className='p-1'
+                    style={{
+                      borderBottom: '1px solid black',
+                    }} key={value?.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -185,8 +200,16 @@ const AddProduct = ({ object }) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   onChange={(e) => handleSelectionChange('subcategory', e)}
                 >
+                  <option    className='p-1'    style={{
+                      borderBottom: '1px solid black',
+                    }}  value="">Hech biri</option>
+
                   {subData?.map((value) => (
-                    <option key={value.id} disabled={direction == 'ALL'} value={value.slug}>{value.title}</option>
+                    <option 
+                    className='p-1'
+                    style={{
+                      borderBottom: '1px solid black',
+                    }} key={value.id} disabled={direction == 'ALL'} value={value.slug}>{value.title}</option>
                   ))}
                 </select>
               </div>
@@ -200,8 +223,14 @@ const AddProduct = ({ object }) => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   onChange={(e) => handleSelectionChange('products', e)}
                 >
+                  <option style={{
+                    borderBottom: '1px solid black',
+                  }} value="">Hech biri</option>
+
                   {productData?.map((value) => (
-                    <option key={value.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
+                    <option className='p-1' style={{
+                      borderBottom: '1px solid black',
+                    }} key={value.id} disabled={direction == 'ALL'} value={value.id}>{value.title}</option>
                   ))}
                 </select>
               </div>

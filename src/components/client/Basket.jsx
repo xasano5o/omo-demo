@@ -65,7 +65,7 @@ const Basket = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (Array?.isArray(dataBasket)) {
-        const total = dataBasket.reduce(
+        const total = dataBasket?.item.reduce(
           (a, b) => a + (b?.total_price?.price || 0) * b.amount,
           0
         );
@@ -77,7 +77,7 @@ const Basket = () => {
   }, [dataBasket]);
 
   const selectAll = () => {
-    const allUserIds = dataBasket?.map((user) => user.id);
+    const allUserIds = dataBasket?.item?.map((user) => user.id);
     setIsAllSelected(!isAllSelected);
     setSelectedUsers(isAllSelected ? [] : allUserIds);
   };
