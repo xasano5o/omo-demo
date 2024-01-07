@@ -105,9 +105,8 @@ const BasketCheckout = ({ selectProduct }) => {
         onClick={() => setOpen(true)}
         className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
       >
-        Check out
+        Tasdiqlash
       </button>
-
       {open && (
         <Modal
           loader={isCreating}
@@ -151,13 +150,13 @@ const BasketCheckout = ({ selectProduct }) => {
                   <label>Telfon Raqam *</label>
                   <input
                     placeholder="+998"
-                    type="number"
+                    type="tel"  // Change type to "tel" for phone numbers
                     value={inputValue.phone}
-                    onChange={(e) =>
-                      setInputValue({ ...inputValue, phone: e.target.value })
-                    }
+                    onChange={(e) => setInputValue({ ...inputValue, phone: e.target.value })}
+                    maxLength={13}
                     className="block w-full px-2 py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-600 focus:ring-opacity-50"
                   />
+
                 </div>
                 <div>
                   <label>Manzil tetx</label>
@@ -189,7 +188,7 @@ const BasketCheckout = ({ selectProduct }) => {
                 </div>
               </div>
 
-        
+
 
               <YMaps query={{ lang: "en_RU" }}>
                 <Map

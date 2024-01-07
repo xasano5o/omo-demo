@@ -16,14 +16,13 @@ const ProductCrud = () => {
   const [search, setSearch] = useState("");
   const filteredData = data
     ? data?.filter((item) =>
-        item.title.toLowerCase().includes(search.toLowerCase())
-        )
-        : [];
-        const [isHovered, setIsHovered] = useState(false);
-        return (
-            <div className=" ">
-      {" "}
-      {/* Set the height to 100vh */}
+      item.title.toLowerCase().includes(search.toLowerCase())
+    )
+    : [];
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <div className=" ">
+
       <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
         <div className="mx-auto max-w-screen-3xl  px-1 lg:px-12">
           <div className="bg-white  dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -45,11 +44,9 @@ const ProductCrud = () => {
                 <thead className="  text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="p-4">
-                      Maxsulot rassssm
+                      Maxsulot rasm
                     </th>
-                    <th scope="col" className="p-4">
-                      Maxsulot Kategoriyasi
-                    </th>
+       
                     <th scope="col" className="p-4">
                       Maxsulot Narxi
                     </th>
@@ -106,11 +103,11 @@ const ProductCrud = () => {
                               )}
                             </div>
                           </th>
-                          <td className="px-4 py-3">
+                          {/* <td className="px-4 py-3">
                             <span className="text-gray-800  text-base font-medium px-2 py-0.5 rounded">
                               {item?.category?.title}
                             </span>
-                          </td>
+                          </td> */}
                           <td className="px-4 py-3">
                             <span
                               className={`text-gray-800  text-base font-medium px-2 py-0.5 rounded`}

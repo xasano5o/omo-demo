@@ -13,7 +13,6 @@ const CategoriesCrud = () => {
     const [search, setSearch] = useState('');
     const filteredData = data ? data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
 
-
     return (
         <div className=" ">
             <section className="bg-gray-50  dark:bg-white-900 p-3 sm:p-5 antialiased">
@@ -48,15 +47,15 @@ const CategoriesCrud = () => {
                                                 <Loader color="#36d7b7" />
                                             </div>
                                         ) : filteredData.length > 0 ? (
-                                            filteredData.map((item) => {
+                                            filteredData.map((item,index) => {
                                                 return (
-                                                    <tr className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
+                                                    <tr key={index+1} className="border-b dark:border-gray-600 hover:bg-gray-100  dark:hover:bg-white-700" key={item.id}>
                                                         <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center mr-3">
                                                                 {item?.image && item?.image !== "" ? (
                                                                     <img
                                                                         src={item?.image}
-                                                                        alt="item"
+                                                                        alt={item.title}
                                                                         className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                     />
                                                                 ) : (
@@ -64,7 +63,7 @@ const CategoriesCrud = () => {
                                                                         <img
                                                                             className="h-12 w-12 flex-none rounded-full border object-cover"
                                                                             src={NoProduct}
-                                                                            alt="products"
+                                                                            alt={item.title}
                                                                         />
                                                                     </div>
                                                                 )}
@@ -78,7 +77,7 @@ const CategoriesCrud = () => {
                                                         <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                             <div className="flex items-center space-x-4">
                                                                 <div className="flex items-center space-x-4">
-                                                                    <UpdateCategories item={item.id} />
+                                                                    <UpdateCategories item={item} />
                                                                 </div>
                                                                 <DeleteCategorie id={item.id} />
                                                             </div>

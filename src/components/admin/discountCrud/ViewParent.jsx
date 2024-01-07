@@ -17,7 +17,6 @@ export default function View({ object }) {
       minute: "2-digit",
       second: "2-digit",
     };
-    console.log(object);
     const dateObject = new Date(dateString);
     return dateObject.toLocaleString("en-US", options);
   };
@@ -53,7 +52,7 @@ export default function View({ object }) {
                           <img
                             className="shadow border border-black p-1 "
                             src={value.image || "defaultImagePath.jpg"}
-                            alt=""
+                            alt={value?.title}
                           />
                           <div className="ol">
                             <button
