@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import { FaCartPlus } from "react-icons/fa";
 import Countdown from "react-countdown";
+import axios from "axios";
 
 
 
@@ -19,7 +20,18 @@ function DiscountCom() {
   const [increment, { isLoading: disl }] = useIncrementMutation();
   const [createBasket, { isLoading: disabled }] = useCreateBasketMutation();
 
+  const token = localStorage.getItem("user");
+  if (token) {
 
+  } else {
+    axios.get("users/get_token/").then((res) => {
+      const token = res.data.access_token;
+      localStorage.setItem("user", token);
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
+  }
 
 
 
