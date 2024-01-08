@@ -151,21 +151,23 @@ function Product() {
                     <Carousel
                       className="w-full"
                       animationHandler={true}
+                      autoPlay={true}
+                      showStatus={false}
                       infiniteLoop={true}
                     >
-                      <div className="h-96">
+                      <div className="h-[480px]">
                         <img
                           src={product?.image}
                           alt={product?.title}
-                          className="object-cover w-full"
+                          className="object-contain w-full"
                         />
                       </div>
                       {product.images.map((item, index) => (
-                        <div key={index} className="">
+                        <div key={index} className="h-[400px]">
                           <img
                             src={item?.image}
                             alt={`Image ${index}`}
-                            className="object-cover w-full"
+                            className="object-contain w-full"
                           />
                         </div>
                       ))}
@@ -176,7 +178,7 @@ function Product() {
                 </div>
 
                 <div className="col-md-6">
-                  <div className="w-full border p-4 shadow-md h-[490px]">
+                  <div className="w-full border p-4 shadow-md h-[600px]">
                     <div className="mt-4 mb-3">
                       <h5 className="text-uppercase">{product?.title}</h5>
                       <span className="text-capitalize text-orange-600">
@@ -197,14 +199,14 @@ function Product() {
                       </div>
                     </div>
                     <p className="text-muted whitespace-pre-wrap break-words">
-                      {product?.description.slice('0',"301")}
+                      {product?.description.slice('0',"600")}
                     </p>
                     {product?.basket?.amount ? (
                       <div>
                       <div className="flex py-4 justify-around items-center border-gray-100">
                         <span
                           onClick={() => decrement(product.basket)}
-                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-l bg-blue-500 py-1 px-3.5 text-white duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           -{" "}
@@ -217,7 +219,7 @@ function Product() {
                         />
                         <span
                           onClick={() => increment(product?.basket)}
-                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          className="cursor-pointer rounded-r bg-blue-500 text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                         >
                           {" "}
                           +{" "}
