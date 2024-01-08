@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useParams } from "react-router";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateBasketMutation, useDeleteBasketMutation, useIncrementMutation } from "../../redux/slice/client/basket/index.js";
 import { useGetProductIdQuery } from "../../redux/slice/client/getProduct/index.js";
@@ -153,7 +153,7 @@ function Product() {
                       animationHandler={true}
                       infiniteLoop={true}
                     >
-                      <div className="">
+                      <div className="h-96">
                         <img
                           src={product?.image}
                           alt={product?.title}
@@ -176,16 +176,14 @@ function Product() {
                 </div>
 
                 <div className="col-md-6">
-                  <div className="w-full border p-4 shadow-md">
+                  <div className="w-full border p-4 shadow-md h-[490px]">
                     <div className="mt-4 mb-3">
                       <h5 className="text-uppercase">{product?.title}</h5>
-                 
                       <span className="text-capitalize text-orange-600">
                         {product?.category?.title}
                       </span>
                       <div className="price d-flex flex-row align-items-center">
                         <big className="display-6">
-
                           <b>{product?.price.toLocaleString("ru-Ru")}</b>so'm
                         </big>
                       </div>
@@ -193,15 +191,16 @@ function Product() {
                         <big className="display-6">
                           <b>
                             {product?.amount}{" "}
-                            {product?.amount_measure.toLocaleString("ru-Ru")}
+                            {product?.amount_measure?.toLocaleString("ru-Ru")}
                           </b>
                         </big>
                       </div>
                     </div>
                     <p className="text-muted whitespace-pre-wrap break-words">
-                      {product?.description}
+                      {product?.description.slice('0',"301")}
                     </p>
                     {product?.basket?.amount ? (
+                      <div>
                       <div className="flex py-4 justify-around items-center border-gray-100">
                         <span
                           onClick={() => decrement(product.basket)}
@@ -223,7 +222,17 @@ function Product() {
                           {" "}
                           +{" "}
                         </span>
+                      
                       </div>
+                        <Link to={"/basket"}>
+                        <button
+                             type="button"
+                             className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+                           >
+                             Tasdiqlash
+                           </button>
+                        </Link>
+                        </div>
                     ) : (
                       <div className=" text-center items-center justify-center flex mb-2">
                       <button
