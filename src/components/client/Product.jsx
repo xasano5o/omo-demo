@@ -155,7 +155,7 @@ function Product() {
                       showStatus={false}
                       infiniteLoop={true}
                     >
-                      <div className="h-[480px]">
+                      <div className="h-[450px]">
                         <img
                           src={product?.image}
                           alt={product?.title}
@@ -163,7 +163,7 @@ function Product() {
                         />
                       </div>
                       {product.images.map((item, index) => (
-                        <div key={index} className="h-[400px]">
+                        <div key={index} className="h-[450px]">
                           <img
                             src={item?.image}
                             alt={`Image ${index}`}
@@ -198,8 +198,9 @@ function Product() {
                         </big>
                       </div>
                     </div>
+                    {/* .slice('0',"600") */}
                     <p className="text-muted whitespace-pre-wrap break-words">
-                      {product?.description.slice('0',"600")}
+                      {product?.description}
                     </p>
                     {product?.basket?.amount ? (
                       <div>

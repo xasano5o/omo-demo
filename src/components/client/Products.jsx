@@ -83,7 +83,7 @@ function DiscountCom() {
 
   const ShowProducts = () => (
     <>
-      <h3>Chegirmadagi Maxsulotlar</h3>
+      <h3>Maxsulotlar</h3>
       <div className="col-md-13 py-md-3">
         <div className="row">
           {products?.map((product) => {
@@ -113,7 +113,7 @@ function DiscountCom() {
 
                   <div style={{ marginTop: "auto" }}>
                     <div className="d-flex justify-content-between align-items-center">
-                      <div className="m-3 flex flex-col">
+                    <div className="m-3">
                         {product?.discount?.product_discount_price ? (
                           <>
                             <b className="text-xm">{product?.discount?.product_discount_price?.toLocaleString("ru-Ru")} so'm</b>
@@ -122,7 +122,7 @@ function DiscountCom() {
                         ) : (
                           <b className="text-xm">{product?.price.toLocaleString("ru-Ru")} so'm</b>
                         )}
-                      </div>
+                        </div>
                       <NavLink to={`/product/${product?.id}`}>
                         <button className="btn btn-sm m-3 border-primary">
                           <span className="fa fa-arrow-right text-muted" />

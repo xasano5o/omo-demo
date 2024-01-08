@@ -53,7 +53,6 @@ const Basket = () => {
     const formData = new FormData();
     formData.append("amount", value.amount - 1);
     formData.append("id", value.id);
-
     try {
       await Increment(formData).unwrap();
     } catch (error) {
