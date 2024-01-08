@@ -147,6 +147,7 @@ const CategoryId = () => {
                   <div className="m-3 mb-0 flex justify-between items-center">
                     <small className="card-title">{product?.title}</small>
                     {/* {discountTimeLeft !== undefined && discountTimeLeft > 0 && <Countdown date={Date.now() + diffTime} />} */}
+                    {/*  */}
                   </div>
 
                   <div style={{ marginTop: "auto" }}>
