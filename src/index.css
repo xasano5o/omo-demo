@@ -188,3 +188,8 @@ body {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+
+.active {
+   background-color: #4a90e2; /* O'zingiz tanlagan rangni qo'shing */
+   color: #ffffff; /* O'zingiz tanlagan rangni qo'shing */
+}

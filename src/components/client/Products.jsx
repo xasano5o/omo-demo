@@ -115,10 +115,11 @@ function DiscountCom() {
                     <div className="d-flex justify-content-between align-items-center">
                     <div className="m-3">
                         {product?.discount?.product_discount_price ? (
-                          <>
+                          <div className="f">
                             <b className="text-xm">{product?.discount?.product_discount_price?.toLocaleString("ru-Ru")} so'm</b>
+                            <br />
                             <del>{product?.price.toLocaleString("ru-Ru")} so'm</del>
-                          </>
+                          </div>
                         ) : (
                           <b className="text-xm">{product?.price.toLocaleString("ru-Ru")} so'm</b>
                         )}

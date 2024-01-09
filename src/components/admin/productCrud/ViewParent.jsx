@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useDeleteProductImgMutation } from "../../../redux/slice/client/getProduct";
 import Modal from "../../generic/Modal";
 
-export default function View({ object }) {
+export default function View({formattedDate,object}) {
   const [isOpen, setIsOpen] = useState(false);
   const [deletingImage, setDeletingImage] = useState(null);
   const closeModal = () => setIsOpen(!isOpen);
@@ -25,7 +25,6 @@ export default function View({ object }) {
   const [skip, setOpen] = useState(false);
   const onClose = () => setOpen(!skip);
 
-  let formattedDate; // Declare formattedDate outside of the .map function
 
   return (
     <div className="">
@@ -45,7 +44,8 @@ export default function View({ object }) {
                 <div className="grid grid-cols-2 h-[32vh] overflow-y-auto bg-white rounded-lg gap-2 shadow-lg border p-4">
                   {object?.images?.length > 0 ? (
                     object?.images?.map((value) => {
-
+            
+      
                       return (
                         <div
                           className="containers object-contain"
@@ -89,11 +89,9 @@ export default function View({ object }) {
                   <p>
                     <strong>Narxi:</strong> {object?.price}
                   </p>
-                  {object?.created_date && (
                     <p>
-                      <strong>Qo'shilgan Vaqti:</strong>
+                      <strong>Qo'shilgan Vaqti:</strong>{formattedDate}
                     </p>
-                  )}
                   <p>
                     <strong>Miqdori:</strong> {object?.amount}
                   </p>

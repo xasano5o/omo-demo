@@ -25,6 +25,7 @@ export const CategorySlide = () => {
           itemclassName="slideitem"
           sliderclassName="SliderclassNameCustom"
           responsive={responsive}
+          arrows={true}
           infinite={true}
           autoPlay={true}
           draggable={true}
