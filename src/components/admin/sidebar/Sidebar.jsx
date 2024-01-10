@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
-import { MdOutlineDashboard, MdOutlineAddPhotoAlternate } from "react-icons/md";
-import { TbReportAnalytics } from "react-icons/tb";
+import { MdOutlineAddPhotoAlternate, MdOutlineDashboard } from "react-icons/md";
 import { PiTaxi, PiUsersFourLight } from "react-icons/pi";
-import { NavLink, useNavigate,useLocation, Link } from "react-router-dom";
+import { TbReportAnalytics } from "react-icons/tb";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Home = () => {
     { name: "Katta Turkum", link: "/categories", icon: TbReportAnalytics },
     { name: "Kichik Turkum", link: "/subcategories", icon: TbReportAnalytics, margin: true },
     { name: "Yetkazib berish", link: "/deliveries", icon: PiTaxi },
-    { name: "Chiqish", link: "", icon: FaRegUser, margin: true },
+
   ];
 
   const [open, setOpen] = useState(true);
@@ -55,8 +55,7 @@ const Home = () => {
          <div key={i} className="" onClick={() => navigate(`/admin${menu?.link}`)}>
          <Link
            to={`/admin${menu.link}`}
-
-           className={`${menu?.margin && ""} ${path_name.pathname===`/admin${menu.link}`?"active":"non_active"} group flex items-center text-sm no-underline text-center gap-3.5 font-medium p-2 rounded-md`}
+           className={`${menu?.margin && ""} ${path_name.pathname===`/admin${menu.link}`? "actives" : null} group flex items-center text-sm no-underline text-center gap-3.5 font-medium p-2 rounded-md`}
          >
            <h1 className="text-xl text-black">{React.createElement(menu?.icon)}</h1>
            <h2
@@ -79,3 +78,4 @@ const Home = () => {
 };
 
 export default Home;
+  

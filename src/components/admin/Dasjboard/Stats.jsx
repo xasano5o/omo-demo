@@ -7,10 +7,10 @@ const Card = ({ title, value, img, delay }) => {
     <div
       data-aos="fade"
       data-aos-delay={delay}
-      className="border rounded-xl p-2 bg-white shadow-md shadow-black/30 grid grid-cols-3 transition-all hover:scale-[1.03]"
+      className="border rounded-xl p-2 bg-white shadow-md shadow-black/30 grid grid-cols-3 transition-all"
     >
       <div className="col-span-2 flex flex-col gap-2">
-        <h3 className="text-lg font-semibold text-black/60 whitespace-nowrap">
+        <h3 className="text-lg font-semibold text-black whitespace-nowrap">
           {title}
         </h3>
         <p className="text-2xl">{value}</p>
@@ -24,7 +24,7 @@ const Card = ({ title, value, img, delay }) => {
 
 const Stats = ({ all, finished, doing, missed, cancelled }) => {
   return (
-    <div className="grid grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-5 gap-2 mt-3">
+    <div className="grid grid-cols-2 md-lg:grid-cols-3 lg:grid-cols-5 gap-2 mt-3 w-full">
       <Card delay={100} title={"Jami"} value={all ?? 0} img={Tasks} />
       <Card
         delay={200}

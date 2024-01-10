@@ -188,7 +188,6 @@ body {
   line-height: 1rem;
 }
 
-.active {
-   background-color: #4a90e2; /* O'zingiz tanlagan rangni qo'shing */
-   color: #ffffff; /* O'zingiz tanlagan rangni qo'shing */
+.actives {
+  background-color: rgb(237, 240, 245);
 }

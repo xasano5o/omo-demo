@@ -19,10 +19,6 @@ function DiscountCom() {
   const [increment, { isLoading: disl }] = useIncrementMutation();
   const [createBasket, { isLoading: disabled }] = useCreateBasketMutation();
 
-
-
-
-
   const addData = async (productData) => {
     const formData = new FormData();
     formData.append("amount", 1);
@@ -145,7 +141,7 @@ function DiscountCom() {
                         onClick={() => addData(product)}
                         className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded"
                       >
-                        <FaCartPlus className=" cursor-pointer text-2xl" />Savatga Qo'shish
+                        <FaCartPlus className=" cursor-pointer text-2xl" />
                       </button>
                     </div>
                   )}
