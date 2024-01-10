@@ -17,6 +17,15 @@ export const BasketCrud = createApi({
             query: (body) => `products/`,
             providesTags: ["basket"],
         }),
+        getSelectAll: build.query({
+            query: (body) => `basket/change_all_status/?true`,
+            method: "GET",
+        }),
+        getSelectUserId: build.query({
+            query: (body) => `basket/${body.get('userId')}/change_status/`,
+            method: "GET",
+        }),
+
         createBasket: build.mutation({
             query: (body) => ({
                 url: `basket/`,
@@ -47,6 +56,8 @@ export const BasketCrud = createApi({
 });
 
 export const {
+    useGetSelectUserIdQuery,
+    useGetSelectAllQuery,
     useIncrementMutation,
     useGetProductQuery,
     useGetBasketQuery,
