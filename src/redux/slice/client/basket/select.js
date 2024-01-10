@@ -1,16 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api } from "../../../../api/api.js";
 
-export const GetBanner = createApi({
+export const GetSellct = createApi({
     reducerPath: "GetSelect",
     baseQuery: api,
     tagTypes: ["baner"],
     endpoints: (build) => ({
-        getBanners: build.query({
-            query: (body) => `basket/change_all_status/?true/`,
-            method:"GET",
-            providesTags: ["GetSelect"],
-        }),
+
         getSelectAll: build.query({
             query: (body) => `basket/change_all_status/?true`,
             method: "GET",
@@ -27,5 +23,6 @@ export const GetBanner = createApi({
 });
 
 export const {
-    useGetSelectUserIdQuery,
-} = GetBanner;
+  useGetSelectAllQuery,
+  useGetSelectUserQuery,
+} = GetSellct;
