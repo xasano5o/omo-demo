@@ -23,10 +23,10 @@ const Basket = () => {
   const { data, refetch } = useGetSelectAllQuery({ isAllSelected })
   const { data: dataUser, refetch: refetchUser } = useGetSelectUserQuery({
     skip,
-    userId: user?.id, // Include user ID as a query parameter
+    userId: user?.id,
   });
 
-  
+
   const deleteFunc = async (id) => {
     try {
       await deleteBasket({ id });
