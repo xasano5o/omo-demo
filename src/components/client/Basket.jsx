@@ -9,6 +9,7 @@ import {
 } from "../../redux/slice/client/basket";
 import BasketCheckout from "./BasktChecout";
 import { useGetSelectAllQuery, useGetSelectUserQuery } from "../../redux/slice/client/basket/select";
+import axios from "axios";
 
 const Basket = () => {
   const { data: dataBasket, isSuccess, refetch: refetchData } = useGetBasketQuery();
@@ -21,6 +22,7 @@ const Basket = () => {
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, settotalAmount] = useState(0);
   const { data, refetch } = useGetSelectAllQuery({ isAllSelected })
+
   const { data: dataUser, refetch: refetchUser } = useGetSelectUserQuery({
     skip,
     userId: user?.id,
@@ -34,12 +36,22 @@ const Basket = () => {
       console.error("Error deleting item:", err);
     }
   };
+  const token = localStorage.getItem("user");
+
   useEffect(() => {
-    if (isAllSelected) {
-      refetch()
-      setTimeout(() => {
-        refetchData()
-      }, 500)
+    if (isAllSelected !== undefined) {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+  
+      axios.get(`basket/change_all_status/?status=${isAllSelected}`, { headers })
+        .then(() => {
+          refetchData();
+        })
+        .catch((error) => {
+          console.error("Error updating status:", error);
+          // Handle error if needed
+        });
     }
   }, [isAllSelected]);
 
@@ -115,7 +127,7 @@ const Basket = () => {
   }, [isSuccess]);
 
   const handleUserSelect = (user) => {
-    console.log(user.id,'user');
+    console.log(user.id, 'user');
     if (selectedUsers?.includes(user?.id)) {
       setSelectedUsers((prevSelectedUsers) =>
         prevSelectedUsers.filter((id) => id !== user.id)
@@ -296,7 +308,7 @@ const Basket = () => {
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
                   <p className="mb-1 text-lg font-bold">
-                  {dataBasket?.total_price?.discount_price}
+                    {dataBasket?.total_price?.price}
                   </p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
@@ -310,9 +322,11 @@ const Basket = () => {
               <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">
                 <p className="mb-1 text-lg font-bold">
-                  {/* {totalAmount.toLocaleString("uz-UZ")} so'm */}
-                  {dataBasket?.total_price?.discount_price}
+                  {dataBasket?.total_price?.discount_price?.toLocaleString("uz-UZ")} so'm
                 </p>
+                <del>
+                  {dataBasket?.total_price.price?.toLocaleString("uz-UZ")} so'm
+                </del>
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>

@@ -8,7 +8,7 @@ export const GetSellct = createApi({
     endpoints: (build) => ({
 
         getSelectAll: build.query({
-            query: (body) => `basket/change_all_status/?true`,
+            query: (body) => `basket/change_all_status/?status=${body.get('isAllSelected')==false||true}`,
             method: "GET",
             providesTags: ["GetSelect"],
 

@@ -30,7 +30,7 @@ function Product() {
       localStorage.setItem("user", token);
     });
     setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 1500);
   }
 
@@ -76,9 +76,12 @@ function Product() {
     refetch();
   };
 
+
+
   const Loading = () => {
     return (
       <>
+
         <div className="row d-flex justify-content-center">
           <div className="col-md-12">
             <NavLink className="text-decoration-none text-dark" to={`/`}>
@@ -204,46 +207,46 @@ function Product() {
                     </p>
                     {product?.basket?.amount ? (
                       <div>
-                      <div className="flex py-4 justify-around items-center border-gray-100">
-                        <span
-                          onClick={() => decrement(product.basket)}
-                          className="cursor-pointer rounded-l bg-blue-500 py-1 px-3.5 text-white duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        >
-                          {" "}
-                          -{" "}
-                        </span>
-                        <input
-                          className="h-8 w-8 border bg-white text-center text-xs outline-none"
-                          type="text"
-                          value={product.basket?.amount}
-                          min="1"
-                        />
-                        <span
-                          onClick={() => increment(product?.basket)}
-                          className="cursor-pointer rounded-r bg-blue-500 text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        >
-                          {" "}
-                          +{" "}
-                        </span>
-                      
-                      </div>
-                        <Link to={"/basket"}>
-                        <button
-                             type="button"
-                             className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
-                           >
-                             Tasdiqlash
-                           </button>
-                        </Link>
+                        <div className="flex py-4 justify-around items-center border-gray-100">
+                          <span
+                            onClick={() => decrement(product.basket)}
+                            className="cursor-pointer rounded-l bg-blue-500 py-1 px-3.5 text-white duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          >
+                            {" "}
+                            -{" "}
+                          </span>
+                          <input
+                            className="h-8 w-8 border bg-white text-center text-xs outline-none"
+                            type="text"
+                            value={product.basket?.amount}
+                            min="1"
+                          />
+                          <span
+                            onClick={() => increment(product?.basket)}
+                            className="cursor-pointer rounded-r bg-blue-500 text-white py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                          >
+                            {" "}
+                            +{" "}
+                          </span>
+
                         </div>
+                        <Link to={"/basket"}>
+                          <button
+                            type="button"
+                            className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+                          >
+                            Tasdiqlash
+                          </button>
+                        </Link>
+                      </div>
                     ) : (
                       <div className=" text-center items-center justify-center flex mb-2">
-                      <button
-                        disabled={createIsloading && true}
-                        onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold border px-4 py-2 border-blue-700 rounded">
-                        <FaCartPlus className=" cursor-pointer text-2xl" /> Savatga Qo'shish
-                      </button>
-                    </div>
+                        <button
+                          disabled={createIsloading && true}
+                          onClick={() => addData(product)} className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold border px-4 py-2 border-blue-700 rounded">
+                          <FaCartPlus className=" cursor-pointer text-2xl" /> Savatga Qo'shish
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>

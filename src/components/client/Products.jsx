@@ -22,6 +22,10 @@ function DiscountCom() {
 
   const token = localStorage.getItem("user");
   if (token) {
+    axios.post("users/check_token/", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user")}`,
+      },})
 
   } else {
     axios.get("users/get_token/").then((res) => {
@@ -29,7 +33,7 @@ function DiscountCom() {
       localStorage.setItem("user", token);
     });
     setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 1500);
   }
 
@@ -69,6 +73,21 @@ function DiscountCom() {
     }
   };
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://widget.replain.cc/dist/client.js';
+
+    const head = document.getElementsByTagName('head')[0];
+    head.appendChild(script);
+
+    window.replainSettings = { id: 'ef9b08a6-e42d-454d-8c44-b11a5e975fed' };
+
+    return () => {
+      // Cleanup: remove the script when the component unmounts
+      head.removeChild(script);
+    };
+  }, []);
   const Loading = () => (
     <div className="col-md-13 py-md-3">
       <div className="row">
