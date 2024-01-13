@@ -11,6 +11,7 @@ import { GetBanner } from "../slice/client/banner/index.js";
 import { DeliveriesCrud } from "../slice/client/deliveries/index.js";
 import { SearchData } from "../slice/client/search/index.js";
 
+import {GetSellct} from "../slice/client/basket/select.js"
 
 export const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
         [OrderCrud.reducerPath]: OrderCrud.reducer,
         [DeliveriesCrud.reducerPath]:DeliveriesCrud.reducer,
         [SearchData.reducerPath]:SearchData.reducer,
+        [GetSellct.reducerPath]:GetSellct.reducer,
 
     },
     middleware: (getDefaultMiddleware) =>
@@ -38,6 +40,7 @@ export const store = configureStore({
             OrderCrud.middleware,
             DeliveriesCrud.middleware,
             SearchData.middleware,
+            GetSellct.middleware,
 
         ),
 });

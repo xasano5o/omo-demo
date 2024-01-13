@@ -3,18 +3,29 @@ import { ImFire } from "react-icons/im";
 import {
   useDeleteBasketMutation,
   useGetBasketQuery,
+  useGetSelectUserIdQuery,
+
   useIncrementMutation,
 } from "../../redux/slice/client/basket";
 import BasketCheckout from "./BasktChecout";
+import { useGetSelectAllQuery, useGetSelectUserQuery } from "../../redux/slice/client/basket/select";
 
 const Basket = () => {
-  const { data: dataBasket, isSuccess } = useGetBasketQuery();
+  const { data: dataBasket, isSuccess, refetch: refetchData } = useGetBasketQuery();
   const [deleteBasket] = useDeleteBasketMutation();
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
+  const [skip, setSkip] = useState(false)
+  const [user, setUser] = useState()
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, settotalAmount] = useState(0);
+  const { data, refetch } = useGetSelectAllQuery({ isAllSelected })
+  const { data: dataUser, refetch: refetchUser } = useGetSelectUserQuery({
+    skip,
+    userId: user?.id,
+  });
+
 
   const deleteFunc = async (id) => {
     try {
@@ -23,7 +34,23 @@ const Basket = () => {
       console.error("Error deleting item:", err);
     }
   };
+  useEffect(() => {
+    if (isAllSelected) {
+      refetch()
+      setTimeout(() => {
+        refetchData()
+      }, 500)
+    }
+  }, [isAllSelected]);
 
+  useEffect(() => {
+    if (user) {
+      refetchUser()
+      setTimeout(() => {
+        refetchData()
+      }, 500)
+    }
+  }, [user]);
   const handleSelectAmount = async (e, value) => {
     const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
@@ -88,6 +115,7 @@ const Basket = () => {
   }, [isSuccess]);
 
   const handleUserSelect = (user) => {
+    console.log(user.id,'user');
     if (selectedUsers?.includes(user?.id)) {
       setSelectedUsers((prevSelectedUsers) =>
         prevSelectedUsers.filter((id) => id !== user.id)
@@ -99,14 +127,15 @@ const Basket = () => {
     // Update isAllSelected based on whether all users are selected
     setIsAllSelected(selectedUsers.length === dataBasket?.items?.length);
   };
-
   const isUserSelected = (user) => {
+    // setUser(user?.id )
     return selectedUsers?.includes(user.id);
   };
 
   const isAllUsersSelected = () => {
     return selectedUsers.length === dataBasket?.items?.length;
   };
+  console.log(skip);
 
   return (
     <div className="bg-gray-100 pt-12 h-screen">
@@ -267,7 +296,7 @@ const Basket = () => {
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
                   <p className="mb-1 text-lg font-bold">
-                    {totalAmount.toLocaleString("uz-UZ")} so'm
+                  {dataBasket?.total_price?.discount_price}
                   </p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
@@ -281,7 +310,8 @@ const Basket = () => {
               <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
               <div className="">
                 <p className="mb-1 text-lg font-bold">
-                  {totalAmount.toLocaleString("uz-UZ")} so'm
+                  {/* {totalAmount.toLocaleString("uz-UZ")} so'm */}
+                  {dataBasket?.total_price?.discount_price}
                 </p>
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>

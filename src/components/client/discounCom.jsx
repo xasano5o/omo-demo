@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -90,7 +90,7 @@ function DiscountCom() {
                   </NavLink>
                   <div className="m-3 mb-0 flex justify-between items-center">
                     <small className="card-title">{product?.title}</small>
-                    {/* {discountTimeLeft !== undefined && discountTimeLeft > 0 && <Countdown date={Date.now() + diffTime} />} */}
+                    {discountTimeLeft !== undefined && discountTimeLeft > 0 && <Countdown date={Date.now() + diffTime} />}
                   </div>
 
                   <div style={{ marginTop: "auto" }}>
