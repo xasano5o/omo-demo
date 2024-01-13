@@ -80,7 +80,6 @@ const Basket = () => {
     const formData = new FormData();
     formData.append("amount", value.amount - 1);
     formData.append("id", value.id);
-
     try {
       await Increment(formData).unwrap();
     } catch (error) {
@@ -297,7 +296,7 @@ const Basket = () => {
                 <p className="text-lg font-bold">Umumiy xaridlar narxi: </p>
                 <div className="">
                   <p className="mb-1 text-lg font-bold">
-                    {totalAmount.toLocaleString("uz-UZ")} so'm
+                  {dataBasket?.total_price?.discount_price}
                   </p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>

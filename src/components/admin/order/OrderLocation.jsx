@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RiUserLocationLine } from "react-icons/ri";
 import Modal from "../../generic/Modal";
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
-
+import { VscLiveShare } from "react-icons/vsc";
 const OrderLocation = ({ location }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const defaultState = {

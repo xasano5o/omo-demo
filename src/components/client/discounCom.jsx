@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import Skeleton from "react-loading-skeleton";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   useCreateBasketMutation,
   useDeleteBasketMutation,
@@ -9,101 +9,15 @@ import {
 } from "../../redux/slice/client/basket/index.js";
 import { toast } from "react-toastify";
 import { FaCartPlus } from "react-icons/fa";
+import Countdown from "react-countdown";
 
-const Time = ({ timeLeft }) => (
-  <div className='flex items-center'>
-    <span className='flex flex-col items-center'>{timeLeft?.days}&nbsp;:&nbsp;</span>
-    <span className='flex flex-col items-center'>{timeLeft?.hours}&nbsp;:&nbsp;</span>
-    <span className='flex flex-col items-center'>{timeLeft?.minutes}&nbsp;:&nbsp;</span>
-    <span className='flex flex-col items-center'>{timeLeft?.seconds}&nbsp;</span>
-  </div>
-);
+
 
 function DiscountCom() {
-  const { data: products, isLoading, refetch } = useGetProductQuery();
+  const { data: products, isLoading } = useGetProductQuery();
   const [deleteBasket] = useDeleteBasketMutation();
   const [increment, { isLoading: disl }] = useIncrementMutation();
   const [createBasket, { isLoading: disabled }] = useCreateBasketMutation();
-
-  const [productTimeLeft, setProductTimeLeft] = useState({});
-  const intervalRef = useRef(null);
-
-  const Ref = useRef(null);
-  const [timer, setTimer] = useState("00:00:00");
-
-  const getTimeRemaining = (e) => {
-    const total = Date.parse(e) - Date.parse(new Date());
-    const seconds = Math.floor((total / 1000) % 60);
-    const minutes = Math.floor((total / 1000 / 60) % 60);
-    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
-    return {
-      total,
-      hours,
-      minutes,
-      seconds,
-    };
-  };
-
-  const startTimer = (e) => {
-    let { total, hours, minutes, seconds } = getTimeRemaining(e);
-    if (total >= 0) {
-      setTimer(
-        (hours > 9 ? hours : "0" + hours) +
-          ":" +
-          (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
-      );
-    }
-  };
-
-  const clearTimer = (e) => {
-    setTimer("00:00:10");
-
-    if (Ref.current) clearInterval(Ref.current);
-    const id = setInterval(() => {
-      startTimer(e);
-    }, 1000);
-    Ref.current = id;
-  };
-
-  const getDeadTime = () => {
-    let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + 10);
-    return deadline;
-  };
-
-  useEffect(() => {
-    clearTimer(getDeadTime());
-  }, []);
-
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const updatedProductTimeLeft = {};
-
-      products?.forEach((product) => {
-        const discountTimeLeft = product?.discount?.time_left;
-
-        if (discountTimeLeft !== undefined && discountTimeLeft > 0) {
-          const diffTime = discountTimeLeft * 1000;
-          const days = Math.floor(diffTime / (24 * 60 * 60 * 1000));
-          const hours = Math.floor((diffTime % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-          const minutes = Math.floor((diffTime % (60 * 60 * 1000)) / (60 * 1000));
-          const secs = Math.floor((diffTime % (60 * 1000)) / 1000);
-
-          updatedProductTimeLeft[product.id] = { days, hours, minutes, seconds: secs };
-        }
-      });
-
-      setProductTimeLeft(updatedProductTimeLeft);
-    };
-
-    const intervalId = setInterval(() => {
-      calculateTimeLeft();
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [products]);
 
   const addData = async (productData) => {
     const formData = new FormData();
@@ -116,7 +30,6 @@ function DiscountCom() {
     } catch (error) {
       toast.error(`Failed to add category`);
     }
-    refetch();
   };
 
   const updateBasket = async (value, amount) => {
@@ -126,8 +39,7 @@ function DiscountCom() {
 
     try {
       await increment(formData).unwrap();
-    } catch (error) {}
-    refetch();
+    } catch (error) { }
   };
 
   const decrement = async (value) => {
@@ -139,7 +51,6 @@ function DiscountCom() {
     } else {
       updateBasket(value, amount);
     }
-    refetch();
   };
 
   const Loading = () => (
@@ -160,7 +71,16 @@ function DiscountCom() {
       <div className="col-md-13 py-md-3">
         <div className="row">
           {products?.map((product) => {
-            const discountTimeLeft = product?.discount?.time_left;
+            const discountTimeLeft = parseFloat(product?.discount?.time_left);
+            const backend_seconds = product?.discount?.time_left;
+
+            // Convert seconds to milliseconds
+            const diffTime = backend_seconds * 1000;
+
+            const days = Math.floor(diffTime / (24 * 60 * 60 * 1000));
+            const hours = Math.floor((diffTime % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+            const minutes = Math.floor((diffTime % (60 * 60 * 1000)) / (60 * 1000));
+            const secs = Math.floor((diffTime % (60 * 1000)) / 1000);
 
             return discountTimeLeft !== undefined && discountTimeLeft > 0 && (
               <div className="col-6 col-md-3 col-lg-3 mb-1" key={product?.id}>
@@ -168,14 +88,13 @@ function DiscountCom() {
                   <NavLink to={`/product/${product?.id}`}>
                     <img src={product?.image} className="aspect-square object-cover w-full h-[300px]" alt={product?.title} />
                   </NavLink>
-
                   <div className="m-3 mb-0 flex justify-between items-center">
                     <small className="card-title">{product?.title}</small>
-                    {discountTimeLeft !== undefined && discountTimeLeft > 0 && <Time timeLeft={productTimeLeft[product.id]} />}
+                    {discountTimeLeft !== undefined && discountTimeLeft > 0 && <Countdown date={Date.now() + diffTime} />}
                   </div>
 
                   <div style={{ marginTop: "auto" }}>
-                    <div className="d-flex justify-content-between align-items-center">
+                    <div className="flex justify-between items-center">
                       <div className="m-3 flex flex-col">
                         {product?.discount?.product_discount_price ? (
                           <>
@@ -213,15 +132,16 @@ function DiscountCom() {
                         {" "}
                         +{" "}
                       </span>
+                 
                     </div>
                   ) : (
-                    <div className=" text-center items-center justify-center flex mb-2">
+                    <div className="text-center items-center justify-center flex mb-2">
                       <button
                         disabled={disabled && true}
                         onClick={() => addData(product)}
                         className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded"
                       >
-                        <FaCartPlus className=" cursor-pointer text-2xl" />Savatga Qo'shish
+                        <FaCartPlus className=" cursor-pointer text-2xl" />
                       </button>
                     </div>
                   )}
@@ -236,10 +156,17 @@ function DiscountCom() {
 
   return (
     <div className="container">
-      <div className="row">{isLoading ? <Loading /> : <ShowProducts />}</div>
+      <div className="row">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <ShowProducts />
+          </>
+        )}
+      </div>
     </div>
   );
 }
 
 export default DiscountCom;
-    

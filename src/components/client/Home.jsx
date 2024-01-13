@@ -1,9 +1,8 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import { useGetBannersQuery } from "../../redux/slice/client/banner/index.js";
-import Products from "./Products";
 import { CategorySlide } from "./CategorySilide.jsx";
-import Discount from "./Discout.jsx";
+import Products from "./Products";
 import DiscountCom from "./discounCom.jsx";
 
 const Home = () => {

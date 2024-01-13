@@ -14,9 +14,8 @@ const BasketCheckout = ({ selectProduct }) => {
   const onClose = () => {
     setOpen(false);
   };
-
   const [inputValue, setInputValue] = useState({
-    location: [55.684758, 37.738521], // Default location
+    location: [40.9994774, 71.6635379], // Default location
     first_name: "",
     last_name: "",
     phone: "",
@@ -49,7 +48,7 @@ const BasketCheckout = ({ selectProduct }) => {
         `Maxsulod haridi amalga oshirildi tez orada siz bilan bog'lanamiz`
       );
       setInputValue({
-        location: "", // Default location
+        location: "", 
         first_name: "",
         last_name: "",
         phone: "",
@@ -114,7 +113,6 @@ const BasketCheckout = ({ selectProduct }) => {
           isDisabled={inputValue?.phone.length <= 10}
           closeModal={onClose}
           addFunc={addData}
-          className=""
         >
           <div className="check">
             <div className="w-full md:w-[400px] flex flex-col gap-3 p-4">

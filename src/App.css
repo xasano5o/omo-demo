@@ -45,7 +45,6 @@ body {
     overflow-y: auto;
     /* Add this to enable scrolling if content exceeds viewport height */
 }
-
 .sidebar-heading {
     padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
