@@ -4,10 +4,9 @@ import Modal from '../../generic/Modal';
 import { toast } from 'react-toastify';
 import { useGetProductQuery } from '../../../redux/slice/client/getProduct';
 import { useGetSubCategoryQuery } from '../../../redux/slice/client/subcategory';
-import { useCreateDiscountMutation, } from '../../../redux/slice/client/discount';
+import { useCreateDiscountMutation } from '../../../redux/slice/client/discount';
 
 const AddProduct = ({ object }) => {
-  // state
   const [skip, setOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [inputValue, setInputValue] = useState({
@@ -22,34 +21,26 @@ const AddProduct = ({ object }) => {
     subcategory: [],
   });
 
-  // redux
   const [createDiscount, { isLoading: isCreating }] = useCreateDiscountMutation();
   const { data, isLoading, refetch } = useGetCategoryQuery({ skip });
-  const { data: subData } = useGetSubCategoryQuery({ skip })
-  const { data: productData } = useGetProductQuery({ skip })
-
-
-
-  // fuction
-  const onClose = () => {
-    setOpen(false);
-  };
+  const { data: subData } = useGetSubCategoryQuery({ skip });
+  const { data: productData } = useGetProductQuery({ skip });
 
   const [direction, setDirection] = useState('ALL');
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(direction === 'ALL');
+
   useEffect(() => {
-    if (direction == 'ALL') {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
+    setIsDisabled(direction === 'ALL');
   }, [direction]);
 
   const handleDirectionChange = (e) => {
     setDirection(e.target.value);
   };
 
-  // post data
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const addData = async () => {
     const formData = new FormData();
     formData.append('title', inputValue.title);
@@ -59,19 +50,19 @@ const AddProduct = ({ object }) => {
     formData.append('end_date', inputValue.end_date);
     formData.append('products_status', direction);
 
-    if (direction == 'CUSTOM') {
+    if (direction === 'CUSTOM') {
       if (inputValue.products.length > 0) {
-        inputValue.products.forEach(product => {
+        inputValue.products.forEach((product) => {
           formData.append('products', product);
         });
       }
       if (inputValue.category.length > 0) {
-        inputValue.category.forEach(category => {
+        inputValue.category.forEach((category) => {
           formData.append('category', category);
         });
       }
       if (inputValue.subcategory.length > 0) {
-        inputValue.subcategory.forEach(subcat => {
+        inputValue.subcategory.forEach((subcat) => {
           formData.append('subcategory', subcat);
         });
       }
@@ -80,7 +71,6 @@ const AddProduct = ({ object }) => {
     try {
       const response = await createDiscount(formData).unwrap();
       toast.success(`Category '${inputValue.title}' added successfully`);
-      // Foydalanuvchi interfeysini yangilash
       setInputValue({ ...inputValue, title: '', products: [], category: [], subcategory: [] });
       setOpen(false);
     } catch (error) {
@@ -90,13 +80,14 @@ const AddProduct = ({ object }) => {
 
   const handleSelectionChange = (field, event) => {
     const selectedOptions = event.target.selectedOptions;
-    const selectedData = Array.from(selectedOptions).map(option => option?.value);
+    const selectedData = Array.from(selectedOptions).map((option) => option?.value);
     setInputValue({ ...inputValue, [field]: selectedData });
   };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+
   return (
     <div>
       <button

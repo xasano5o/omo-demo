@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { GoHome } from "react-icons/go";
-import { MdOutlineAddPhotoAlternate, MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineAddPhotoAlternate, MdOutlineDashboard, MdOutlineDiscount } from "react-icons/md";
 import { PiTaxi, PiUsersFourLight } from "react-icons/pi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SlNote } from "react-icons/sl";
+import { BiCategoryAlt } from "react-icons/bi";
 const Home = () => {
   const navigate = useNavigate();
   const path_name=useLocation();
@@ -16,11 +17,11 @@ const Home = () => {
     { name: "Buyurtmalar", link: "/order", icon: PiUsersFourLight },
     { name: "Asosiy sahifa rasmi", link: "/banners", icon: MdOutlineAddPhotoAlternate },
     { name: "Mahsulotlar", link: "/products", icon: MdOutlineDashboard },
-    { name: "Chegirma", link: "/discount", icon: TbReportAnalytics },
-    { name: "Katta Turkum", link: "/categories", icon: TbReportAnalytics },
-    { name: "Kichik Turkum", link: "/subcategories", icon: TbReportAnalytics, margin: true },
+    { name: "Chegirma", link: "/discount", icon: MdOutlineDiscount },
+    { name: "Katta Turkum", link: "/categories", icon: BiCategoryAlt },
+    { name: "Kichik Turkum", link: "/subcategories", icon: BiCategoryAlt, margin: true },
     { name: "Yetkazib berish", link: "/deliveries", icon: PiTaxi },
-    { name: "Yon daftarcha", link: "/note", icon: SlNote },
+    { name: "Yon daftarcha", link: "/note", icon: TbReportAnalytics },
   ];
 
   const [open, setOpen] = useState(true);

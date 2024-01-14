@@ -74,7 +74,7 @@ const CategoryId = () => {
       localStorage.setItem("user", token);
     });
     setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 1500);
   }
 
