@@ -155,7 +155,7 @@ function DiscountCom() {
                   ) : (
                     <div className=" text-center items-center justify-center flex mb-2">
                       <button
-                        disabled={disabled && true}
+              useGetNoteQuery          disabled={disabled && true}
                         onClick={() => addData(product)}
                         className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded"
                       >

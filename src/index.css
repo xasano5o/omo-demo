@@ -189,5 +189,6 @@ body {
 }
 
 .actives {
-  background-color: rgb(237, 240, 245);
+  background-color: rgb(29 78 216);
+  color:white!important;
 }

@@ -6,7 +6,7 @@ import { MdOutlineAddPhotoAlternate, MdOutlineDashboard } from "react-icons/md";
 import { PiTaxi, PiUsersFourLight } from "react-icons/pi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { SlNote } from "react-icons/sl";
 const Home = () => {
   const navigate = useNavigate();
   const path_name=useLocation();
@@ -20,7 +20,7 @@ const Home = () => {
     { name: "Katta Turkum", link: "/categories", icon: TbReportAnalytics },
     { name: "Kichik Turkum", link: "/subcategories", icon: TbReportAnalytics, margin: true },
     { name: "Yetkazib berish", link: "/deliveries", icon: PiTaxi },
-
+    { name: "Yon daftarcha", link: "/note", icon: SlNote },
   ];
 
   const [open, setOpen] = useState(true);
@@ -55,14 +55,14 @@ const Home = () => {
          <div key={i} className="" onClick={() => navigate(`/admin${menu?.link}`)}>
          <Link
            to={`/admin${menu.link}`}
-           className={`${menu?.margin && ""} ${path_name.pathname===`/admin${menu.link}`? "actives" : null} group flex items-center text-sm no-underline text-center gap-3.5 font-medium p-2 rounded-md`}
+           className={`${menu?.margin && ""} ${path_name.pathname===`/admin${menu.link}`? "actives text-white" : "text-black"} group flex items-center text-sm no-underline text-center gap-3.5 font-medium p-2 rounded-md`}
          >
-           <h1 className="text-xl text-black">{React.createElement(menu?.icon)}</h1>
+           <h1 className="text-xl  ">{React.createElement(menu?.icon)}</h1>
            <h2
-             style={{
-               transitionDelay: `${i + 3}00ms`,
-             }}
-             className={`text-xl text-black duration-500 ${!open && "opacity-0 translate-x-28 overflow-hidden"
+            //  style={{
+            //    transitionDelay: `${i + 3}00ms`,
+            //  }}
+             className={`text-xl  ${!open && "opacity-0 translate-x-28 overflow-hidden"
                }`}
            >
              {menu?.name}
