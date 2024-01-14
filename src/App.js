@@ -16,6 +16,7 @@ import CategoryIdPage from './pages/client/categorieid/index.jsx';
 import HomePage from './pages/client/home/index.jsx';
 import ProductPage from './pages/client/product/index.jsx';
 import Dasjboard from './components/admin/Dasjboard/Dasjboard.jsx';
+import NoteTable from './components/admin/note/NoteTable.jsx';
 
 function App() {
   const location = useLocation();
@@ -45,7 +46,7 @@ function App() {
               <Route path="/admin/categories" element={<CategoriesCrud />} />
               <Route path="/admin/products" element={<ProductCrud />} />
               <Route path="/admin/deliveries" element={<Deliveries />} />
-              {/* <Route path="/admin/order" element={<ProductTable />} /> */}
+              <Route path="/admin/note" element={<NoteTable />} />
             </Route>
           ) : null
           // <Route path="/admin/*" element={<Login />} />

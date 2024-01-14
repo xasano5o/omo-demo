@@ -10,7 +10,7 @@ import { SubCategoryCrud } from "../slice/client/subcategory/index.jsx";
 import { GetBanner } from "../slice/client/banner/index.js";
 import { DeliveriesCrud } from "../slice/client/deliveries/index.js";
 import { SearchData } from "../slice/client/search/index.js";
-
+import {NoteCrud} from "../slice/client/note/index.js"
 import {GetSellct} from "../slice/client/basket/select.js"
 
 export const store = configureStore({
@@ -26,7 +26,7 @@ export const store = configureStore({
         [DeliveriesCrud.reducerPath]:DeliveriesCrud.reducer,
         [SearchData.reducerPath]:SearchData.reducer,
         [GetSellct.reducerPath]:GetSellct.reducer,
-
+        [NoteCrud.reducerPath]:NoteCrud.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
@@ -41,7 +41,7 @@ export const store = configureStore({
             DeliveriesCrud.middleware,
             SearchData.middleware,
             GetSellct.middleware,
-
+            NoteCrud.middleware
         ),
 });
 
