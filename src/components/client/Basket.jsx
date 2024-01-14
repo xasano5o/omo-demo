@@ -3,12 +3,9 @@ import { ImFire } from "react-icons/im";
 import {
   useDeleteBasketMutation,
   useGetBasketQuery,
-  useGetSelectUserIdQuery,
-
   useIncrementMutation,
 } from "../../redux/slice/client/basket";
 import BasketCheckout from "./BasktChecout";
-import { useGetSelectAllQuery, useGetSelectUserQuery } from "../../redux/slice/client/basket/select";
 import axios from "axios";
 
 const Basket = () => {
@@ -21,12 +18,12 @@ const Basket = () => {
   const [user, setUser] = useState()
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, settotalAmount] = useState(0);
-  const { data, refetch } = useGetSelectAllQuery({ isAllSelected })
+  // const { data, refetch } = useGetSelectAllQuery({ isAllSelected })
 
-  const { data: dataUser, refetch: refetchUser } = useGetSelectUserQuery({
-    skip,
-    userId: user?.id,
-  });
+  // const { data: dataUser, refetch: refetchUser } = useGetSelectUserQuery({
+  //   skip,
+  //   userId: user?.id,
+  // });
 
 
   const deleteFunc = async (id) => {
@@ -37,13 +34,13 @@ const Basket = () => {
     }
   };
   const token = localStorage.getItem("user");
-
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
   useEffect(() => {
     if (isAllSelected !== undefined) {
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-  
+
+
       axios.get(`basket/change_all_status/?status=${isAllSelected}`, { headers })
         .then(() => {
           refetchData();
@@ -55,14 +52,14 @@ const Basket = () => {
     }
   }, [isAllSelected]);
 
-  useEffect(() => {
-    if (user) {
-      refetchUser()
-      setTimeout(() => {
-        refetchData()
-      }, 500)
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     refetchUser()
+  //     setTimeout(() => {
+  //       refetchData()
+  //     }, 500)
+  //   }
+  // }, [user]);
   const handleSelectAmount = async (e, value) => {
     const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
@@ -127,17 +124,21 @@ const Basket = () => {
   }, [isSuccess]);
 
   const handleUserSelect = (user) => {
-    console.log(user.id, 'user');
+    if (user) {
+      axios.get(`basket/${user?.id}/change_status`, { headers })
+    }
+
     if (selectedUsers?.includes(user?.id)) {
       setSelectedUsers((prevSelectedUsers) =>
-        prevSelectedUsers.filter((id) => id !== user.id)
+        prevSelectedUsers.filter((id) => console.log(id !== user.id, 'id'))
+
       );
     } else {
       setSelectedUsers((prevSelectedUsers) => [...prevSelectedUsers, user.id]);
     }
-
     // Update isAllSelected based on whether all users are selected
     setIsAllSelected(selectedUsers.length === dataBasket?.items?.length);
+
   };
   const isUserSelected = (user) => {
     // setUser(user?.id )
@@ -147,7 +148,6 @@ const Basket = () => {
   const isAllUsersSelected = () => {
     return selectedUsers.length === dataBasket?.items?.length;
   };
-  console.log(skip);
 
   return (
     <div className="bg-gray-100 pt-12 h-screen">
@@ -263,13 +263,13 @@ const Basket = () => {
                           +{" "}
                         </span>
                       </div>
-                      <select onChange={(e) => handleSelectAmount(e, value)}>
-                        <option value="1">1</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
+                      <select className="flex justify-center" onChange={(e) => handleSelectAmount(e, value)}>
+                        <option className="flex justify-center" value="1">1</option>
+                        <option className="flex justify-center" value="10">10</option>
+                        <option className="flex justify-center" value="20">20</option>
+                        <option className="flex justify-center" value="30">30</option>
+                        <option className="flex justify-center" value="40">40</option>
+                        <option className="flex justify-center" value="50">50</option>
                         <option value="100">100</option>
                       </select>
                     </div>
