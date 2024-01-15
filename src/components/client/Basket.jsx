@@ -125,7 +125,7 @@ const Basket = () => {
 
   const handleUserSelect = (user) => {
     if (user) {
-      axios.get(`basket/${user?.id}/change_status`, { headers })
+      axios.put(`basket/${user?.id}/change_status/`, { headers })
     }
 
     if (selectedUsers?.includes(user?.id)) {
