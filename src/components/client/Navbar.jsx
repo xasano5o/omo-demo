@@ -52,7 +52,7 @@ const Navbar = () => {
     <div className="bot">
       <nav className="navbar bg-light fixed-top shadow">
         <div className="container-fluid container grid grid-cols-3 ">
-          <div className="flex gap-3 items-center">
+          <div className="logo flex gap-3 items-center">
             <NavLink className="no-underline text-blue-500" to="/">
               {/* <img src="/FakeShop.png" alt="logo" style={{ height: "50px" }} /> */}
               <h1 className="no-underline text-blue-500">
@@ -62,11 +62,11 @@ const Navbar = () => {
           </div>
 
           <div>
-            <div>
+            <div className="">
               <form onSubmit={handleSubmit}>
                 <label
                   htmlFor="default-search"
-                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                  className="mb-2 text-sm font-medium sr-only dark:text-white"
                 >
                   Search
                 </label>
@@ -106,14 +106,14 @@ const Navbar = () => {
               </form>
             </div>
             {skip && (
-              <div className=" transition duration-150 ease-out md:ease-in absolute -z-50  w-[100%] h-[100vh]">
+              <div className="transition duration-150 ease-out md:ease-in absolute -z-50 left-0  w-[100%] h-[100vh]">
                 {/* <NavLink className="" to={`/product/${product?.id}`}>
                   <button className="btn btn-sm m-3 border-primary">
                     <span className="fa fa-arrow-right text-muted" />
                   </button>
                 </NavLink> */}
 
-                <div className="bg-white absolute  px-6 rounded shadow-lg flex flex-col w-[350px] h-[200px] overflow-x-auto sx:overflow-y-auto sx:h-[30vh]">
+                <div className="bg-white absolute pt-12  px-6 rounded shadow-lg flex flex-col w-[100%] h-screen overflow-x-auto sx:overflow-y-auto sx:h-[30vh]">
                   {data?.result?.categories?.map((value) => {
                     return (
                       <div>
@@ -121,7 +121,7 @@ const Navbar = () => {
                           className={"no-underline"}
                           to={`/categories/${value?.id}`}
                         >
-                          <p className="flex ml-12  md:ml-0 items-center gap-2 cursor-pointer ">
+                          <p className="flex container  md:ml-0 items-center gap-2 cursor-pointer ">
                             <span>
                               {" "}
                               <svg
@@ -153,7 +153,7 @@ const Navbar = () => {
                           className="no-underline"
                           to={`/product/${value?.id}`}
                         >
-                          <p className="flex items-center ml-12  md:ml-0 gap-2 cursor-pointer">
+                          <p className="container flex items-center ml-12  md:ml-0 gap-2 cursor-pointer">
                             <span>
                               {" "}
                               <svg
@@ -182,27 +182,32 @@ const Navbar = () => {
                   {data?.result?.subcategories?.map((value) => {
                     return (
                       <div>
-                        <p className="flex items-center gap-2 cursor-pointer">
-                          <span>
-                            {" "}
-                            <svg
-                              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                              />
-                            </svg>
-                          </span>{" "}
-                          {value?.title}
-                        </p>
+                        <NavLink
+                          className="no-underline"
+                          to={`/product/${value?.id}`}
+                        >
+                          <p className="container flex items-center ml-12  md:ml-0 gap-2 cursor-pointer">
+                            <span>
+                              {" "}
+                              <svg
+                                className="w-4 h-4"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  stroke="currentColor"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                                />
+                              </svg>
+                            </span>{" "}
+                            {value?.title}
+                          </p>
+                        </NavLink>
                       </div>
                     );
                   })}
@@ -210,7 +215,7 @@ const Navbar = () => {
               </div>
             )}
           </div>
-          <div className="">
+          <div className="basket">
             <Link
               to={"/basket"}
               className="no-underline  flex flex-col items-center "

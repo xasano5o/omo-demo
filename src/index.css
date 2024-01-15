@@ -118,13 +118,31 @@ body {
   }
 
   .bot {
-    margin-bottom: 130px;
+    margin-bottom: 80px;
+  }
+  .logo{
+    display: none;
+  }
+  .basket{
+    display: none;
+  }
+  .nav-mobile{
+    display: block;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .bot {
     margin-bottom: 80px;
+  }
+  .logo{
+    display: block;
+  }
+  .basket{
+    display: block;
+  }
+  .nav-mobile{
+    display: none;
   }
 }
 
@@ -189,5 +207,5 @@ body {
 }
 
 .actives {
-  background-color: rgb(237, 240, 245);
+  background-color: rgb(29 78 216);
 }
