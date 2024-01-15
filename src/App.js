@@ -17,6 +17,7 @@ import HomePage from './pages/client/home/index.jsx';
 import ProductPage from './pages/client/product/index.jsx';
 import Dasjboard from './components/admin/Dasjboard/Dasjboard.jsx';
 import NoteTable from './components/admin/note/NoteTable.jsx';
+import NavbarMobile from './components/client/NavbarMobile.jsx';
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <>
+      <NavbarMobile/>
      
       <Routes>
         <Route index element={<HomePage />} />
@@ -34,6 +36,7 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path='basket' element={<BaskerPage />} />
         <Route path="/admin" element={<Login />} />
+        
         {
           is_admin ? (
             <Route element={<Layout />}>
