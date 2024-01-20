@@ -22,10 +22,10 @@ function DiscountCom() {
 
   const token = localStorage.getItem("user");
   if (token) {
-    axios.post("users/check_token/", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("user")}`,
-      },})
+    // axios.post("users/check_token/", {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("user")}`,
+    //   },})
 
   } else {
     axios.get("users/get_token/").then((res) => {
