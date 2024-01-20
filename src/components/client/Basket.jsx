@@ -14,7 +14,6 @@ const Basket = () => {
   const [Increment] = useIncrementMutation();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isAllSelected, setIsAllSelected] = useState(false);
-  const [skip, setSkip] = useState(false)
   const [user, setUser] = useState()
   const [selectTotal, setSelectTotal] = useState(1);
   const [totalAmount, settotalAmount] = useState(0);
@@ -39,8 +38,6 @@ const Basket = () => {
   };
   useEffect(() => {
     if (isAllSelected !== undefined) {
-
-
       axios.get(`basket/change_all_status/?status=${isAllSelected}`, { headers })
         .then(() => {
           refetchData();
@@ -52,14 +49,6 @@ const Basket = () => {
     }
   }, [isAllSelected]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     refetchUser()
-  //     setTimeout(() => {
-  //       refetchData()
-  //     }, 500)
-  //   }
-  // }, [user]);
   const handleSelectAmount = async (e, value) => {
     const newAmount = e?.target?.value;
     setSelectTotal(newAmount);
@@ -125,7 +114,10 @@ const Basket = () => {
 
   const handleUserSelect = (user) => {
     if (user) {
-      axios.put(`basket/${user?.id}/change_status/`, { headers })
+      axios.get(`basket/${user?.id}/change_status/`,{headers})
+      .then(() => {
+        refetchData();
+      })
     }
 
     if (selectedUsers?.includes(user?.id)) {
