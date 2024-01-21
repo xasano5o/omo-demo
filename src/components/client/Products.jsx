@@ -19,13 +19,20 @@ function DiscountCom() {
   const [deleteBasket] = useDeleteBasketMutation();
   const [increment, { isLoading: disl }] = useIncrementMutation();
   const [createBasket, { isLoading: disabled }] = useCreateBasketMutation();
-
   const token = localStorage.getItem("user");
   if (token) {
-    // axios.post("users/check_token/", {
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("user")}`,
-    //   },})
+    setInterval(() => {
+      axios.post("users/check_token/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("user")}`,
+        },
+      }).then((res) => {
+        if (res.status == 401) {
+          localStorage.removeItem('token')
+        }
+      })
+    },  24 * 60 * 60 * 1000)
+
 
   } else {
     axios.get("users/get_token/").then((res) => {
@@ -33,7 +40,7 @@ function DiscountCom() {
       localStorage.setItem("user", token);
     });
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 1500);
   }
 
@@ -132,7 +139,7 @@ function DiscountCom() {
 
                   <div style={{ marginTop: "auto" }}>
                     <div className="d-flex justify-content-between align-items-center">
-                    <div className="m-3">
+                      <div className="m-3">
                         {product?.discount?.product_discount_price ? (
                           <div className="f">
                             <b className="text-xm">{product?.discount?.product_discount_price?.toLocaleString("ru-Ru")} so'm</b>
@@ -142,7 +149,7 @@ function DiscountCom() {
                         ) : (
                           <b className="text-xm">{product?.price.toLocaleString("ru-Ru")} so'm</b>
                         )}
-                        </div>
+                      </div>
                       <NavLink to={`/product/${product?.id}`}>
                         <button className="btn btn-sm m-3 border-primary">
                           <span className="fa fa-arrow-right text-muted" />
@@ -174,7 +181,7 @@ function DiscountCom() {
                   ) : (
                     <div className=" text-center items-center justify-center flex mb-2">
                       <button
-              useGetNoteQuery          disabled={disabled && true}
+                        useGetNoteQuery disabled={disabled && true}
                         onClick={() => addData(product)}
                         className="bg-blue-700 flex gap-2 hover:bg-blue-800 text-white font-bold py-2 px-4 border border-blue-700 rounded"
                       >

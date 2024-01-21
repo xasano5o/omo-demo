@@ -21,18 +21,7 @@ function Product() {
   const [createBasket, { isLoading: createIsloading, isSuccess }] =
     useCreateBasketMutation();
 
-  const token = localStorage.getItem("user");
-  if (token) {
 
-  } else {
-    axios.get("users/get_token/").then((res) => {
-      const token = res.data.access_token;
-      localStorage.setItem("user", token);
-    });
-    setTimeout(() => {
-      // window.location.reload();
-    }, 1500);
-  }
 
   useEffect(() => {
     setFilter(product);
